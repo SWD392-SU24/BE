@@ -8,12 +8,11 @@ namespace Backend.DAL
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _dbContext;
-        private readonly Dictionary<Type, object> _repositories;
+        private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
 
-        public UnitOfWork(AppDbContext dbContext, Dictionary<Type, object> repositories)
+        public UnitOfWork(AppDbContext dbContext)
         {
             _dbContext = dbContext;
-            _repositories = new Dictionary<Type, object>();
         }
 
         public void Commit()

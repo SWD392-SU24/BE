@@ -11,7 +11,7 @@ namespace Backend.API
 
             // Add services to the container.
             builder.Services.Register(builder.Configuration);
-
+            
             builder.Services.AddTransient<GlobalHandlingExceptionMiddleware>();
             var app = builder.Build();
 
