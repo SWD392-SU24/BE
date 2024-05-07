@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Backend.BO.Commons;
+using Backend.BO.Payloads.Responses;
 
 namespace Backend.BLL.Mapping
 {
@@ -9,7 +11,7 @@ namespace Backend.BLL.Mapping
         /// </summary>
         public MappingProfiles()
         {
-            
+            CreateMap<User, UserResponse>().ReverseMap();
         }
     }
 }

@@ -18,10 +18,17 @@ namespace Backend.API
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "DentiCare v1");
+                    //options.SwaggerEndpoint("/swagger/v2/swagger.json", "DentiCare v2");
+                });
             }
 
-            app.UseMiddleware<GlobalHandlingExceptionMiddleware>(); 
+            app.UseMiddleware<GlobalHandlingExceptionMiddleware>();
+            // Use CORS
+            app.UseCors("DentiCare");
+            app.UseAuthentication();
             app.UseAuthorization();
             
             app.MapControllers();

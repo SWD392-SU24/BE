@@ -1,4 +1,6 @@
 ﻿using Asp.Versioning;
+using Backend.BLL.Features.Auth;
+using Backend.BLL.Features.Users;
 using Backend.DAL;
 using Backend.DAL.Databases;
 using Backend.DAL.Repositories;
@@ -17,10 +19,16 @@ namespace Backend.API.Extensions
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
-                    Title = "Version 1",
-                    Version = "1",
-                    Description = ""
+                    Title = "DentiCare API",
+                    Version = "v1",
+                    Description = "Endpoints for DentiCare web application"
                 });
+                //options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
+                //{
+                //    Title = "DentiCare API",
+                //    Version = "v2",
+                //    Description = "Upgrade version"
+                //});
                 // For upgrade, configure api version 2
             });
 
@@ -47,6 +55,16 @@ namespace Backend.API.Extensions
                     ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")));
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("DentiCare", builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             // AutoMapper configuration
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -57,7 +75,10 @@ namespace Backend.API.Extensions
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             // Services configuration
+            services.AddTransient<ITokenService, TokenService>();   // processing Jwt tokens
+            services.AddScoped<IUserService, UserService>();
 
+            services.AddHttpContextAccessor();
             return services;
         }
     }

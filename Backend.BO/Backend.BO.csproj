@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Constants\" />
-    <Folder Include="Payloads\Responses\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
 
 </Project>
