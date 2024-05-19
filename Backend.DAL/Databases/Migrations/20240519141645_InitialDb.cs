@@ -21,7 +21,7 @@ namespace Backend.DAL.Databases.Migrations
                 columns: table => new
                 {
                     user_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    first_name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                    first_name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     last_name = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -29,7 +29,8 @@ namespace Backend.DAL.Databases.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     password = table.Column<string>(type: "varchar(75)", maxLength: 75, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    role = table.Column<int>(type: "int", nullable: false),
+                    role = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     refresh_token = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     refresh_token_expiry_time = table.Column<DateTime>(type: "datetime(6)", nullable: false)
@@ -45,9 +46,9 @@ namespace Backend.DAL.Databases.Migrations
                 columns: new[] { "user_id", "email", "first_name", "last_name", "password", "refresh_token", "refresh_token_expiry_time", "role" },
                 values: new object[,]
                 {
-                    { new Guid("0b9ef125-63ec-4f04-a5b5-811dd470ceb3"), "linh@example.com", "Linh", "Pham", "password456", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
-                    { new Guid("12fca1ab-4ee0-430d-b654-c6b28d072ca0"), "adminexample@gmail.com", null, null, "reallystrongpass!123", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { new Guid("ce02875f-0111-48cf-8e44-233391925d0b"), "trung@example.com", "Trung", "Nguyen", "password123", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 }
+                    { new Guid("95a0390a-64a2-4498-a972-ad7b52d7f6b8"), "linh@example.com", "Linh", "Pham", "password456", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "USER" },
+                    { new Guid("c08ff346-a0eb-4ff9-81b2-1c993a816984"), "adminexample@gmail.com", "Admin", null, "reallystrongpass!123", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ADMIN" },
+                    { new Guid("d89ec1ec-3fd4-4acd-b6f1-e763f0777d8f"), "trung@example.com", "Trung", "Nguyen", "password123", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "USER" }
                 });
         }
 

@@ -1,5 +1,4 @@
-﻿using Asp.Versioning;
-using Backend.BLL.Features.Users;
+﻿using Backend.BLL.Features.Users;
 using Backend.BO.Commons;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;

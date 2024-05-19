@@ -31,9 +31,9 @@ namespace Backend.BLL.Features.Users
 
                 var claims = new List<Claim>
                 {
-                    new Claim("email", user.Email),
-                    new Claim("name", user.FirstName),
-                    new Claim("role", user.Role)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.FirstName),
+                    new Claim(ClaimTypes.Role, user.Role)
                 };
 
                 var accessToken = _tokenService.GenerateAccessToken(claims);
@@ -73,9 +73,9 @@ namespace Backend.BLL.Features.Users
 
                 var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken ?? string.Empty);
                 // retrieve the email claim in payload
-                var email = principal.FindFirst("email");
+                var email = principal.FindFirst(ClaimTypes.Email)?.Value;
 
-                var user = await _unitOfWork.GetRepository<User>().GetAsync(user => user.Email == email.Value);
+                var user = await _unitOfWork.GetRepository<User>().GetAsync(user => user.Email == email);
                 if (user is null)
                     throw new KeyNotFoundException("User is not found!");
 

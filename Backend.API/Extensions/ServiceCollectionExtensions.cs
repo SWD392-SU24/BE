@@ -49,7 +49,7 @@ namespace Backend.API.Extensions
                 options.SubstituteApiVersionInUrl = true;
             });
 
-            services.AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<DenticareContext>(options =>
             {
                 options.UseMySql(configuration.GetConnectionString("DefaultConnection"), 
                     ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")));

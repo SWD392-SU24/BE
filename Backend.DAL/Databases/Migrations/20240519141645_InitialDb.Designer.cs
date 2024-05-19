@@ -4,16 +4,19 @@ using Backend.DAL.Databases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Backend.DAL.Databases.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(DenticareContext))]
+    [Migration("20240519141645_InitialDb")]
+    partial class InitialDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +39,7 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnName("email");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("first_name");
@@ -60,6 +64,7 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnName("refresh_token_expiry_time");
 
                     b.Property<string>("Role")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar(10)")
                         .HasColumnName("role");
@@ -71,15 +76,16 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("603fe1de-d103-41a1-af97-ced565cbac5c"),
+                            Id = new Guid("c08ff346-a0eb-4ff9-81b2-1c993a816984"),
                             Email = "adminexample@gmail.com",
+                            FirstName = "Admin",
                             Password = "reallystrongpass!123",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Role = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("25d11280-d035-4508-b36e-8f16406cd338"),
+                            Id = new Guid("d89ec1ec-3fd4-4acd-b6f1-e763f0777d8f"),
                             Email = "trung@example.com",
                             FirstName = "Trung",
                             LastName = "Nguyen",
@@ -89,7 +95,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c078be03-6a7e-44cd-8ac2-3160e8225f16"),
+                            Id = new Guid("95a0390a-64a2-4498-a972-ad7b52d7f6b8"),
                             Email = "linh@example.com",
                             FirstName = "Linh",
                             LastName = "Pham",
