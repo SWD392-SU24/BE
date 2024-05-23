@@ -22,24 +22,14 @@ namespace Backend.API.Controllers.v1
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesErrorResponseType(typeof(DetailedError))]
-        public async Task<ActionResult<AuthResponse>> Refresh(TokenApiModel tokenApiModel)
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<ResponseModel<AuthResponse>>> Refresh(TokenApiModel tokenApiModel)
         {
-            var response = await _userService.RenewTokens(tokenApiModel);
+            var result = await _userService.RenewTokens(tokenApiModel);
+            var response = new ResponseModel<AuthResponse>(
+                (int)HttpStatusCode.OK, "Success!", result
+            );
             return Ok(response);
-        }
-
-        [HttpPost("revoke")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesErrorResponseType(typeof(DetailedError))]
-        public async Task<ActionResult<string>> Revoke()
-        {
-            var emailClaim = User.FindFirst(ClaimTypes.Email)?.Value;
-            var result = await _userService.Signout(emailClaim);
-            // TODO: Refactor these lines
-            if (result) return Ok("Logout successfully!");
-            return BadRequest();
         }
     }
 }

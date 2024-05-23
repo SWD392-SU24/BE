@@ -22,6 +22,6 @@ namespace Backend.BLL.Features.Auth
         /// </summary>
         /// <param name="token">The expired token.</param>
         /// <returns>The ClaimsPrincipal object representing the identity of the user.</returns>
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
+        ClaimsPrincipal GetPrincipalFromAccessToken(string token);
     }
 }

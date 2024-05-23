@@ -43,7 +43,7 @@ namespace Backend.BLL.Features.Auth
             }
         }
 
-        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        public ClaimsPrincipal GetPrincipalFromAccessToken(string token)
         {
             var secretKey = _configuration["JwtSettings:Key"];
             if (string.IsNullOrEmpty(secretKey)) throw new ArgumentNullException(nameof(secretKey), "Jwt key is missing in the configuration");

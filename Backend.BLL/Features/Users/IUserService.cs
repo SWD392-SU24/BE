@@ -10,6 +10,11 @@ namespace Backend.BLL.Features.Users
 
         Task<AuthResponse> RenewTokens(TokenApiModel tokenApiModel);
 
-        Task<bool> Signout(string email);
+        /// <summary>
+        /// Revoke the specified token.
+        /// </summary>
+        /// <param name="tokenApiModel">The token to revoke.</param>
+        /// <returns>A boolean indicating whether the token was successfully revoked.</returns>
+        Task<bool> Revoke(TokenApiModel tokenApiModel);
     }
 }

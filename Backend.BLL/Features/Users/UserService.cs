@@ -32,7 +32,7 @@ namespace Backend.BLL.Features.Users
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Name, user.FirstName),
+                    //new Claim(ClaimTypes.Name, user.FirstName),
                     new Claim(ClaimTypes.Role, user.Role)
                 };
 
@@ -42,14 +42,13 @@ namespace Backend.BLL.Features.Users
                 user.RefreshToken = refreshToken;
                 user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
 
-                // store refresh token and its expired time into database
+                // Store refresh token and its expired time into database
                 _unitOfWork.GetRepository<User>().Update(user);
                 await _unitOfWork.CommitAsync();
 
                 var response = new AuthResponse
                 {
-                    Message = "Login successfully!",
-                    Token = accessToken,
+                    AccessToken = accessToken,
                     RefreshToken = refreshToken,
                     ExpiredAt = user.RefreshTokenExpiryTime
                 };
@@ -71,8 +70,8 @@ namespace Backend.BLL.Features.Users
                 var accessToken = tokenApiModel.AccessToken;
                 var refreshToken = tokenApiModel.RefreshToken;
 
-                var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken ?? string.Empty);
-                // retrieve the email claim in payload
+                var principal = _tokenService.GetPrincipalFromAccessToken(accessToken ?? string.Empty);
+                // Retrieve the email claim in payload
                 var email = principal.FindFirst(ClaimTypes.Email)?.Value;
 
                 var user = await _unitOfWork.GetRepository<User>().GetAsync(user => user.Email == email);
@@ -88,8 +87,7 @@ namespace Backend.BLL.Features.Users
                 await _unitOfWork.CommitAsync();
                 var response = new AuthResponse
                 {
-                    Message = "Renew tokens successfully!",
-                    Token = newAccessToken,
+                    AccessToken = newAccessToken,
                     RefreshToken = newRefreshToken,
                     ExpiredAt = user.RefreshTokenExpiryTime,
                 };
@@ -101,22 +99,32 @@ namespace Backend.BLL.Features.Users
                 throw;
             }
         }
-
-        public async Task<bool> Signout(string email)
+        
+        public async Task<bool> Revoke(TokenApiModel tokenApiModel)
         {
             var result = false;
             try
             {
-                var user = await _unitOfWork.GetRepository<User>().GetAsync(user => user.Email == email);
-                if (user is null)
-                    throw new KeyNotFoundException("User is not found!");
-                // Clear data of these fields when user signed out
-                user.RefreshToken = null;
-                user.RefreshTokenExpiryTime = DateTime.MinValue;
+                var principal = _tokenService.GetPrincipalFromAccessToken(tokenApiModel.AccessToken ?? string.Empty);
+                var emailClaim = principal.FindFirst(ClaimTypes.Email)?.Value;
 
-                _unitOfWork.GetRepository<User>().Update(user);
-                await _unitOfWork.CommitAsync();
-                result = true;
+                var user = await _unitOfWork.GetRepository<User>()
+                    .GetAsync(u => u.Email == emailClaim);
+                if (user is null)
+                    throw new KeyNotFoundException("User does not exist!");
+
+                // Compare the existed refresh token with requested refresh token
+                // If it matches, clear the data of refresh token & time
+                if (tokenApiModel.RefreshToken == user.RefreshToken)
+                {
+                    user.RefreshToken = null;
+                    user.RefreshTokenExpiryTime = DateTime.MinValue;
+
+                    _unitOfWork.GetRepository<User>().Update(user);
+                    await _unitOfWork.CommitAsync();
+                    result = true;
+                }
+                else throw new Exception("The refresh token does not match!");
             }
             catch
             {
