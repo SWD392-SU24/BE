@@ -15,7 +15,7 @@ namespace Backend.DAL.Databases
                      FirstName = "Admin",
                      Email = "adminexample@gmail.com",
                      Password = "reallystrongpass!123",
-                     Role = UserRole.Admin
+                     Role = UserRole.SystemAdmin,
                  },
                  new User
                  {
@@ -24,7 +24,7 @@ namespace Backend.DAL.Databases
                      LastName = "Nguyen",
                      Email = "trung@example.com",
                      Password = "password123",
-                     Role = UserRole.User,
+                     Role = UserRole.Customer,
                  },
                  new User
                  {
@@ -33,7 +33,7 @@ namespace Backend.DAL.Databases
                      LastName = "Pham",
                      Email = "linh@example.com",
                      Password = "password456",
-                     Role = UserRole.User,
+                     Role = UserRole.Customer,
                  }
             );
         }

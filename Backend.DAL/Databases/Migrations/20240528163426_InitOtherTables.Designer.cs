@@ -4,6 +4,7 @@ using Backend.DAL.Databases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.DAL.Databases.Migrations
 {
     [DbContext(typeof(DenticareContext))]
-    partial class DenticareContextModelSnapshot : ModelSnapshot
+    [Migration("20240528163426_InitOtherTables")]
+    partial class InitOtherTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,7 +92,7 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5486bdbc-7691-4991-ab42-d34d2b9977a7"),
+                            Id = new Guid("381f00a3-cf01-43a8-8800-54c4e246b79f"),
                             Email = "adminexample@gmail.com",
                             FirstName = "Admin",
                             Password = "reallystrongpass!123",
@@ -99,7 +102,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b45a365a-d098-4321-a667-fcb331526ba1"),
+                            Id = new Guid("c71d3dd1-71b1-45df-86f3-7864ec2974be"),
                             Email = "trung@example.com",
                             FirstName = "Trung",
                             LastName = "Nguyen",
@@ -110,7 +113,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1d3f8ae7-2d9f-4ce2-9565-64df71890b15"),
+                            Id = new Guid("49fd2fe3-9dc0-409f-b515-cd09cfd7b84b"),
                             Email = "linh@example.com",
                             FirstName = "Linh",
                             LastName = "Pham",
@@ -327,6 +330,8 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("ScheduleId");
 
+                    b.HasIndex("DoctorId");
+
                     b.ToTable("doctor_schedule");
                 });
 
@@ -338,6 +343,9 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnName("working_hour_id");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DoctorScheduleScheduleId")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<TimeOnly>("EndTime")
                         .HasColumnType("time(6)")
@@ -353,6 +361,8 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnName("start_time");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DoctorScheduleScheduleId");
 
                     b.ToTable("doctor_working_hours");
                 });
@@ -401,7 +411,7 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.Property<string>("AppointmentId")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("appointment_id");
 
                     b.Property<string>("Details")
@@ -410,7 +420,40 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppointmentId");
+
                     b.ToTable("treatment_detail");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.DoctorSchedule", b =>
+                {
+                    b.HasOne("Backend.BO.Commons.User", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.DoctorWorkingHours", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.DoctorSchedule", "DoctorSchedule")
+                        .WithMany()
+                        .HasForeignKey("DoctorScheduleScheduleId");
+
+                    b.Navigation("DoctorSchedule");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.TreatmentDetail", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
                 });
 #pragma warning restore 612, 618
         }
