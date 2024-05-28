@@ -7,10 +7,10 @@ namespace Backend.DAL.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly AppDbContext _dbContext;
+        protected readonly DenticareContext _dbContext;
         private readonly DbSet<T> _dbSet;
 
-        public Repository(AppDbContext dbContext)
+        public Repository(DenticareContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<T>();

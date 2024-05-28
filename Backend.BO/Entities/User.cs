@@ -8,7 +8,7 @@ namespace Backend.BO.Commons
     {
         [Column("first_name")]
         [MaxLength(50)]
-        public string? FirstName { get; set; }
+        public required string FirstName { get; set; }
 
         [Column("last_name")]
         [MaxLength(150)]
@@ -23,7 +23,14 @@ namespace Backend.BO.Commons
         public required string Password { get; set; }
 
         [Column("role")]
-        public int Role { get; set; }
+        [MaxLength(10)]
+        public string Role { get; set; } = null!;
+
+        [Column("refresh_token")]
+        public string? RefreshToken { get; set; }
+
+        [Column("refresh_token_expiry_time")]
+        public DateTime RefreshTokenExpiryTime { get; set; }
     }
 
 }

@@ -7,10 +7,10 @@ namespace Backend.DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly AppDbContext _dbContext;
+        private readonly DenticareContext _dbContext;
         private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
 
-        public UnitOfWork(AppDbContext dbContext)
+        public UnitOfWork(DenticareContext dbContext)
         {
             _dbContext = dbContext;
         }
