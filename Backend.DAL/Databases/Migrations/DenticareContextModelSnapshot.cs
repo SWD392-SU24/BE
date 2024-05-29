@@ -89,7 +89,49 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5486bdbc-7691-4991-ab42-d34d2b9977a7"),
+                            Id = new Guid("69469c42-aa53-4557-a2ae-3d4b7e7c1314"),
+                            Address = "123 Main St, Anytown, USA",
+                            DateOfBirth = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "john.doe@example.com",
+                            FirstName = "John",
+                            LastName = "Doe",
+                            Password = "Password123!",
+                            PhoneNumber = "1234567890",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = "DE",
+                            Sex = (short)1
+                        },
+                        new
+                        {
+                            Id = new Guid("51003da6-1b0f-4ba3-9242-d29cf848bde6"),
+                            Address = "456 Oak St, Anytown, USA",
+                            DateOfBirth = new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "jane.smith@example.com",
+                            FirstName = "Jane",
+                            LastName = "Smith",
+                            Password = "Password123!",
+                            PhoneNumber = "2345678901",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = "CUS",
+                            Sex = (short)2
+                        },
+                        new
+                        {
+                            Id = new Guid("5b9985bd-64b5-448c-b9c7-7392d1730ebb"),
+                            Address = "789 Pine St, Anytown, USA",
+                            DateOfBirth = new DateTime(1980, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "bob.brown@example.com",
+                            FirstName = "Bob",
+                            LastName = "Brown",
+                            Password = "Password123!",
+                            PhoneNumber = "3456789012",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = "CUS",
+                            Sex = (short)1
+                        },
+                        new
+                        {
+                            Id = new Guid("169a9899-ad4c-456c-ba56-d22085060aac"),
                             Email = "adminexample@gmail.com",
                             FirstName = "Admin",
                             Password = "reallystrongpass!123",
@@ -99,32 +141,67 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b45a365a-d098-4321-a667-fcb331526ba1"),
-                            Email = "trung@example.com",
-                            FirstName = "Trung",
-                            LastName = "Nguyen",
-                            Password = "password123",
+                            Id = new Guid("a1a01334-5319-4c74-a462-932e7c380830"),
+                            Address = "Tân Bình, Tp.Hồ Chí Minh",
+                            DateOfBirth = new DateTime(2003, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "nhatvmse172011@fpt.edu.vn",
+                            FirstName = "Nhật",
+                            LastName = "Vũ Minh",
+                            Password = "Password123!",
+                            PhoneNumber = "0366412667",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Role = "CUS",
-                            Sex = (short)0
+                            Sex = (short)1
                         },
                         new
                         {
-                            Id = new Guid("1d3f8ae7-2d9f-4ce2-9565-64df71890b15"),
-                            Email = "linh@example.com",
-                            FirstName = "Linh",
-                            LastName = "Pham",
-                            Password = "password456",
+                            Id = new Guid("553d8885-3c1c-439c-86c9-71a71b74ac13"),
+                            Address = "Thủ Đức, Tp.Hồ Chí Minh",
+                            DateOfBirth = new DateTime(2003, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "bangtlhss170429@fpt.edu.vn",
+                            FirstName = "Bằng",
+                            LastName = "Trần Lê Hữu",
+                            Password = "Password123!",
+                            PhoneNumber = "0384691554",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Role = "CUS",
-                            Sex = (short)0
+                            Sex = (short)1
+                        },
+                        new
+                        {
+                            Id = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
+                            Address = "phường Chánh Nghĩa, Tp.Thủ Dầu Một, tỉnh Bình Dương",
+                            DateOfBirth = new DateTime(2003, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "vulongbinhduong@gmail.com",
+                            FirstName = "Long",
+                            LastName = "Vũ",
+                            Password = "xxx123!",
+                            PhoneNumber = "0866742614",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = "CO",
+                            Sex = (short)1
+                        },
+                        new
+                        {
+                            Id = new Guid("88c95c5d-219b-445e-9c3f-28d92a5d07f7"),
+                            Address = "Tp.Sóc Trăng",
+                            DateOfBirth = new DateTime(2003, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "huyquac@gmail.com",
+                            FirstName = "Huy",
+                            LastName = "Quách Hoàng",
+                            Password = "xxx123!",
+                            PhoneNumber = "0332877905",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = "CO",
+                            Sex = (short)1
                         });
                 });
 
             modelBuilder.Entity("Backend.BO.Entities.Appointment", b =>
                 {
                     b.Property<string>("AppointmentId")
-                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("appointment_id");
 
                     b.Property<DateOnly>("AppointmentDate")
@@ -183,6 +260,48 @@ namespace Backend.DAL.Databases.Migrations
                     b.ToTable("appointment_service");
                 });
 
+            modelBuilder.Entity("Backend.BO.Entities.Area", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("area_id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AreaName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("area_name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Area");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AreaName = "Hà Nội"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AreaName = "Tp.Hồ Chí Minh"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AreaName = "Bình Dương"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AreaName = "Đồng Nai"
+                        });
+                });
+
             modelBuilder.Entity("Backend.BO.Entities.Certificate", b =>
                 {
                     b.Property<int>("Id")
@@ -234,6 +353,10 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnType("varchar(300)")
                         .HasColumnName("clinic_address");
 
+                    b.Property<int>("AreaId")
+                        .HasColumnType("int")
+                        .HasColumnName("area_id");
+
                     b.Property<string>("ClinicName")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -262,6 +385,52 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("clinic");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "08 Alexandre de Rhodes St., Ben Nghe Ward, District 1, Ho Chi Minh City",
+                            AreaId = 1,
+                            ClinicName = "Columbia Asia Saigon International Clinic",
+                            LicenseNumber = "HCM0001",
+                            NumberOfEmployees = 150,
+                            OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
+                            PhoneNumber = "02838238888"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "285B Dien Bien Phu, Vo Thi Sau Ward, District 3, Ho Chi Minh City",
+                            AreaId = 1,
+                            ClinicName = "Raffles Medical Ho Chi Minh",
+                            LicenseNumber = "HCM0002",
+                            NumberOfEmployees = 200,
+                            OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
+                            PhoneNumber = "02838240777"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "30 Pham Ngoc Thach, Ward Vo Thi Sau, District 3, Ho Chi Minh City",
+                            AreaId = 1,
+                            ClinicName = "Centre Médical International (CMI)",
+                            LicenseNumber = "HCM0003",
+                            NumberOfEmployees = 100,
+                            OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
+                            PhoneNumber = "02838272366"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Block 8, Ground floor of SORA Gardens II, Lot C17, Hung Vuong Boulevard, Binh Duong New City, Hoa Phu Ward, Thu Dau Mot City, Binh Duong Province",
+                            AreaId = 2,
+                            ClinicName = "Binh Duong Urban Clinic",
+                            LicenseNumber = "BDU12345",
+                            NumberOfEmployees = 50,
+                            OwnerId = new Guid("88c95c5d-219b-445e-9c3f-28d92a5d07f7"),
+                            PhoneNumber = "02742222220"
+                        });
                 });
 
             modelBuilder.Entity("Backend.BO.Entities.Combo", b =>
@@ -314,7 +483,8 @@ namespace Backend.DAL.Databases.Migrations
             modelBuilder.Entity("Backend.BO.Entities.DoctorSchedule", b =>
                 {
                     b.Property<string>("ScheduleId")
-                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)")
                         .HasColumnName("schedule_id");
 
                     b.Property<Guid>("DoctorId")
@@ -345,7 +515,8 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.Property<string>("ScheduleId")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)")
                         .HasColumnName("schedule_id");
 
                     b.Property<TimeOnly>("StartTime")
@@ -401,7 +572,8 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.Property<string>("AppointmentId")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("appointment_id");
 
                     b.Property<string>("Details")

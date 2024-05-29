@@ -1,4 +1,5 @@
 ﻿using Backend.BO.Commons;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.BO.Entities
@@ -10,6 +11,7 @@ namespace Backend.BO.Entities
         [Column("treatment_detail_id")]
         public int Id { get; set; }
 
+        [MaxLength(50)]
         [Column("appointment_id")]
         public required string AppointmentId { get; set; }
 

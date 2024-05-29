@@ -9,6 +9,7 @@ namespace Backend.BO.Entities
     {
         [Key]
         [Column("schedule_id")]
+        [MaxLength(25)]
         public required string ScheduleId { get; set; }
 
         [Column("working_date")]

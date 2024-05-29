@@ -33,6 +33,9 @@ namespace Backend.BO.Entities
         [Column("owner_id")]
         public Guid OwnerId { get; set; }
 
+        [Column("area_id")]
+        public int AreaId { get; set; }
+
         //public User Owner { get; set; } = null!;
     }
 }

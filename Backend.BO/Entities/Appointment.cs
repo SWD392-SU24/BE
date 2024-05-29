@@ -9,6 +9,7 @@ namespace Backend.BO.Entities
     {
         [Key]
         [Column("appointment_id")]
+        [MaxLength(50)]
         public required string AppointmentId { get; set; }
 
         [Column("appointment_date")]
@@ -21,7 +22,7 @@ namespace Backend.BO.Entities
         public TimeOnly EndTime { get; set; }
 
         /// <summary>
-        /// 2 types: 1 - đăng kí khám bệnh; 2: điều trị định kỳ
+        /// 2 types: 1 - đăng kí khám bệnh; 2: điều trị
         /// </summary>
         [Column("appointment_type")]
         public int AppointmentType { get; set; }

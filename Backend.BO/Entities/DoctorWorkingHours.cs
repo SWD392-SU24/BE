@@ -1,4 +1,5 @@
 ﻿using Backend.BO.Commons;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.BO.Entities
@@ -11,6 +12,7 @@ namespace Backend.BO.Entities
         public int Id { get; set; }
 
         [Column("schedule_id")]
+        [MaxLength(25)]
         public required string ScheduleId { get; set; }
 
         [Column("start_time")]
