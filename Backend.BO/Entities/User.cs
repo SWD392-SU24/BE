@@ -27,6 +27,10 @@ namespace Backend.BO.Commons
         [MaxLength(10)]
         public string? PhoneNumber { get; set; }
 
+        [Column("citizen_id")]
+        [MaxLength(12)]
+        public string? CitizenId { get; set; }
+
         [Column("date_of_birth")]
         public DateTime? DateOfBirth { get; set; }
 
@@ -36,7 +40,7 @@ namespace Backend.BO.Commons
         [Column("sex")]
         public short Sex { get; set; }
 
-        [Column("role")]
+        [Column("role", TypeName = "char(4)")]
         public required string Role { get; set; }
 
         [Column("refresh_token")]

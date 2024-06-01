@@ -52,6 +52,45 @@ namespace Backend.DAL.Databases
                 new User
                 {
                     Id = Guid.NewGuid(),
+                    FirstName = "A",
+                    LastName = "Nguyễn Văn",
+                    Email = "nguyen.vana@gmail.com",
+                    Password = "Password123!",
+                    PhoneNumber = "0987654321",
+                    DateOfBirth = new DateTime(1990, 4, 15),
+                    Address = "456 Lê Lợi, Hồ Chí Minh City, Vietnam",
+                    Sex = (short)SexEnum.Male,
+                    Role = UserRole.Dentist,
+                },
+                new User
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "B",
+                    LastName = "Trần Thị",
+                    Email = "tran.thib@example.com",
+                    Password = "Password123!",
+                    PhoneNumber = "0976543210",
+                    DateOfBirth = new DateTime(1988, 7, 22),
+                    Address = "789 Trần Hưng Đạo, Hà Nội, Vietnam",
+                    Sex = (short)SexEnum.Male,
+                    Role = UserRole.Dentist,
+                },
+                new User
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "Hà",
+                    LastName = "Phùng Trần Mai",
+                    Email = "janetran639@gmail.com",
+                    Password = "999doahoahong@",
+                    PhoneNumber = "0902694265",
+                    DateOfBirth = new DateTime(1987, 11, 11),
+                    Address = "phường Phước Long A, Q.9, Tp.Hồ Chí Minh",
+                    Sex = (short)SexEnum.Male,
+                    Role = UserRole.Dentist,
+                },
+                new User
+                {
+                    Id = Guid.NewGuid(),
                     FirstName = "Jane",
                     LastName = "Smith",
                     Email = "jane.smith@example.com",

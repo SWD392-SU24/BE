@@ -37,6 +37,8 @@ namespace Backend.DAL.Databases
         
         public virtual DbSet<TreatmentDetail> TreatmentDetails { get; set; }
 
+        public virtual DbSet<ClinicDoctor> ClinicDoctors { get; set; }
+
         private string GetConnectionString()
         {
             IConfiguration configuration = new ConfigurationBuilder()
