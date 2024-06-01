@@ -4,6 +4,7 @@ using Backend.DAL.Databases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.DAL.Databases.Migrations
 {
     [DbContext(typeof(DenticareContext))]
-    partial class DenticareContextModelSnapshot : ModelSnapshot
+    [Migration("20240601135402_AddClinicDoctorTable")]
+    partial class AddClinicDoctorTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,11 +35,6 @@ namespace Backend.DAL.Databases.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("longtext")
                         .HasColumnName("address");
-
-                    b.Property<string>("CitizenId")
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)")
-                        .HasColumnName("citizen_id");
 
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime(6)")
@@ -94,7 +92,7 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fedd385a-8041-4933-988d-54e0a9d7e527"),
+                            Id = new Guid("e33f4d5e-6fc5-4eb2-adb0-a9a31657c7bd"),
                             Address = "123 Main St, Anytown, USA",
                             DateOfBirth = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
@@ -108,7 +106,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fcd3473f-711d-4180-8616-c6e1f62e2f8f"),
+                            Id = new Guid("2e25a1d0-f1dd-440c-9e09-906bf5e5a4b1"),
                             Address = "456 Lê Lợi, Hồ Chí Minh City, Vietnam",
                             DateOfBirth = new DateTime(1990, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nguyen.vana@gmail.com",
@@ -122,7 +120,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6c5c43e8-daa9-42b1-96ba-56b567b29186"),
+                            Id = new Guid("5f766407-ff1f-489c-b6a6-42fe90560fe8"),
                             Address = "789 Trần Hưng Đạo, Hà Nội, Vietnam",
                             DateOfBirth = new DateTime(1988, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tran.thib@example.com",
@@ -136,7 +134,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("01430bf6-342e-49cf-b343-13458d486a20"),
+                            Id = new Guid("1a422380-a524-4ddf-8747-59e2e563cbd9"),
                             Address = "phường Phước Long A, Q.9, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(1987, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "janetran639@gmail.com",
@@ -150,7 +148,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("102fff27-75c5-47d6-adb7-3e5ea5204006"),
+                            Id = new Guid("77742bc3-c5f8-4b8c-bff0-e7099479d347"),
                             Address = "456 Oak St, Anytown, USA",
                             DateOfBirth = new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
@@ -164,7 +162,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1e0828e2-7e5b-4cf0-9fd0-24d638e666f3"),
+                            Id = new Guid("f65974a0-38fa-499a-9c37-5050c08559f6"),
                             Address = "789 Pine St, Anytown, USA",
                             DateOfBirth = new DateTime(1980, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bob.brown@example.com",
@@ -178,7 +176,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("455159e0-9d66-493c-a9cf-6b1083d35d92"),
+                            Id = new Guid("23c072e9-9bd0-4314-bfad-f77d33955b8d"),
                             Email = "adminexample@gmail.com",
                             FirstName = "Admin",
                             Password = "reallystrongpass!123",
@@ -188,7 +186,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                            Id = new Guid("c27dbf4a-3fae-4745-b92c-687dd15b2b5e"),
                             Address = "Tân Bình, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nhatvmse172011@fpt.edu.vn",
@@ -202,7 +200,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("133f3d90-33da-43e8-9e77-2b096da83878"),
+                            Id = new Guid("8d3b60c9-ccbe-4ea6-b686-520545b38eac"),
                             Address = "Thủ Đức, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bangtlhss170429@fpt.edu.vn",
@@ -499,7 +497,7 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("clinic_doctors");
+                    b.ToTable("ClinicDoctors");
                 });
 
             modelBuilder.Entity("Backend.BO.Entities.Combo", b =>

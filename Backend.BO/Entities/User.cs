@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Backend.BO.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.BO.Commons
@@ -22,15 +23,32 @@ namespace Backend.BO.Commons
         [MaxLength(75)]
         public required string Password { get; set; }
 
-        [Column("role")]
+        [Column("phone_number")]
         [MaxLength(10)]
-        public string Role { get; set; } = null!;
+        public string? PhoneNumber { get; set; }
+
+        [Column("citizen_id")]
+        [MaxLength(12)]
+        public string? CitizenId { get; set; }
+
+        [Column("date_of_birth")]
+        public DateTime? DateOfBirth { get; set; }
+
+        [Column("address")]
+        public string? Address { get; set; }
+
+        [Column("sex")]
+        public short Sex { get; set; }
+
+        [Column("role", TypeName = "char(4)")]
+        public required string Role { get; set; }
 
         [Column("refresh_token")]
         public string? RefreshToken { get; set; }
 
         [Column("refresh_token_expiry_time")]
         public DateTime RefreshTokenExpiryTime { get; set; }
-    }
 
+        //public Role Role { get; set; } = null!;
+    }
 }

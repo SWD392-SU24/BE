@@ -3,13 +3,23 @@
     public class UserRole
     {
         /// <summary>
-        /// Role: Admin
+        /// Role: System Admin
         /// </summary>
-        public static readonly string Admin = "ADMIN";
+        public static readonly string SystemAdmin = "SA";
 
         /// <summary>
-        /// Role: User
+        /// Role: Customer
         /// </summary>
-        public static readonly string User = "USER";
+        public static readonly string Customer = "CUS";
+
+        /// <summary>
+        /// Role: Customer
+        /// </summary>
+        public static readonly string ClinicOwner = "CO";
+
+        /// <summary>
+        /// Role: Dentist
+        /// </summary>
+        public static readonly string Dentist = "DE";
     }
 }

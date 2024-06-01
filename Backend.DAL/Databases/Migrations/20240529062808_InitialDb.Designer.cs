@@ -4,6 +4,7 @@ using Backend.DAL.Databases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.DAL.Databases.Migrations
 {
     [DbContext(typeof(DenticareContext))]
-    partial class DenticareContextModelSnapshot : ModelSnapshot
+    [Migration("20240529062808_InitialDb")]
+    partial class InitialDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,11 +35,6 @@ namespace Backend.DAL.Databases.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("longtext")
                         .HasColumnName("address");
-
-                    b.Property<string>("CitizenId")
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)")
-                        .HasColumnName("citizen_id");
 
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime(6)")
@@ -80,7 +78,7 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasColumnType("char(4)")
+                        .HasColumnType("longtext")
                         .HasColumnName("role");
 
                     b.Property<short>("Sex")
@@ -94,7 +92,7 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fedd385a-8041-4933-988d-54e0a9d7e527"),
+                            Id = new Guid("69469c42-aa53-4557-a2ae-3d4b7e7c1314"),
                             Address = "123 Main St, Anytown, USA",
                             DateOfBirth = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
@@ -108,49 +106,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fcd3473f-711d-4180-8616-c6e1f62e2f8f"),
-                            Address = "456 Lê Lợi, Hồ Chí Minh City, Vietnam",
-                            DateOfBirth = new DateTime(1990, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "nguyen.vana@gmail.com",
-                            FirstName = "A",
-                            LastName = "Nguyễn Văn",
-                            Password = "Password123!",
-                            PhoneNumber = "0987654321",
-                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Role = "DE",
-                            Sex = (short)1
-                        },
-                        new
-                        {
-                            Id = new Guid("6c5c43e8-daa9-42b1-96ba-56b567b29186"),
-                            Address = "789 Trần Hưng Đạo, Hà Nội, Vietnam",
-                            DateOfBirth = new DateTime(1988, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "tran.thib@example.com",
-                            FirstName = "B",
-                            LastName = "Trần Thị",
-                            Password = "Password123!",
-                            PhoneNumber = "0976543210",
-                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Role = "DE",
-                            Sex = (short)1
-                        },
-                        new
-                        {
-                            Id = new Guid("01430bf6-342e-49cf-b343-13458d486a20"),
-                            Address = "phường Phước Long A, Q.9, Tp.Hồ Chí Minh",
-                            DateOfBirth = new DateTime(1987, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "janetran639@gmail.com",
-                            FirstName = "Hà",
-                            LastName = "Phùng Trần Mai",
-                            Password = "999doahoahong@",
-                            PhoneNumber = "0902694265",
-                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Role = "DE",
-                            Sex = (short)1
-                        },
-                        new
-                        {
-                            Id = new Guid("102fff27-75c5-47d6-adb7-3e5ea5204006"),
+                            Id = new Guid("51003da6-1b0f-4ba3-9242-d29cf848bde6"),
                             Address = "456 Oak St, Anytown, USA",
                             DateOfBirth = new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
@@ -164,7 +120,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1e0828e2-7e5b-4cf0-9fd0-24d638e666f3"),
+                            Id = new Guid("5b9985bd-64b5-448c-b9c7-7392d1730ebb"),
                             Address = "789 Pine St, Anytown, USA",
                             DateOfBirth = new DateTime(1980, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bob.brown@example.com",
@@ -178,7 +134,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("455159e0-9d66-493c-a9cf-6b1083d35d92"),
+                            Id = new Guid("169a9899-ad4c-456c-ba56-d22085060aac"),
                             Email = "adminexample@gmail.com",
                             FirstName = "Admin",
                             Password = "reallystrongpass!123",
@@ -188,7 +144,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                            Id = new Guid("a1a01334-5319-4c74-a462-932e7c380830"),
                             Address = "Tân Bình, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nhatvmse172011@fpt.edu.vn",
@@ -202,7 +158,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("133f3d90-33da-43e8-9e77-2b096da83878"),
+                            Id = new Guid("553d8885-3c1c-439c-86c9-71a71b74ac13"),
                             Address = "Thủ Đức, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bangtlhss170429@fpt.edu.vn",
@@ -478,28 +434,6 @@ namespace Backend.DAL.Databases.Migrations
                             OwnerId = new Guid("88c95c5d-219b-445e-9c3f-28d92a5d07f7"),
                             PhoneNumber = "02742222220"
                         });
-                });
-
-            modelBuilder.Entity("Backend.BO.Entities.ClinicDoctor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("cd_no");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClinicId")
-                        .HasColumnType("int")
-                        .HasColumnName("clinic_id");
-
-                    b.Property<Guid>("DoctorId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("doctor_id");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("clinic_doctors");
                 });
 
             modelBuilder.Entity("Backend.BO.Entities.Combo", b =>
