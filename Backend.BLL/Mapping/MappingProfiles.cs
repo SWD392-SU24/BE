@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Backend.BO.Commons;
+using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;
 
 namespace Backend.BLL.Mapping
@@ -12,6 +13,9 @@ namespace Backend.BLL.Mapping
         public MappingProfiles()
         {
             CreateMap<User, UserResponse>().ReverseMap();
+            CreateMap<User, CustomerSignupRequest>().ReverseMap();
+            CreateMap<User, ClinicOwnerSignupRequest>().ReverseMap();
+            
         }
     }
 }

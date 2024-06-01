@@ -1,9 +1,11 @@
-﻿using Backend.BLL.Features.Auth;
+﻿using AutoMapper;
+using Backend.BLL.Features.Auth;
 using Backend.BO.Commons;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;
 using Backend.DAL;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 
 namespace Backend.BLL.Features.Users
 {
@@ -11,11 +13,14 @@ namespace Backend.BLL.Features.Users
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITokenService _tokenService;
+        private readonly IMapper _mapper;
+        private readonly string _citizenIdPattern = @"^\d{12}$";
 
-        public UserService(IUnitOfWork unitOfWork, ITokenService tokenService)
+        public UserService(IUnitOfWork unitOfWork, ITokenService tokenService, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         public async Task<AuthResponse> Authenticate(AuthRequest request)
@@ -127,6 +132,79 @@ namespace Backend.BLL.Features.Users
                 else throw new Exception("The refresh token does not match!");
             }
             catch
+            {
+                await _unitOfWork.RollbackAsync();
+                throw;
+            }
+            return result;
+        }
+
+        public async Task<bool> SignupForClinicOwner(ClinicOwnerSignupRequest request)
+        {
+            var result = false;
+            try
+            {
+                if (string.IsNullOrEmpty(request.Email))
+                    throw new ArgumentException("Email is empty!");
+                if (string.IsNullOrEmpty(request.FirstName))
+                    throw new ArgumentException("First name is empty!");
+                if (string.IsNullOrEmpty(request.LastName))
+                    throw new ArgumentException("Last name is empty!");
+                if (string.IsNullOrEmpty(request.CitizenId))
+                    throw new ArgumentException("Citizen id is empty!");
+                if (Regex.IsMatch(request.CitizenId, _citizenIdPattern))
+                    throw new ArgumentException("Invalid citizen id!");
+                if (string.IsNullOrEmpty(request.Password))
+                    throw new ArgumentException("Password is empty!");
+                if (string.IsNullOrEmpty(request.ConfirmedPassword))
+                    throw new ArgumentException("Password must be provided to confirm!");
+
+                if (request.Password != request.ConfirmedPassword)
+                    throw new ArgumentException("Passwords do not match!");
+                var emailDuplicate = await _unitOfWork.GetRepository<User>().GetAsync(u => u.Email == request.Email);
+                if (emailDuplicate is not null)
+                    throw new ArgumentException("Email has already existed!");
+                var clinicOwner = _mapper.Map<User>(request);
+                _unitOfWork.GetRepository<User>().Add(clinicOwner);
+                await _unitOfWork.CommitAsync();
+                result = true;
+            }
+            catch 
+            {
+                await _unitOfWork.RollbackAsync();
+                throw;
+            }
+            return result;
+        }
+
+        public async Task<bool> SignupForCustomer(CustomerSignupRequest request)
+        {
+            var result = false;
+            try
+            {
+                if (string.IsNullOrEmpty(request.Email))
+                    throw new ArgumentException("Email is empty!");
+                if (string.IsNullOrEmpty(request.FirstName))
+                    throw new ArgumentException("First name is empty!");
+                if (string.IsNullOrEmpty(request.LastName))
+                    throw new ArgumentException("Last name is empty!");
+                if (string.IsNullOrEmpty(request.Password))
+                    throw new ArgumentException("Password is empty!");
+                if (string.IsNullOrEmpty(request.ConfirmedPassword))
+                    throw new ArgumentException("Password must be provided to confirm!");
+
+                if (request.Password != request.ConfirmedPassword)
+                    throw new ArgumentException("Passwords do not match!");
+                // check email duplication
+                var emailDuplicate = await _unitOfWork.GetRepository<User>().GetAsync(u => u.Email == request.Email);
+                if (emailDuplicate is not null)
+                    throw new ArgumentException("Email has already existed!");
+                var customer = _mapper.Map<User>(request);
+                _unitOfWork.GetRepository<User>().Add(customer);
+                await _unitOfWork.CommitAsync();
+                result = true;
+            }
+            catch 
             {
                 await _unitOfWork.RollbackAsync();
                 throw;
