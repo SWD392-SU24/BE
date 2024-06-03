@@ -30,7 +30,7 @@ namespace Backend.BLL.Features.Users
                 if (request is null)
                     throw new ArgumentException("Invalid client request!");
                 var user = await _unitOfWork.GetRepository<User>().GetAsync(user => user.Email.ToLower().Trim() == request.Email.ToLower().Trim()
-                    && user.Password.ToLower().Trim() == user.Password.ToLower().Trim());
+                    && user.Password.ToLower().Trim() == request.Password.ToLower().Trim());
                 if (user is null)
                     throw new KeyNotFoundException("User is not found!");
 
