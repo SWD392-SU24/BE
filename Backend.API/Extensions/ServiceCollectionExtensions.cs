@@ -24,19 +24,19 @@ namespace Backend.API.Extensions
                     Version = "v1",
                     Description = "Endpoints for DentiCare web application"
                 });
-                options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
-                {
-                    Title = "DentiCare API",
-                    Version = "v2",
-                    Description = "Upgrade version"
-                });
+                //options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
+                //{
+                //    Title = "DentiCare API",
+                //    Version = "v2",
+                //    Description = "Upgrade version"
+                //});
                 // For upgrade, configure api version 2
             });
 
             // API versioning configuration
             services.AddApiVersioning(options =>
             {
-                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.DefaultApiVersion = new ApiVersion(1);
                 options.ReportApiVersions = true;
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ApiVersionReader = ApiVersionReader.Combine(

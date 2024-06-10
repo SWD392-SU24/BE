@@ -21,7 +21,7 @@ namespace Backend.API
                 app.UseSwaggerUI(options =>
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "DentiCare v1");
-                    options.SwaggerEndpoint("/swagger/v2/swagger.json", "DentiCare v2");
+                    //options.SwaggerEndpoint("/swagger/v2/swagger.json", "DentiCare v2");
                 });
             }
 

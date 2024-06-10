@@ -19,13 +19,6 @@ namespace Backend.BLL.Features.Clinics
             _mapper = mapper;
         }
 
-        public async Task<List<ClinicResponse>> GetAllClinicsAsync()
-        {
-            var clinicRepository = _unitOfWork.GetRepository<Clinic>();
-            var clinics = await clinicRepository.GetAll().ToListAsync();
-            return _mapper.Map<List<ClinicResponse>>(clinics);
-        }
-
         public async Task<ClinicResponse> AddClinicAsync(ClinicRequest clinicRequest)
         {
             ValidateClinicRequest(clinicRequest);

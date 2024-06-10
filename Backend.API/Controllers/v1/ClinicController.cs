@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning;
-using Backend.API.Controllers.v1;
 using Backend.BLL.Features.Clinics;
 using Backend.BO.Commons;
 using Backend.BO.Payloads.Requests;
@@ -7,9 +6,8 @@ using Backend.BO.Payloads.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Backend.API.Controllers.v2
+namespace Backend.API.Controllers.v1
 {
-    [ApiVersion(2)]
     public class ClinicController : BaseApiController
     {
         private readonly IClinicService _clinicService;
@@ -19,16 +17,7 @@ namespace Backend.API.Controllers.v2
             _clinicService = clinicService;
         }
 
-        [HttpGet("get-all/clinic")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ClinicResponse>> GetAllClinics()
-        {
-            var clinics = await _clinicService.GetAllClinicsAsync();
-            return Ok(clinics);
-        }
-        [HttpPost("add/clinic")]
+        [HttpPost("clinics")]
         [ProducesResponseType(typeof(ClinicResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
@@ -38,7 +27,7 @@ namespace Backend.API.Controllers.v2
             return Ok(addedClinic);
         }
 
-        [HttpPut("update/clinic/{clinicId}")]
+        [HttpPut("clinics/{clinicId}")]
         [ProducesResponseType(typeof(ClinicResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -48,7 +37,7 @@ namespace Backend.API.Controllers.v2
             var updatedClinic = await _clinicService.UpdateClinicAsync(clinicId, clinicRequest);
             return Ok(updatedClinic);
         }
-        [HttpDelete("delete/clinic/{clinicId}")]
+        [HttpDelete("clinics/{clinicId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
@@ -58,7 +47,7 @@ namespace Backend.API.Controllers.v2
             return Ok("Delete Success!");
         }
 
-        [HttpGet("get-by-name/clinic")]
+        [HttpGet("clinics")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
