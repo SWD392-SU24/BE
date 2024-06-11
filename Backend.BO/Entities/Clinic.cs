@@ -44,6 +44,8 @@ namespace Backend.BO.Entities
 
         public IList<Appointment> Appointments { get; set; } = new List<Appointment>();
 
+        public IList<ClinicFeedback> ClinicFeedbacks { get; set; } = new List<ClinicFeedback>();
+
         // Three states
         // 1: pending; 2: verified; 3: disable
         [Column("clinic_state")]

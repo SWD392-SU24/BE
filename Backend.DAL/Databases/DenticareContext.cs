@@ -67,6 +67,8 @@ namespace Backend.DAL.Databases
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClinicDoctorTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClinicTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClinicTypeConfiguration).Assembly);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ComboServiceTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DoctorScheduleTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DoctorWorkingHoursTypeConfiguration).Assembly);

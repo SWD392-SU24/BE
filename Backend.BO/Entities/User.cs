@@ -56,5 +56,7 @@ namespace Backend.BO.Commons
         public IList<DoctorSchedule> DoctorSchedules { get; set; } = new List<DoctorSchedule>();
 
         public IList<ClinicDoctor> ClinicDoctors { get; set; } = new List<ClinicDoctor>();
+
+        public IList<ClinicFeedback> ClinicFeedbacks { get; set; } = new List<ClinicFeedback>();
     }
 }

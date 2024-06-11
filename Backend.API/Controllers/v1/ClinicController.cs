@@ -1,9 +1,9 @@
-﻿using Asp.Versioning;
-using Backend.BLL.Features.Clinics;
+﻿using Backend.BLL.Features.Clinics;
 using Backend.BO.Commons;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Net;
 
 namespace Backend.API.Controllers.v1
@@ -55,6 +55,22 @@ namespace Backend.API.Controllers.v1
         {
             var clinics = await _clinicService.GetClinicsByNameAsync(clinicName);
             return Ok(clinics);
+        }
+
+        [HttpGet("clinic/{id}/feedback")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<IList<ClinicFeedbackResponse>>> GetFeedbackOfAClinic(int id, DateTime? fromDate, DateTime? toDate)
+        {            
+            var clinics = await _clinicService.GetFeedbackOfAClinic(id, fromDate, toDate);
+
+            var response = new ResponseModel<IList<ClinicFeedbackResponse>>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "Data retrival success!",
+                response: clinics
+            );
+            return Ok(response);
         }
     }
 }

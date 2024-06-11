@@ -5,6 +5,7 @@ using Backend.BO.Entities;
 using Microsoft.EntityFrameworkCore;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Commons;
+using System.Globalization;
 
 namespace Backend.BLL.Features.Clinics
 {
@@ -215,17 +216,64 @@ namespace Backend.BLL.Features.Clinics
             try
             {
                 var clinicRepository = _unitOfWork.GetRepository<Clinic>();
-                if (fromDate is null && toDate is null)
+                var response = new List<ClinicFeedbackResponse>();
+
+                if (fromDate.HasValue && toDate.HasValue)
                 {
-                    // No filter
-                    var feedbacks = new List<ClinicFeedbackResponse>();
-                    
+                    var feedback = await clinicRepository.GetAll()
+                        .Where(x => x.Id == clinicId)
+                        .SelectMany(x => x.ClinicFeedbacks)
+                        .Include(x => x.Customer)
+                        .Include(x => x.Clinic)
+                        .Where(x => x.FeedbackDate >= fromDate && x.FeedbackDate <= toDate)
+                        .ToListAsync();
+
+                    if (!feedback.Any())
+                        throw new InvalidOperationException("No data for feedback!");
+
+                    foreach (var tmp in feedback)
+                    {
+                        var mappedFeedback = new ClinicFeedbackResponse();
+                        mappedFeedback.ClinicId = tmp.ClinicId;
+                        mappedFeedback.ClinicName = tmp.Clinic.ClinicName;
+                        mappedFeedback.CustomerId = tmp.CustomerId;
+                        mappedFeedback.CustomerName = tmp.Customer.LastName + " " + tmp.Customer.FirstName;
+                        mappedFeedback.FeedbackDescription = tmp.FeedbackDescription;
+                        mappedFeedback.FeedbackDate = tmp.FeedbackDate;
+                        mappedFeedback.Rating = tmp.Rating;
+
+                        response.Add(mappedFeedback);
+                    }
+                    return response;
                 }
                 else
                 {
-                    // Filter the feedback in range
+                    // No filter
+                    var feedback = await clinicRepository.GetAll()
+                        .Where(x => x.Id == clinicId)
+                        .SelectMany(x => x.ClinicFeedbacks)
+                        .Include(x => x.Customer)
+                        .Include(x => x.Clinic)
+                        .ToListAsync();
+
+                    if (!feedback.Any())
+                        throw new InvalidOperationException("No data for feedback!");
+
+                    foreach (var tmp in feedback)
+                    {
+                        var mappedFeedback = new ClinicFeedbackResponse();
+                        mappedFeedback.ClinicId = tmp.ClinicId;
+                        mappedFeedback.ClinicName = tmp.Clinic.ClinicName;
+                        mappedFeedback.CustomerId = tmp.CustomerId;
+                        mappedFeedback.CustomerName = tmp.Customer.LastName + " " + tmp.Customer.FirstName;
+                        mappedFeedback.FeedbackDescription = tmp.FeedbackDescription;
+                        mappedFeedback.FeedbackDate = tmp.FeedbackDate;
+                        mappedFeedback.Rating = tmp.Rating;
+
+                        response.Add(mappedFeedback);
+                    }
+                    return response;
                 }
-                return null;
             }
             catch
             {

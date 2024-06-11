@@ -31,8 +31,8 @@ namespace Backend.BO.Entities
         [DataType(DataType.DateTime)]
         public DateTime FeedbackDate { get; set; }
 
-        //public User Customer { get; set; } = null!;
+        public User Customer { get; set; } = null!;
 
-        //public Clinic Clinic { get; set; } = null!;
+        public Clinic Clinic { get; set; } = null!;
     }
 }

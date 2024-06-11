@@ -94,7 +94,7 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0e9e2696-7a28-4caf-b804-1007dfa15c40"),
+                            Id = new Guid("dc6f432b-7672-49f2-a5be-8d3f833b7f10"),
                             Address = "123 Main St, Anytown, USA",
                             DateOfBirth = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
@@ -108,7 +108,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3dfcc3d4-55b8-4951-85b9-9367e4b16ee3"),
+                            Id = new Guid("99ad086c-be82-402d-8383-686edd9fc04a"),
                             Address = "456 Lê Lợi, Hồ Chí Minh City, Vietnam",
                             DateOfBirth = new DateTime(1990, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nguyen.vana@gmail.com",
@@ -122,7 +122,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5f143b7a-f0b7-47c0-9a0a-98c5855b3539"),
+                            Id = new Guid("50f88073-9c33-4037-a824-95925ba55f98"),
                             Address = "789 Trần Hưng Đạo, Hà Nội, Vietnam",
                             DateOfBirth = new DateTime(1988, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tran.thib@example.com",
@@ -136,7 +136,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2d55d61b-7b60-4457-b786-09bcdd027b9c"),
+                            Id = new Guid("6f0d4b83-c3d6-462f-8368-b469326746cc"),
                             Address = "phường Phước Long A, Q.9, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(1987, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "janetran639@gmail.com",
@@ -150,7 +150,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2c44321b-9c64-4c9e-82c4-949d8957f31a"),
+                            Id = new Guid("d82f2cd7-300f-4903-b681-56380d71cc25"),
                             Address = "456 Oak St, Anytown, USA",
                             DateOfBirth = new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
@@ -164,7 +164,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("228308bb-a92f-4b64-8eb0-34e5850333fc"),
+                            Id = new Guid("9e51f5de-8b09-4957-88b9-5eadb1f19e5c"),
                             Address = "789 Pine St, Anytown, USA",
                             DateOfBirth = new DateTime(1980, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bob.brown@example.com",
@@ -178,7 +178,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("502680e5-78a6-46db-b553-42c4daef997a"),
+                            Id = new Guid("f827328a-8efd-4da7-bb39-2cf32dcaf8dd"),
                             Email = "adminexample@gmail.com",
                             FirstName = "Admin",
                             Password = "reallystrongpass!123",
@@ -188,7 +188,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bdd5b14c-cef8-4713-bcf0-a99eccf1c36f"),
+                            Id = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
                             Address = "Tân Bình, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nhatvmse172011@fpt.edu.vn",
@@ -202,7 +202,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f538bb98-0da1-458f-9404-62e0785cb339"),
+                            Id = new Guid("564ba85a-8e22-4aa2-a464-b1a682b6598b"),
                             Address = "Thủ Đức, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bangtlhss170429@fpt.edu.vn",
@@ -560,6 +560,10 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClinicId");
+
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("clinic_feedback");
 
                     b.HasData(
@@ -567,8 +571,8 @@ namespace Backend.DAL.Databases.Migrations
                         {
                             Id = 1,
                             ClinicId = 1,
-                            CustomerId = new Guid("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
-                            FeedbackDate = new DateTime(2024, 6, 11, 13, 59, 3, 889, DateTimeKind.Local).AddTicks(4938),
+                            CustomerId = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
+                            FeedbackDate = new DateTime(2024, 6, 11, 15, 28, 14, 808, DateTimeKind.Local).AddTicks(8725),
                             FeedbackDescription = "The clinic was clean and the staff were courteous, but the waiting time was longer than expected.",
                             Rating = (short)3
                         },
@@ -576,7 +580,7 @@ namespace Backend.DAL.Databases.Migrations
                         {
                             Id = 2,
                             ClinicId = 2,
-                            CustomerId = new Guid("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                            CustomerId = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
                             FeedbackDate = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FeedbackDescription = "Excellent service! The doctor was very thorough and answered all my questions.",
                             Rating = (short)2
@@ -585,7 +589,7 @@ namespace Backend.DAL.Databases.Migrations
                         {
                             Id = 3,
                             ClinicId = 3,
-                            CustomerId = new Guid("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                            CustomerId = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
                             FeedbackDate = new DateTime(2024, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FeedbackDescription = "The clinic environment was good, but the appointment was delayed by 30 minutes.",
                             Rating = (short)4
@@ -1730,6 +1734,25 @@ namespace Backend.DAL.Databases.Migrations
                     b.Navigation("Doctor");
                 });
 
+            modelBuilder.Entity("Backend.BO.Entities.ClinicFeedback", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.Clinic", "Clinic")
+                        .WithMany("ClinicFeedbacks")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Backend.BO.Commons.User", "Customer")
+                        .WithMany("ClinicFeedbacks")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Clinic");
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("Backend.BO.Entities.ComboService", b =>
                 {
                     b.HasOne("Backend.BO.Entities.Combo", "Combo")
@@ -1790,6 +1813,8 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.Navigation("ClinicDoctors");
 
+                    b.Navigation("ClinicFeedbacks");
+
                     b.Navigation("DoctorSchedules");
                 });
 
@@ -1808,6 +1833,8 @@ namespace Backend.DAL.Databases.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("ClinicDoctors");
+
+                    b.Navigation("ClinicFeedbacks");
 
                     b.Navigation("Services");
                 });

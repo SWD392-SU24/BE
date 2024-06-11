@@ -18,21 +18,23 @@ namespace Backend.BLL.Mapping
             CreateMap<User, ClinicOwnerSignupRequest>().ReverseMap();
 
             CreateMap<Clinic, ClinicRequest>()
-            .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => src.NumberOfEmployees.ToString()))
-            .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId.ToString()))
-            .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.AreaId.ToString()))
-            .ReverseMap()
-            .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => int.Parse(src.NumberOfEmployees)))
-            .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => Guid.Parse(src.OwnerId)))
-            .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => int.Parse(src.AreaId)));
+                .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => src.NumberOfEmployees.ToString()))
+                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId.ToString()))
+                .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.AreaId.ToString()))
+                .ReverseMap()
+                .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => int.Parse(src.NumberOfEmployees)))
+                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => Guid.Parse(src.OwnerId)))
+                .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => int.Parse(src.AreaId)));
+
             CreateMap<Clinic, ClinicResponse>()
-            .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => src.NumberOfEmployees.ToString()))
-            .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId.ToString()))
-            .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.AreaId.ToString()))
-            .ReverseMap()
-            .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => int.Parse(src.NumberOfEmployees)))
-            .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => Guid.Parse(src.OwnerId)))
-            .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => int.Parse(src.AreaId)));
+                .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => src.NumberOfEmployees.ToString()))
+                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId.ToString()))
+                .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.AreaId.ToString()))
+                .ReverseMap()
+                .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => int.Parse(src.NumberOfEmployees)))
+                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => Guid.Parse(src.OwnerId)))
+                .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => int.Parse(src.AreaId)));
+
             CreateMap<ClinicRequest, ClinicResponse>().ReverseMap();
         }
     }

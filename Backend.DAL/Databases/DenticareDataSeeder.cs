@@ -125,7 +125,7 @@ namespace Backend.DAL.Databases
                 },
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
                     FirstName = "Nhật",
                     LastName = "Vũ Minh",
                     Email = "nhatvmse172011@fpt.edu.vn",
@@ -1126,7 +1126,7 @@ namespace Backend.DAL.Databases
                 {
                     Id = 1,
                     ClinicId = 1,
-                    CustomerId = Guid.Parse("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                    CustomerId = Guid.Parse("455565de-ce04-45b6-8183-1a1f9d414a93"),
                     FeedbackDescription = "The clinic was clean and the staff were courteous, but the waiting time was longer than expected.",
                     FeedbackDate = DateTime.Now,
                     Rating = 3
@@ -1135,16 +1135,16 @@ namespace Backend.DAL.Databases
                 {
                     Id = 2,
                     ClinicId = 2,
-                    CustomerId = Guid.Parse("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                    CustomerId = Guid.Parse("455565de-ce04-45b6-8183-1a1f9d414a93"),
                     FeedbackDescription = "Excellent service! The doctor was very thorough and answered all my questions.",
                     FeedbackDate = new DateTime(2024, 6, 1),
-                    Rating = 2
+                    Rating = 2,
                 },
                 new ClinicFeedback
                 {
                     Id = 3,
                     ClinicId = 3,
-                    CustomerId = Guid.Parse("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                    CustomerId = Guid.Parse("455565de-ce04-45b6-8183-1a1f9d414a93"),
                     FeedbackDescription = "The clinic environment was good, but the appointment was delayed by 30 minutes.",
                     FeedbackDate = new DateTime(2024, 5, 22),
                     Rating = 4
