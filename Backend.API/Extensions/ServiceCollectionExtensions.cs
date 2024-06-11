@@ -6,7 +6,6 @@ using Backend.DAL;
 using Backend.DAL.Databases;
 using Backend.DAL.Repositories;
 using Backend.DAL.Repositories.Contracts;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.API.Extensions
 {
@@ -50,12 +49,10 @@ namespace Backend.API.Extensions
                 options.SubstituteApiVersionInUrl = true;
             });
 
-            services.AddDbContext<DenticareContext>(options =>
-            {
-                options.UseMySql(configuration.GetConnectionString("DefaultConnection"), 
-                    ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")));
-            });
+            // Register database
+            services.RegisterDbContext(configuration);
 
+            // Configure CORS
             services.AddCors(options =>
             {
                 options.AddPolicy("DentiCare", builder =>

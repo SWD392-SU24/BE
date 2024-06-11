@@ -46,8 +46,9 @@ namespace Backend.BO.Entities
 
         public IList<ClinicFeedback> ClinicFeedbacks { get; set; } = new List<ClinicFeedback>();
 
-        // Three states
-        // 1: pending; 2: verified; 3: disable
+        /// <summary>
+        /// Three states: 1: pending; 2: verified; 3: disable
+        /// </summary>
         [Column("clinic_state")]
         public short ClinicState { get; set; }
 
