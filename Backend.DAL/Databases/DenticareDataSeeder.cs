@@ -10,7 +10,7 @@ namespace Backend.DAL.Databases
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            // data
+            // Data for area
             modelBuilder.Entity<Area>().HasData(
                 new Area
                 {
@@ -175,7 +175,7 @@ namespace Backend.DAL.Databases
                     Role = UserRole.ClinicOwner,
                 }
             );
-            
+
             // data for clinic 
             modelBuilder.Entity<Clinic>().HasData(
                 new Clinic
@@ -1107,6 +1107,36 @@ namespace Backend.DAL.Databases
                     Id = 59,
                     ServiceId = 59,
                     ComboId = 2
+                }
+            );
+            // Data for clinic feedback
+            modelBuilder.Entity<ClinicFeedback>().HasData(
+                new ClinicFeedback
+                {
+                    Id = 1,
+                    ClinicId = 1,
+                    CustomerId = Guid.Parse("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                    FeedbackDescription = "The clinic was clean and the staff were courteous, but the waiting time was longer than expected.",
+                    FeedbackDate = DateTime.Now,
+                    Rating = 3
+                },
+                new ClinicFeedback
+                {
+                    Id = 2,
+                    ClinicId = 2,
+                    CustomerId = Guid.Parse("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                    FeedbackDescription = "Excellent service! The doctor was very thorough and answered all my questions.",
+                    FeedbackDate = new DateTime(2024, 6, 1),
+                    Rating = 2
+                },
+                new ClinicFeedback
+                {
+                    Id = 3,
+                    ClinicId = 3,
+                    CustomerId = Guid.Parse("4b2ac503-d43a-46e8-b97c-5ea0aa6908cc"),
+                    FeedbackDescription = "The clinic environment was good, but the appointment was delayed by 30 minutes.",
+                    FeedbackDate = new DateTime(2024, 5, 22),
+                    Rating = 4
                 }
             );
         }
