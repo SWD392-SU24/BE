@@ -174,6 +174,19 @@ namespace Backend.DAL.Databases
                     Address = "Tp.Sóc Trăng",
                     Sex = (short)SexEnum.Male,
                     Role = UserRole.ClinicOwner,
+                },
+                new User
+                {
+                    Id = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"),
+                    FirstName = "Ngọc",
+                    LastName = "Bảo",
+                    Email = "baongoc1234@gmail.com",
+                    Password = "12345!",
+                    PhoneNumber = "0912345678",
+                    DateOfBirth = new DateTime(2003, 02, 12),
+                    Address = "Tp.Hồ Chí Minh",
+                    Sex = (short)SexEnum.Male,
+                    Role = UserRole.Dentist,
                 }
             );
             #endregion
@@ -1148,6 +1161,35 @@ namespace Backend.DAL.Databases
                     FeedbackDescription = "The clinic environment was good, but the appointment was delayed by 30 minutes.",
                     FeedbackDate = new DateTime(2024, 5, 22),
                     Rating = 4
+                }
+            );
+            #endregion
+
+            #region CertificateSeedingData
+            modelBuilder.Entity<Certificate>().HasData(
+                new Certificate
+                {
+                    Id = 1,
+                    CertificateName = "Medical Practice License",
+                    IssuedDate = DateTime.Now,
+                    CertificateImage = "https://example.com/certificateImage.jpg",
+                    DoctorId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989")
+                },
+                new Certificate
+                {
+                    Id = 2,
+                    CertificateName = "Dental Surgery Certification",
+                    IssuedDate = new DateTime(2022, 8, 20),
+                    CertificateImage = "https://example.com/certificateImage2.jpg",
+                    DoctorId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989")
+                },
+                new Certificate
+                {
+                    Id = 3,
+                    CertificateName = "Emergency Medicine Training",
+                    IssuedDate = new DateTime(2024, 3, 10),
+                    CertificateImage = "https://example.com/certificateImage3.jpg",
+                    DoctorId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989")
                 }
             );
             #endregion
