@@ -16,8 +16,8 @@ namespace Backend.BO.Entities
         [Column("combo_id")]
         public int ComboId { get; set; }
 
-        //public Service Service { get; set; } = null!;
+        public Service Service { get; set; } = null!;
 
-        //public Combo Combo { get; set; } = null!;
+        public Combo Combo { get; set; } = null!;
     }
 }

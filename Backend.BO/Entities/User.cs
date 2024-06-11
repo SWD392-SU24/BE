@@ -48,7 +48,13 @@ namespace Backend.BO.Commons
 
         [Column("refresh_token_expiry_time")]
         public DateTime RefreshTokenExpiryTime { get; set; }
+        
+        public IList<Appointment> Appointments { get; set; } = new List<Appointment>();
 
-        //public Role Role { get; set; } = null!;
+        public IList<Certificate> Certificates { get; set; } = new List<Certificate>();
+
+        public IList<DoctorSchedule> DoctorSchedules { get; set; } = new List<DoctorSchedule>();
+
+        public IList<ClinicDoctor> ClinicDoctors { get; set; } = new List<ClinicDoctor>();
     }
 }

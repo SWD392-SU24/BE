@@ -18,5 +18,7 @@ namespace Backend.BO.Entities
         [Column("combo_description")]
         [MaxLength(500)]
         public string? Description { get; set; }
+
+        public IList<ComboService> ComboServices { get; set; } = new List<ComboService>();
     }
 }

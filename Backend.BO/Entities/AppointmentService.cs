@@ -16,8 +16,8 @@ namespace Backend.BO.Entities
         [Column("service_id")]
         public int ServiceId { get; set; }
 
-        //public Service Service { get; set; } = null!;
+        public Service Service { get; set; } = null!;
 
-        //public Appointment Appointment { get; set; } = null!;
+        public Appointment Appointment { get; set; } = null!;
     }
 }

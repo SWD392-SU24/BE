@@ -209,5 +209,28 @@ namespace Backend.BLL.Features.Clinics
             string numericPhoneNumber = new string(phoneNumber.Where(char.IsDigit).ToArray());
             return numericPhoneNumber.Length == 10;
         }
+
+        public async Task<IList<ClinicFeedbackResponse>> GetFeedbackOfAClinic(int clinicId, DateTime? fromDate, DateTime? toDate)
+        {
+            try
+            {
+                var clinicRepository = _unitOfWork.GetRepository<Clinic>();
+                if (fromDate is null && toDate is null)
+                {
+                    // No filter
+                    var feedbacks = new List<ClinicFeedbackResponse>();
+                    
+                }
+                else
+                {
+                    // Filter the feedback in range
+                }
+                return null;
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

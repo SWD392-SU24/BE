@@ -10,7 +10,7 @@ namespace Backend.DAL.Databases
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            // Data for area
+            #region AreaDataSeeding
             modelBuilder.Entity<Area>().HasData(
                 new Area
                 {
@@ -33,8 +33,9 @@ namespace Backend.DAL.Databases
                     AreaName = "Đồng Nai"
                 }
             );
+            #endregion
 
-            // data for user table
+            #region UserDataSeeding
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -175,8 +176,9 @@ namespace Backend.DAL.Databases
                     Role = UserRole.ClinicOwner,
                 }
             );
+            #endregion
 
-            // data for clinic 
+            #region ClinicDataSeeding 
             modelBuilder.Entity<Clinic>().HasData(
                 new Clinic
                 {
@@ -187,7 +189,8 @@ namespace Backend.DAL.Databases
                     OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                     NumberOfEmployees = 150,
                     PhoneNumber = "02838238888",
-                    AreaId = 1
+                    AreaId = 1,
+                    ClinicState = 1
                 },
                 new Clinic
                 {
@@ -198,7 +201,8 @@ namespace Backend.DAL.Databases
                     OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                     NumberOfEmployees = 200,
                     PhoneNumber = "02838240777",
-                    AreaId = 1
+                    AreaId = 1,
+                    ClinicState = 1
                 },
                 new Clinic
                 {
@@ -209,7 +213,8 @@ namespace Backend.DAL.Databases
                     OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                     NumberOfEmployees = 100,
                     PhoneNumber = "02838272366",
-                    AreaId = 1
+                    AreaId = 1,
+                    ClinicState = 1
                 },
                 new Clinic
                 {
@@ -220,11 +225,13 @@ namespace Backend.DAL.Databases
                     OwnerId = new Guid("88c95c5d-219b-445e-9c3f-28d92a5d07f7"),
                     NumberOfEmployees = 50,
                     PhoneNumber = "02742222220",
-                    AreaId = 2
+                    AreaId = 2,
+                    ClinicState = 1
                 }
             );
+            #endregion
 
-            // data for Service
+            #region ServiceDataSeeding
             modelBuilder.Entity<Service>().HasData(
                 new Service
                 {
@@ -699,8 +706,9 @@ namespace Backend.DAL.Databases
                     ClinicId = 4
                 }
             );
+            #endregion
 
-            // data for Combo
+            #region ComboDataSeeding
             modelBuilder.Entity<Combo>().HasData(
                 new Combo
                 {
@@ -751,8 +759,9 @@ namespace Backend.DAL.Databases
                     Description = "Mục gồm các vấn đề khác ngoài các mục đã có"
                 }
             );
+            #endregion
 
-            // data for ComboService
+            #region ComboServiceDataSeeding
             modelBuilder.Entity<ComboService>().HasData(
                 new ComboService
                 {
@@ -1109,7 +1118,9 @@ namespace Backend.DAL.Databases
                     ComboId = 2
                 }
             );
-            // Data for clinic feedback
+            #endregion
+
+            #region ClinicFeedbackDataSeeding
             modelBuilder.Entity<ClinicFeedback>().HasData(
                 new ClinicFeedback
                 {
@@ -1139,6 +1150,7 @@ namespace Backend.DAL.Databases
                     Rating = 4
                 }
             );
+            #endregion
         }
     }
 }

@@ -15,5 +15,9 @@ namespace Backend.BO.Entities
 
         [Column("doctor_id")]
         public Guid DoctorId { get; set; }
+
+        public User Doctor { get; set; } = null!;
+
+        public Clinic Clinic { get; set; } = null!;
     }
 }

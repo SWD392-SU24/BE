@@ -27,6 +27,6 @@ namespace Backend.BO.Entities
         [Column("doctor_id")]
         public Guid DoctorId { get; set; }
 
-        //public User Doctor { get; set; } = null!;
+        public User Doctor { get; set; } = null!;
     }
 }

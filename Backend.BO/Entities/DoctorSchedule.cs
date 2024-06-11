@@ -18,6 +18,8 @@ namespace Backend.BO.Entities
         [Column("doctor_id")]
         public Guid DoctorId { get; set; }
 
-        //public User Doctor { get; set; } = null!;
+        public IList<DoctorWorkingHours> DoctorWorkingHours { get; set; } = new List<DoctorWorkingHours>();
+
+        public User Doctor { get; set; } = null!;
     }
 }

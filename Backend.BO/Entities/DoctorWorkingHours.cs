@@ -21,6 +21,6 @@ namespace Backend.BO.Entities
         [Column("end_time")]
         public TimeOnly EndTime { get; set; }
 
-        //public DoctorSchedule DoctorSchedule { get; set; } = null!;
+        public DoctorSchedule DoctorSchedule { get; set; } = null!;
     }
 }
