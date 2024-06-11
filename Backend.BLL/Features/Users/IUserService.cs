@@ -16,5 +16,9 @@ namespace Backend.BLL.Features.Users
         /// <param name="tokenApiModel">The token to revoke.</param>
         /// <returns>A boolean indicating whether the token was successfully revoked.</returns>
         Task<bool> Revoke(TokenApiModel tokenApiModel);
+
+        Task<bool> SignupForCustomer(CustomerSignupRequest request);
+
+        Task<bool> SignupForClinicOwner(ClinicOwnerSignupRequest request);
     }
 }

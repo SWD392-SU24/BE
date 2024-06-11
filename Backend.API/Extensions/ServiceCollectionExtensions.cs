@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Backend.BLL.Features.Auth;
+using Backend.BLL.Features.Clinics;
 using Backend.BLL.Features.Users;
 using Backend.DAL;
 using Backend.DAL.Databases;
@@ -77,7 +78,7 @@ namespace Backend.API.Extensions
             // Services configuration
             services.AddTransient<ITokenService, TokenService>();   // processing Jwt tokens
             services.AddScoped<IUserService, UserService>();
-
+            services.AddScoped<IClinicService, ClinicService>();
             services.AddHttpContextAccessor();
             return services;
         }
