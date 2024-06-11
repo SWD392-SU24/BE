@@ -10,7 +10,7 @@ namespace Backend.DAL.Databases
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            // data
+            #region AreaDataSeeding
             modelBuilder.Entity<Area>().HasData(
                 new Area
                 {
@@ -33,8 +33,9 @@ namespace Backend.DAL.Databases
                     AreaName = "Đồng Nai"
                 }
             );
+            #endregion
 
-            // data for user table
+            #region UserDataSeeding
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -124,7 +125,7 @@ namespace Backend.DAL.Databases
                 },
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
                     FirstName = "Nhật",
                     LastName = "Vũ Minh",
                     Email = "nhatvmse172011@fpt.edu.vn",
@@ -175,8 +176,9 @@ namespace Backend.DAL.Databases
                     Role = UserRole.ClinicOwner,
                 }
             );
-            
-            // data for clinic 
+            #endregion
+
+            #region ClinicDataSeeding 
             modelBuilder.Entity<Clinic>().HasData(
                 new Clinic
                 {
@@ -187,7 +189,8 @@ namespace Backend.DAL.Databases
                     OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                     NumberOfEmployees = 150,
                     PhoneNumber = "02838238888",
-                    AreaId = 1
+                    AreaId = 1,
+                    ClinicState = 1
                 },
                 new Clinic
                 {
@@ -198,7 +201,8 @@ namespace Backend.DAL.Databases
                     OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                     NumberOfEmployees = 200,
                     PhoneNumber = "02838240777",
-                    AreaId = 1
+                    AreaId = 1,
+                    ClinicState = 1
                 },
                 new Clinic
                 {
@@ -209,7 +213,8 @@ namespace Backend.DAL.Databases
                     OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                     NumberOfEmployees = 100,
                     PhoneNumber = "02838272366",
-                    AreaId = 1
+                    AreaId = 1,
+                    ClinicState = 1
                 },
                 new Clinic
                 {
@@ -220,11 +225,13 @@ namespace Backend.DAL.Databases
                     OwnerId = new Guid("88c95c5d-219b-445e-9c3f-28d92a5d07f7"),
                     NumberOfEmployees = 50,
                     PhoneNumber = "02742222220",
-                    AreaId = 2
+                    AreaId = 2,
+                    ClinicState = 1
                 }
             );
+            #endregion
 
-            // data for Service
+            #region ServiceDataSeeding
             modelBuilder.Entity<Service>().HasData(
                 new Service
                 {
@@ -699,8 +706,9 @@ namespace Backend.DAL.Databases
                     ClinicId = 4
                 }
             );
+            #endregion
 
-            // data for Combo
+            #region ComboDataSeeding
             modelBuilder.Entity<Combo>().HasData(
                 new Combo
                 {
@@ -751,8 +759,9 @@ namespace Backend.DAL.Databases
                     Description = "Mục gồm các vấn đề khác ngoài các mục đã có"
                 }
             );
+            #endregion
 
-            // data for ComboService
+            #region ComboServiceDataSeeding
             modelBuilder.Entity<ComboService>().HasData(
                 new ComboService
                 {
@@ -1109,6 +1118,39 @@ namespace Backend.DAL.Databases
                     ComboId = 2
                 }
             );
+            #endregion
+
+            #region ClinicFeedbackDataSeeding
+            modelBuilder.Entity<ClinicFeedback>().HasData(
+                new ClinicFeedback
+                {
+                    Id = 1,
+                    ClinicId = 1,
+                    CustomerId = Guid.Parse("455565de-ce04-45b6-8183-1a1f9d414a93"),
+                    FeedbackDescription = "The clinic was clean and the staff were courteous, but the waiting time was longer than expected.",
+                    FeedbackDate = DateTime.Now,
+                    Rating = 3
+                },
+                new ClinicFeedback
+                {
+                    Id = 2,
+                    ClinicId = 2,
+                    CustomerId = Guid.Parse("455565de-ce04-45b6-8183-1a1f9d414a93"),
+                    FeedbackDescription = "Excellent service! The doctor was very thorough and answered all my questions.",
+                    FeedbackDate = new DateTime(2024, 6, 1),
+                    Rating = 2,
+                },
+                new ClinicFeedback
+                {
+                    Id = 3,
+                    ClinicId = 3,
+                    CustomerId = Guid.Parse("455565de-ce04-45b6-8183-1a1f9d414a93"),
+                    FeedbackDescription = "The clinic environment was good, but the appointment was delayed by 30 minutes.",
+                    FeedbackDate = new DateTime(2024, 5, 22),
+                    Rating = 4
+                }
+            );
+            #endregion
         }
     }
 }

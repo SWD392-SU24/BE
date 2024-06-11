@@ -13,5 +13,7 @@ namespace Backend.BO.Entities
         [Column("area_name")]
         [MaxLength(100)]
         public required string AreaName { get; set; }
+
+        public IList<Clinic> Clinics { get; set; } = new List<Clinic>();
     }
 }

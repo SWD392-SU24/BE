@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.DAL.Databases.Migrations
 {
     [DbContext(typeof(DenticareContext))]
-    [Migration("20240603114146_AddMoreDataComboService")]
-    partial class AddMoreDataComboService
+    [Migration("20240611082815_RefactorDatabaseWithDumpData")]
+    partial class RefactorDatabaseWithDumpData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,7 +97,7 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9c29e297-55ee-4d15-8fef-999b110f0251"),
+                            Id = new Guid("dc6f432b-7672-49f2-a5be-8d3f833b7f10"),
                             Address = "123 Main St, Anytown, USA",
                             DateOfBirth = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
@@ -111,7 +111,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3c9b5821-bc0a-4202-a2e0-2633cea9157b"),
+                            Id = new Guid("99ad086c-be82-402d-8383-686edd9fc04a"),
                             Address = "456 Lê Lợi, Hồ Chí Minh City, Vietnam",
                             DateOfBirth = new DateTime(1990, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nguyen.vana@gmail.com",
@@ -125,7 +125,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("92f00a49-091c-4c7d-9f6e-2bc757df3a0c"),
+                            Id = new Guid("50f88073-9c33-4037-a824-95925ba55f98"),
                             Address = "789 Trần Hưng Đạo, Hà Nội, Vietnam",
                             DateOfBirth = new DateTime(1988, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tran.thib@example.com",
@@ -139,7 +139,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a37f86b4-52e1-4a10-9e83-7f2204406e65"),
+                            Id = new Guid("6f0d4b83-c3d6-462f-8368-b469326746cc"),
                             Address = "phường Phước Long A, Q.9, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(1987, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "janetran639@gmail.com",
@@ -153,7 +153,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ee48b4bf-a2fc-46ef-87ef-588fd846ff0c"),
+                            Id = new Guid("d82f2cd7-300f-4903-b681-56380d71cc25"),
                             Address = "456 Oak St, Anytown, USA",
                             DateOfBirth = new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
@@ -167,7 +167,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("67b99dd7-0da3-4695-9154-8c19e372285a"),
+                            Id = new Guid("9e51f5de-8b09-4957-88b9-5eadb1f19e5c"),
                             Address = "789 Pine St, Anytown, USA",
                             DateOfBirth = new DateTime(1980, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bob.brown@example.com",
@@ -181,7 +181,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a2e8a185-0f2d-42b9-b6f0-bb603b2c8431"),
+                            Id = new Guid("f827328a-8efd-4da7-bb39-2cf32dcaf8dd"),
                             Email = "adminexample@gmail.com",
                             FirstName = "Admin",
                             Password = "reallystrongpass!123",
@@ -191,7 +191,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b86d9827-9214-4d65-9b96-9234c4f293e1"),
+                            Id = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
                             Address = "Tân Bình, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nhatvmse172011@fpt.edu.vn",
@@ -205,7 +205,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d2b05a1d-5636-4319-af49-194cf76ccf34"),
+                            Id = new Guid("564ba85a-8e22-4aa2-a464-b1a682b6598b"),
                             Address = "Thủ Đức, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bangtlhss170429@fpt.edu.vn",
@@ -284,6 +284,10 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("AppointmentId");
 
+                    b.HasIndex("ClinicId");
+
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("appointment");
                 });
 
@@ -298,7 +302,7 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.Property<string>("AppointmentId")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("appointment_id");
 
                     b.Property<int>("ServiceId")
@@ -306,6 +310,10 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnName("service_id");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("appointment_service");
                 });
@@ -385,6 +393,8 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DoctorId");
+
                     b.ToTable("certificate");
                 });
 
@@ -413,6 +423,10 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnType("varchar(200)")
                         .HasColumnName("clinic_name");
 
+                    b.Property<short>("ClinicState")
+                        .HasColumnType("smallint")
+                        .HasColumnName("clinic_state");
+
                     b.Property<string>("LicenseNumber")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -434,6 +448,10 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AreaId");
+
+                    b.HasIndex("OwnerId");
+
                     b.ToTable("clinic");
 
                     b.HasData(
@@ -443,6 +461,7 @@ namespace Backend.DAL.Databases.Migrations
                             Address = "08 Alexandre de Rhodes St., Ben Nghe Ward, District 1, Ho Chi Minh City",
                             AreaId = 1,
                             ClinicName = "Columbia Asia Saigon International Clinic",
+                            ClinicState = (short)1,
                             LicenseNumber = "HCM0001",
                             NumberOfEmployees = 150,
                             OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
@@ -454,6 +473,7 @@ namespace Backend.DAL.Databases.Migrations
                             Address = "285B Dien Bien Phu, Vo Thi Sau Ward, District 3, Ho Chi Minh City",
                             AreaId = 1,
                             ClinicName = "Raffles Medical Ho Chi Minh",
+                            ClinicState = (short)1,
                             LicenseNumber = "HCM0002",
                             NumberOfEmployees = 200,
                             OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
@@ -465,6 +485,7 @@ namespace Backend.DAL.Databases.Migrations
                             Address = "30 Pham Ngoc Thach, Ward Vo Thi Sau, District 3, Ho Chi Minh City",
                             AreaId = 1,
                             ClinicName = "Centre Médical International (CMI)",
+                            ClinicState = (short)1,
                             LicenseNumber = "HCM0003",
                             NumberOfEmployees = 100,
                             OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
@@ -476,6 +497,7 @@ namespace Backend.DAL.Databases.Migrations
                             Address = "Block 8, Ground floor of SORA Gardens II, Lot C17, Hung Vuong Boulevard, Binh Duong New City, Hoa Phu Ward, Thu Dau Mot City, Binh Duong Province",
                             AreaId = 2,
                             ClinicName = "Binh Duong Urban Clinic",
+                            ClinicState = (short)1,
                             LicenseNumber = "BDU12345",
                             NumberOfEmployees = 50,
                             OwnerId = new Guid("88c95c5d-219b-445e-9c3f-28d92a5d07f7"),
@@ -502,7 +524,79 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClinicId");
+
+                    b.HasIndex("DoctorId");
+
                     b.ToTable("clinic_doctors");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.ClinicFeedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("clinic_fb_id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClinicId")
+                        .HasColumnType("int")
+                        .HasColumnName("clinic_id");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("customer_id");
+
+                    b.Property<DateTime>("FeedbackDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("fb_date");
+
+                    b.Property<string>("FeedbackDescription")
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)")
+                        .HasColumnName("fb_description");
+
+                    b.Property<short>("Rating")
+                        .HasColumnType("smallint")
+                        .HasColumnName("rating");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClinicId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("clinic_feedback");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClinicId = 1,
+                            CustomerId = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
+                            FeedbackDate = new DateTime(2024, 6, 11, 15, 28, 14, 808, DateTimeKind.Local).AddTicks(8725),
+                            FeedbackDescription = "The clinic was clean and the staff were courteous, but the waiting time was longer than expected.",
+                            Rating = (short)3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClinicId = 2,
+                            CustomerId = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
+                            FeedbackDate = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeedbackDescription = "Excellent service! The doctor was very thorough and answered all my questions.",
+                            Rating = (short)2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClinicId = 3,
+                            CustomerId = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
+                            FeedbackDate = new DateTime(2024, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeedbackDescription = "The clinic environment was good, but the appointment was delayed by 30 minutes.",
+                            Rating = (short)4
+                        });
                 });
 
             modelBuilder.Entity("Backend.BO.Entities.Combo", b =>
@@ -598,6 +692,10 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnName("service_id");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ComboId");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("combo_service");
 
@@ -975,6 +1073,8 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("ScheduleId");
 
+                    b.HasIndex("DoctorId");
+
                     b.ToTable("doctor_schedule");
                 });
 
@@ -1002,6 +1102,8 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnName("start_time");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ScheduleId");
 
                     b.ToTable("doctor_working_hours");
                 });
@@ -1035,6 +1137,8 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnName("service_name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClinicId");
 
                     b.ToTable("service");
 
@@ -1535,6 +1639,230 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("treatment_detail");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.Appointment", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.TreatmentDetail", "TreatmentDetail")
+                        .WithOne("Appointment")
+                        .HasForeignKey("Backend.BO.Entities.Appointment", "AppointmentId")
+                        .HasPrincipalKey("Backend.BO.Entities.TreatmentDetail", "AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.BO.Entities.Clinic", "Clinic")
+                        .WithMany("Appointments")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.BO.Commons.User", "Customer")
+                        .WithMany("Appointments")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinic");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("TreatmentDetail");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.AppointmentService", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.Appointment", "Appointment")
+                        .WithMany("AppointmentServices")
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.BO.Entities.Service", "Service")
+                        .WithMany("AppointmentServices")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.Certificate", b =>
+                {
+                    b.HasOne("Backend.BO.Commons.User", "Doctor")
+                        .WithMany("Certificates")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.Clinic", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.Area", "Area")
+                        .WithMany("Clinics")
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.BO.Commons.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Area");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.ClinicDoctor", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.Clinic", "Clinic")
+                        .WithMany("ClinicDoctors")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.BO.Commons.User", "Doctor")
+                        .WithMany("ClinicDoctors")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinic");
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.ClinicFeedback", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.Clinic", "Clinic")
+                        .WithMany("ClinicFeedbacks")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Backend.BO.Commons.User", "Customer")
+                        .WithMany("ClinicFeedbacks")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Clinic");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.ComboService", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.Combo", "Combo")
+                        .WithMany("ComboServices")
+                        .HasForeignKey("ComboId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.BO.Entities.Service", "Service")
+                        .WithMany("ComboServices")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Combo");
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.DoctorSchedule", b =>
+                {
+                    b.HasOne("Backend.BO.Commons.User", "Doctor")
+                        .WithMany("DoctorSchedules")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.DoctorWorkingHours", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.DoctorSchedule", "DoctorSchedule")
+                        .WithMany("DoctorWorkingHours")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DoctorSchedule");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.Service", b =>
+                {
+                    b.HasOne("Backend.BO.Entities.Clinic", "Clinic")
+                        .WithMany("Services")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinic");
+                });
+
+            modelBuilder.Entity("Backend.BO.Commons.User", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Certificates");
+
+                    b.Navigation("ClinicDoctors");
+
+                    b.Navigation("ClinicFeedbacks");
+
+                    b.Navigation("DoctorSchedules");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.Appointment", b =>
+                {
+                    b.Navigation("AppointmentServices");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.Area", b =>
+                {
+                    b.Navigation("Clinics");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.Clinic", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("ClinicDoctors");
+
+                    b.Navigation("ClinicFeedbacks");
+
+                    b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.Combo", b =>
+                {
+                    b.Navigation("ComboServices");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.DoctorSchedule", b =>
+                {
+                    b.Navigation("DoctorWorkingHours");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.Service", b =>
+                {
+                    b.Navigation("AppointmentServices");
+
+                    b.Navigation("ComboServices");
+                });
+
+            modelBuilder.Entity("Backend.BO.Entities.TreatmentDetail", b =>
+                {
+                    b.Navigation("Appointment")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

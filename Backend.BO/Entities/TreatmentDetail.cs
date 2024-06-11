@@ -18,6 +18,6 @@ namespace Backend.BO.Entities
         [Column("details", TypeName = "text")]
         public string? Details { get; set; }
 
-        //public Appointment Appointment { get; set; } = null!;
+        public Appointment Appointment { get; set; } = null!;
     }
 }

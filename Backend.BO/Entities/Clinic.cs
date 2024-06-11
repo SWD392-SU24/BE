@@ -36,6 +36,21 @@ namespace Backend.BO.Entities
         [Column("area_id")]
         public int AreaId { get; set; }
 
-        //public User Owner { get; set; } = null!;
+        public User Owner { get; set; } = null!;
+
+        public IList<ClinicDoctor> ClinicDoctors { get; set; } = new List<ClinicDoctor>();
+
+        public IList<Service> Services { get; set; } = new List<Service>();
+
+        public IList<Appointment> Appointments { get; set; } = new List<Appointment>();
+
+        public IList<ClinicFeedback> ClinicFeedbacks { get; set; } = new List<ClinicFeedback>();
+
+        // Three states
+        // 1: pending; 2: verified; 3: disable
+        [Column("clinic_state")]
+        public short ClinicState { get; set; }
+
+        public Area Area { get; set; } = null!;
     }
 }

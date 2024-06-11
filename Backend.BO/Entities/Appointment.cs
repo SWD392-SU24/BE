@@ -36,11 +36,15 @@ namespace Backend.BO.Entities
         [Column("clinic_id")]
         public int ClinicId { get; set; }
 
+        public IList<AppointmentService> AppointmentServices { get; set; } = new List<AppointmentService>();
+
         [Column("customer_id")]
         public Guid CustomerId { get; set; }
 
-        //public Clinic Clinic { get; set; } = null!;
+        public Clinic Clinic { get; set; } = null!;
 
-        //public User Customer { get; set; } = null!;
+        public User Customer { get; set; } = null!;
+
+        public TreatmentDetail TreatmentDetail { get; set; } = null!;
     }
 }
