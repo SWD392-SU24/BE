@@ -11,7 +11,8 @@ namespace Backend.BLL.Features.Clinics
         Task<ClinicResponse> AddClinicAsync(ClinicRequest clinicRequest);
         Task<ClinicResponse> UpdateClinicAsync(int clinicId, ClinicRequest clinicRequest);
         Task DeleteClinicAsync(int clinicId);
-        Task<List<ClinicResponse>> GetClinicsByNameAsync(string? clinicName);
+        Task<List<ClinicResponse>> GetClinicsByNameAsync(string? clinicName, int? areaId);
+        Task<List<ClinicResponse>> GetAllClinicsByOwnerIdAsync(string ownerId, int? areaId = null, short? clinicState = null);
 
         /// <summary>
         /// Get feedback of a clinic
