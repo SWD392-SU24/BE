@@ -11,6 +11,9 @@ namespace Backend.DAL.Databases.Relationships
             builder.HasOne(x => x.Doctor)
                 .WithMany(y => y.Certificates)
                 .HasForeignKey(x => x.DoctorId);
+
+            builder.HasIndex(x => x.CertificateNumber)
+                .IsUnique();
         }
     }
 }

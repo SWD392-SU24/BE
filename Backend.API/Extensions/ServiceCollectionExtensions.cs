@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Backend.BLL.Features.Auth;
+using Backend.BLL.Features.Certificates;
 using Backend.BLL.Features.Clinics;
 using Backend.BLL.Features.Users;
 using Backend.DAL;
@@ -71,11 +72,15 @@ namespace Backend.API.Extensions
 
             // Repositories configuration
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
+            services.AddScoped<ICertificateRepository, CertificateRepository>();
+            services.AddScoped<IClinicRepository, ClinicRepository>();
+                        
             // Services configuration
             services.AddTransient<ITokenService, TokenService>();   // processing Jwt tokens
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<ICertificateService, CertificateService>();
+
             services.AddHttpContextAccessor();
             return services;
         }

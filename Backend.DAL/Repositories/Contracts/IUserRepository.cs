@@ -1,5 +1,5 @@
 ﻿using Backend.BO.Commons;
-using Backend.BO.Payloads.Requests;
+using Backend.BO.Entities;
 
 namespace Backend.DAL.Repositories.Contracts
 {

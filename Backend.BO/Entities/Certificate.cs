@@ -15,6 +15,10 @@ namespace Backend.BO.Entities
         [MaxLength(300)]
         public required string CertificateName { get; set; }
 
+        [Column("certificate_number")]
+        [MaxLength(10)]
+        public required string CertificateNumber { get; set; }
+
         [Column("issued_date")]
         public DateTime IssuedDate { get; set; }
 
