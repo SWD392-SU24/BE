@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.DAL.Databases.Migrations
 {
     /// <inheritdoc />
-    public partial class RefactorDatabaseWithDumpData : Migration
+    public partial class RefactorDatabasev2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -107,6 +107,8 @@ namespace Backend.DAL.Databases.Migrations
                     certificate_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     certificate_name = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    certificate_number = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     issued_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     expired_date = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -412,17 +414,28 @@ namespace Backend.DAL.Databases.Migrations
                 columns: new[] { "user_id", "address", "citizen_id", "date_of_birth", "email", "first_name", "last_name", "password", "phone_number", "refresh_token", "refresh_token_expiry_time", "role", "sex" },
                 values: new object[,]
                 {
+                    { new Guid("0172a2dd-a259-4429-9737-5b485d4fab06"), "phường Phước Long A, Q.9, Tp.Hồ Chí Minh", null, new DateTime(1987, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "janetran639@gmail.com", "Hà", "Phùng Trần Mai", "999doahoahong@", "0902694265", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DE", (short)1 },
+                    { new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"), "Tp.Hồ Chí Minh", null, new DateTime(2003, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "baongoc1234@gmail.com", "Ngọc", "Bảo", "12345!", "0912345678", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DE", (short)1 },
+                    { new Guid("324c5b1d-e99e-4f5e-ba4f-8ce83f615954"), null, null, null, "adminexample@gmail.com", "Admin", null, "reallystrongpass!123", null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "SA", (short)0 },
+                    { new Guid("38be5156-f30e-478c-bfc0-a1b05c6a88b5"), "789 Trần Hưng Đạo, Hà Nội, Vietnam", null, new DateTime(1988, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "tran.thib@example.com", "B", "Trần Thị", "Password123!", "0976543210", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DE", (short)1 },
                     { new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"), "Tân Bình, Tp.Hồ Chí Minh", null, new DateTime(2003, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "nhatvmse172011@fpt.edu.vn", "Nhật", "Vũ Minh", "Password123!", "0366412667", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CUS", (short)1 },
                     { new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"), "phường Chánh Nghĩa, Tp.Thủ Dầu Một, tỉnh Bình Dương", null, new DateTime(2003, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "vulongbinhduong@gmail.com", "Long", "Vũ", "xxx123!", "0866742614", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CO", (short)1 },
-                    { new Guid("50f88073-9c33-4037-a824-95925ba55f98"), "789 Trần Hưng Đạo, Hà Nội, Vietnam", null, new DateTime(1988, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "tran.thib@example.com", "B", "Trần Thị", "Password123!", "0976543210", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DE", (short)1 },
-                    { new Guid("564ba85a-8e22-4aa2-a464-b1a682b6598b"), "Thủ Đức, Tp.Hồ Chí Minh", null, new DateTime(2003, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bangtlhss170429@fpt.edu.vn", "Bằng", "Trần Lê Hữu", "Password123!", "0384691554", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CUS", (short)1 },
-                    { new Guid("6f0d4b83-c3d6-462f-8368-b469326746cc"), "phường Phước Long A, Q.9, Tp.Hồ Chí Minh", null, new DateTime(1987, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "janetran639@gmail.com", "Hà", "Phùng Trần Mai", "999doahoahong@", "0902694265", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DE", (short)1 },
+                    { new Guid("5ba3815b-d294-40fd-b4c4-1dd975a527c4"), "456 Lê Lợi, Hồ Chí Minh City, Vietnam", null, new DateTime(1990, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "nguyen.vana@gmail.com", "A", "Nguyễn Văn", "Password123!", "0987654321", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DE", (short)1 },
+                    { new Guid("7e1a0d29-0ee8-4692-bb88-416e44369cb0"), "789 Pine St, Anytown, USA", null, new DateTime(1980, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "bob.brown@example.com", "Bob", "Brown", "Password123!", "3456789012", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CUS", (short)1 },
                     { new Guid("88c95c5d-219b-445e-9c3f-28d92a5d07f7"), "Tp.Sóc Trăng", null, new DateTime(2003, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "huyquac@gmail.com", "Huy", "Quách Hoàng", "xxx123!", "0332877905", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CO", (short)1 },
-                    { new Guid("99ad086c-be82-402d-8383-686edd9fc04a"), "456 Lê Lợi, Hồ Chí Minh City, Vietnam", null, new DateTime(1990, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "nguyen.vana@gmail.com", "A", "Nguyễn Văn", "Password123!", "0987654321", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DE", (short)1 },
-                    { new Guid("9e51f5de-8b09-4957-88b9-5eadb1f19e5c"), "789 Pine St, Anytown, USA", null, new DateTime(1980, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "bob.brown@example.com", "Bob", "Brown", "Password123!", "3456789012", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CUS", (short)1 },
-                    { new Guid("d82f2cd7-300f-4903-b681-56380d71cc25"), "456 Oak St, Anytown, USA", null, new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Jane", "Smith", "Password123!", "2345678901", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CUS", (short)2 },
-                    { new Guid("dc6f432b-7672-49f2-a5be-8d3f833b7f10"), "123 Main St, Anytown, USA", null, new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", "John", "Doe", "Password123!", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DE", (short)1 },
-                    { new Guid("f827328a-8efd-4da7-bb39-2cf32dcaf8dd"), null, null, null, "adminexample@gmail.com", "Admin", null, "reallystrongpass!123", null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "SA", (short)0 }
+                    { new Guid("8a74a99d-17b4-4e91-8457-333b42837f0a"), "456 Oak St, Anytown, USA", null, new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Jane", "Smith", "Password123!", "2345678901", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CUS", (short)2 },
+                    { new Guid("b9b61b52-9eb0-414c-886d-1ee2589a5438"), "Thủ Đức, Tp.Hồ Chí Minh", null, new DateTime(2003, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bangtlhss170429@fpt.edu.vn", "Bằng", "Trần Lê Hữu", "Password123!", "0384691554", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CUS", (short)1 },
+                    { new Guid("fd86db0c-0058-405e-a406-dbe82f6e98f3"), "123 Main St, Anytown, USA", null, new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", "John", "Doe", "Password123!", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DE", (short)1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "certificate",
+                columns: new[] { "certificate_id", "certificate_image", "certificate_name", "certificate_number", "doctor_id", "expired_date", "issued_date" },
+                values: new object[,]
+                {
+                    { 1, "https://example.com/certificateImage.jpg", "Medical Practice License", "CERT-001", new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"), null, new DateTime(2024, 6, 14, 16, 15, 51, 899, DateTimeKind.Local).AddTicks(6670) },
+                    { 2, "https://example.com/certificateImage2.jpg", "Dental Surgery Certification", "CERT-002", new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"), null, new DateTime(2022, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, "https://example.com/certificateImage3.jpg", "Emergency Medicine Training", "CERT-003", new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"), null, new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -441,7 +454,7 @@ namespace Backend.DAL.Databases.Migrations
                 columns: new[] { "clinic_fb_id", "clinic_id", "customer_id", "fb_date", "fb_description", "rating" },
                 values: new object[,]
                 {
-                    { 1, 1, new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"), new DateTime(2024, 6, 11, 15, 28, 14, 808, DateTimeKind.Local).AddTicks(8725), "The clinic was clean and the staff were courteous, but the waiting time was longer than expected.", (short)3 },
+                    { 1, 1, new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"), new DateTime(2024, 6, 14, 16, 15, 51, 899, DateTimeKind.Local).AddTicks(6545), "The clinic was clean and the staff were courteous, but the waiting time was longer than expected.", (short)3 },
                     { 2, 2, new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"), new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Excellent service! The doctor was very thorough and answered all my questions.", (short)2 },
                     { 3, 3, new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"), new DateTime(2024, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "The clinic environment was good, but the appointment was delayed by 30 minutes.", (short)4 }
                 });
@@ -597,6 +610,12 @@ namespace Backend.DAL.Databases.Migrations
                 name: "IX_appointment_service_service_id",
                 table: "appointment_service",
                 column: "service_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_certificate_certificate_number",
+                table: "certificate",
+                column: "certificate_number",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_certificate_doctor_id",

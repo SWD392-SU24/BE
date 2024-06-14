@@ -94,7 +94,7 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fe3589a9-c44c-4af8-949c-e613be711d96"),
+                            Id = new Guid("fd86db0c-0058-405e-a406-dbe82f6e98f3"),
                             Address = "123 Main St, Anytown, USA",
                             DateOfBirth = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
@@ -108,7 +108,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("033f3d07-b144-4332-b449-470f93a2c56e"),
+                            Id = new Guid("5ba3815b-d294-40fd-b4c4-1dd975a527c4"),
                             Address = "456 Lê Lợi, Hồ Chí Minh City, Vietnam",
                             DateOfBirth = new DateTime(1990, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nguyen.vana@gmail.com",
@@ -122,7 +122,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("57b45576-2a11-4751-acec-4d6a4847d0ee"),
+                            Id = new Guid("38be5156-f30e-478c-bfc0-a1b05c6a88b5"),
                             Address = "789 Trần Hưng Đạo, Hà Nội, Vietnam",
                             DateOfBirth = new DateTime(1988, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tran.thib@example.com",
@@ -136,7 +136,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("35115282-c79c-4c88-89b1-cb9a940e0115"),
+                            Id = new Guid("0172a2dd-a259-4429-9737-5b485d4fab06"),
                             Address = "phường Phước Long A, Q.9, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(1987, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "janetran639@gmail.com",
@@ -150,7 +150,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a294d2cf-413d-486d-aa8c-b623555d2ac0"),
+                            Id = new Guid("8a74a99d-17b4-4e91-8457-333b42837f0a"),
                             Address = "456 Oak St, Anytown, USA",
                             DateOfBirth = new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
@@ -164,7 +164,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b2891139-fa92-41ee-bc2f-5fb4f2fea682"),
+                            Id = new Guid("7e1a0d29-0ee8-4692-bb88-416e44369cb0"),
                             Address = "789 Pine St, Anytown, USA",
                             DateOfBirth = new DateTime(1980, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bob.brown@example.com",
@@ -178,7 +178,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ec0fd3bf-8d13-444a-bdac-923cfa091310"),
+                            Id = new Guid("324c5b1d-e99e-4f5e-ba4f-8ce83f615954"),
                             Email = "adminexample@gmail.com",
                             FirstName = "Admin",
                             Password = "reallystrongpass!123",
@@ -202,7 +202,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cd1a49cd-0e2e-4a3e-8518-77be78230259"),
+                            Id = new Guid("b9b61b52-9eb0-414c-886d-1ee2589a5438"),
                             Address = "Thủ Đức, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bangtlhss170429@fpt.edu.vn",
@@ -390,6 +390,12 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnType("varchar(300)")
                         .HasColumnName("certificate_name");
 
+                    b.Property<string>("CertificateNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("certificate_number");
+
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("char(36)")
                         .HasColumnName("doctor_id");
@@ -404,6 +410,9 @@ namespace Backend.DAL.Databases.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CertificateNumber")
+                        .IsUnique();
+
                     b.HasIndex("DoctorId");
 
                     b.ToTable("certificate");
@@ -414,14 +423,16 @@ namespace Backend.DAL.Databases.Migrations
                             Id = 1,
                             CertificateImage = "https://example.com/certificateImage.jpg",
                             CertificateName = "Medical Practice License",
+                            CertificateNumber = "CERT-001",
                             DoctorId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"),
-                            IssuedDate = new DateTime(2024, 6, 11, 22, 6, 24, 368, DateTimeKind.Local).AddTicks(9923)
+                            IssuedDate = new DateTime(2024, 6, 14, 16, 15, 51, 899, DateTimeKind.Local).AddTicks(6670)
                         },
                         new
                         {
                             Id = 2,
                             CertificateImage = "https://example.com/certificateImage2.jpg",
                             CertificateName = "Dental Surgery Certification",
+                            CertificateNumber = "CERT-002",
                             DoctorId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"),
                             IssuedDate = new DateTime(2022, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -430,6 +441,7 @@ namespace Backend.DAL.Databases.Migrations
                             Id = 3,
                             CertificateImage = "https://example.com/certificateImage3.jpg",
                             CertificateName = "Emergency Medicine Training",
+                            CertificateNumber = "CERT-003",
                             DoctorId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"),
                             IssuedDate = new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -612,7 +624,7 @@ namespace Backend.DAL.Databases.Migrations
                             Id = 1,
                             ClinicId = 1,
                             CustomerId = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
-                            FeedbackDate = new DateTime(2024, 6, 11, 22, 6, 24, 368, DateTimeKind.Local).AddTicks(9890),
+                            FeedbackDate = new DateTime(2024, 6, 14, 16, 15, 51, 899, DateTimeKind.Local).AddTicks(6545),
                             FeedbackDescription = "The clinic was clean and the staff were courteous, but the waiting time was longer than expected.",
                             Rating = (short)3
                         },

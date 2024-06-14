@@ -4,6 +4,7 @@ using Backend.BO.Commons;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;
 using Backend.DAL;
+using Backend.DAL.Repositories.Contracts;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
