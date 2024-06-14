@@ -29,6 +29,8 @@ namespace Backend.BLL.Features.Clinics
             var clinicRepository = _unitOfWork.GetRepository<Clinic>();
             var clinicEntity = _mapper.Map<Clinic>(clinicRequest);
 
+            clinicEntity.ClinicState = 1;
+
             await clinicRepository.AddAsync(clinicEntity);
             await _unitOfWork.CommitAsync();
 
@@ -119,7 +121,7 @@ namespace Backend.BLL.Features.Clinics
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<List<ClinicResponse>> GetClinicsByNameAsync(string? clinicName)
+        public async Task<List<ClinicResponse>> GetClinicsByNameAsync(string? clinicName, int? areaId)
         {
             var clinicRepository = _unitOfWork.GetRepository<Clinic>();
             IQueryable<Clinic> query = clinicRepository.GetAll();
@@ -128,12 +130,44 @@ namespace Backend.BLL.Features.Clinics
             {
                 query = query.Where(c => c.ClinicName.Contains(clinicName));
             }
-
+            if (areaId.HasValue)
+            {
+                query = query.Where(c => c.AreaId == areaId.Value);
+            }
             var clinics = await query.ToListAsync();
             if (clinics.Count == 0)
             {
                 throw new KeyNotFoundException("Clinics not found");
             }
+            return _mapper.Map<List<ClinicResponse>>(clinics);
+        }
+        public async Task<List<ClinicResponse>> GetAllClinicsByOwnerIdAsync(string ownerId, int? areaId = null, short? clinicState = null)
+        {
+            if (!Guid.TryParse(ownerId, out Guid ownerGuid))
+            {
+                throw new ArgumentException("Invalid OwnerId");
+            }
+
+            var clinicRepository = _unitOfWork.GetRepository<Clinic>();
+            IQueryable<Clinic> query = clinicRepository.GetAll().Where(c => c.OwnerId == ownerGuid);
+
+            if (areaId.HasValue)
+            {
+                query = query.Where(c => c.AreaId == areaId.Value);
+            }
+
+            if (clinicState.HasValue)
+            {
+                query = query.Where(c => c.ClinicState == clinicState.Value);
+            }
+
+            var clinics = await query.ToListAsync();
+
+            if (clinics.Count == 0)
+            {
+                throw new KeyNotFoundException("No clinics found for the specified criteria");
+            }
+
             return _mapper.Map<List<ClinicResponse>>(clinics);
         }
 

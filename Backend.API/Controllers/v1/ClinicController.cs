@@ -18,10 +18,10 @@ namespace Backend.API.Controllers.v1
         }
 
         [HttpPost("clinics")]
-        [ProducesResponseType(typeof(ClinicResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ClinicResponse>> AddClinic([FromBody] ClinicRequest clinicRequest)
+        public async Task<ActionResult<ResponseModel<ClinicResponse>>> AddClinic([FromBody] ClinicRequest clinicRequest)
         {
             var addedClinic = await _clinicService.AddClinicAsync(clinicRequest);
             return Ok(addedClinic);
@@ -32,7 +32,7 @@ namespace Backend.API.Controllers.v1
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ClinicResponse>> UpdateClinic(int clinicId, [FromBody] ClinicRequest clinicRequest)
+        public async Task<ActionResult<ResponseModel<ClinicResponse>>> UpdateClinic(int clinicId, [FromBody] ClinicRequest clinicRequest)
         {
             var updatedClinic = await _clinicService.UpdateClinicAsync(clinicId, clinicRequest);
             return Ok(updatedClinic);
@@ -41,20 +41,36 @@ namespace Backend.API.Controllers.v1
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<IActionResult> DeleteClinic(int clinicId)
+        public async Task<ActionResult<ResponseModel<string>>> DeleteClinic(int clinicId)
         {
             await _clinicService.DeleteClinicAsync(clinicId);
             return Ok("Delete Success!");
         }
 
-        [HttpGet("clinics")]
+        [HttpGet("clinics/{areaId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<List<ClinicResponse>>> GetClinicsByName(string? clinicName)
+        public async Task<ActionResult<ResponseModel<List<ClinicResponse>>>> GetClinicsByName(string? clinicName, int areaId)
         {
-            var clinics = await _clinicService.GetClinicsByNameAsync(clinicName);
+            var clinics = await _clinicService.GetClinicsByNameAsync(clinicName, areaId);
             return Ok(clinics);
+        }
+
+        [HttpGet("clinics/{ownerId}/owner")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<ResponseModel<List<ClinicResponse>>>> GetAllClinicsByOwnerId(string ownerId, int? areaId = null, short? clinicState = null)
+        {
+            var clinics = await _clinicService.GetAllClinicsByOwnerIdAsync(ownerId, areaId, clinicState);
+
+            var response = new ResponseModel<List<ClinicResponse>>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "Clinics retrieved successfully",
+                response: clinics
+            );
+            return Ok(response);
         }
 
         [HttpGet("clinic/{id}/feedback")]
