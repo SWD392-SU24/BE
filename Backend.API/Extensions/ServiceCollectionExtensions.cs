@@ -79,6 +79,7 @@ namespace Backend.API.Extensions
             services.AddTransient<ITokenService, TokenService>();   // processing Jwt tokens
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddHttpContextAccessor();
             return services;
         }

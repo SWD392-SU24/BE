@@ -7,6 +7,10 @@ namespace Backend.BO.Commons
     [Table("users")]
     public class User : UserEntity
     {
+        [Column("user_id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
         [Column("first_name")]
         [MaxLength(50)]
         public required string FirstName { get; set; }

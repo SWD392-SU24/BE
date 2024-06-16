@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
 using Backend.BLL.Features.Auth;
+using Backend.BLL.Validations;
 using Backend.BO.Commons;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;
 using Backend.DAL;
+using Backend.DAL.Repositories;
+using Backend.DAL.Repositories.Contracts;
+using System.Diagnostics;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
@@ -210,6 +214,87 @@ namespace Backend.BLL.Features.Users
                 throw;
             }
             return result;
+        }
+
+        public PageList<UserDashboardReponse> GetAllUser(string? name, string? email, string? phoneNumber, string? address, int? sex, string? role, int pageNumber = 1, int pageSize = 5)
+        {
+            var usersQuery = _unitOfWork.GetUserRepository().GetAllUser(name, email, phoneNumber, address, sex, role);
+            var userPageList = PageList<User>.ToPagedList(usersQuery, pageNumber, pageSize);
+            return _mapper.Map<PageList<UserDashboardReponse>>(userPageList);
+        }
+
+        public async Task<UserResponse?> GetUserById(Guid id)
+        {
+            IUserRepository userRepository = _unitOfWork.GetUserRepository();
+            try
+            {
+                var user = await userRepository.GetByIdAsync(id);
+                if (user == null)
+                {
+                    throw new ArgumentException("User not found");
+                }
+                var userResponse = _mapper.Map<UserResponse>(user);
+                return userResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving the user", ex);
+            }
+        }
+
+        public async Task<UserResponse?> CreateUser(UserRequest userCreateRequest)
+        {
+            IUserRepository userRepository = _unitOfWork.GetUserRepository();
+            try
+            {
+                var user = _mapper.Map<User>(userCreateRequest);
+                UserValidation.ValidationUserRequest(user);
+                await userRepository.AddAsync(user);
+                await _unitOfWork.CommitAsync();
+                return _mapper.Map<UserResponse>(user);
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Rollback();
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> UpdateUser(Guid id, UpdateUserRequest userUpdateRequest)
+        {
+            IUserRepository userRepository = _unitOfWork.GetUserRepository();
+            try
+            {
+                var user = await userRepository.GetByIdAsync(id);
+                if (user == null) return false;
+                _mapper.Map(userUpdateRequest, user);
+                userRepository.Update(user);
+                await _unitOfWork.CommitAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Rollback();
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> DeleteUser(Guid id)
+        {
+            IUserRepository userRepository = _unitOfWork.GetUserRepository();
+            try
+            {
+                var user = await userRepository.GetByIdAsync(id);
+                if (user == null) return false;
+                userRepository.Delete(user);
+                await _unitOfWork.CommitAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Rollback();
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
