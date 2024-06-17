@@ -4,17 +4,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Backend.DAL.Databases.Relationships
 {
-    public class ClinicDoctorTypeConfiguration : IEntityTypeConfiguration<ClinicDoctor>
+    public class ClinicDoctorTypeConfiguration : IEntityTypeConfiguration<ClinicDentist>
     {
-        public void Configure(EntityTypeBuilder<ClinicDoctor> builder)
+        public void Configure(EntityTypeBuilder<ClinicDentist> builder)
         {
             builder.HasOne(x => x.Clinic)
-                .WithMany(y => y.ClinicDoctors)
+                .WithMany(y => y.ClinicDentists)
                 .HasForeignKey(x => x.ClinicId);
 
-            builder.HasOne(x => x.Doctor)
-                .WithMany(y => y.ClinicDoctors)
-                .HasForeignKey(x => x.DoctorId);
+            builder.HasOne(x => x.Dentist)
+                .WithMany(y => y.ClinicDentists)
+                .HasForeignKey(x => x.DentistId);
+            
         }
     }
 }

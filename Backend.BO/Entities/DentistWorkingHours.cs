@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.BO.Entities
 {
-    [Table("doctor_working_hours")]
-    public class DoctorWorkingHours : IBaseEntity
+    [Table("dentist_working_hours")]
+    public class DentistWorkingHours : IBaseEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("working_hour_id")]
@@ -21,6 +21,6 @@ namespace Backend.BO.Entities
         [Column("end_time")]
         public TimeOnly EndTime { get; set; }
 
-        public DoctorSchedule DoctorSchedule { get; set; } = null!;
+        public DentistSchedule DentistSchedule { get; set; } = null!;
     }
 }

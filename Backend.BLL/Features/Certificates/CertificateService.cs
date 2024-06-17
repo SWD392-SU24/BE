@@ -26,7 +26,6 @@ namespace Backend.BLL.Features.Certificates
         public async Task<bool> AddCertificateOfADentist(CertificateRequest request)
         {
             var result = false;
-
             try
             {
                 if (request is null)
@@ -54,7 +53,7 @@ namespace Backend.BLL.Features.Certificates
             try
             {
                 var certificate = await _certificateRepository
-                    .GetAsync(x => x.Id == certificateId && x.DoctorId == dentistId);
+                    .GetAsync(x => x.Id == certificateId && x.DentistId == dentistId);
                 if (certificate is null)
                     throw new KeyNotFoundException("Certificate does not exist!");
 
@@ -76,7 +75,7 @@ namespace Backend.BLL.Features.Certificates
             try
             {
                 var certificates = await _certificateRepository.GetAll()
-                    .Where(x => x.DoctorId == dentistId)
+                    .Where(x => x.DentistId == dentistId)
                     .AsNoTracking()
                     .ToListAsync();
 
@@ -139,7 +138,7 @@ namespace Backend.BLL.Features.Certificates
                     throw new ArgumentException("Request from client is empty.");
                 
                 var certificate = await _certificateRepository
-                    .GetAsync(x => x.Id == certId && x.DoctorId == request.DoctorId);
+                    .GetAsync(x => x.Id == certId && x.DentistId == request.DoctorId);
                 if (certificate is null)
                     throw new KeyNotFoundException("Certificate does not exist.");
 

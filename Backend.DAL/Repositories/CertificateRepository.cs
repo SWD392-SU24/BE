@@ -10,6 +10,9 @@ namespace Backend.DAL.Repositories
         {
         }
 
-
+        public string HelloWorld()
+        {
+            return string.Empty;
+        }
     }
 }

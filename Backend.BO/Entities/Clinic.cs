@@ -38,7 +38,7 @@ namespace Backend.BO.Entities
 
         public User Owner { get; set; } = null!;
 
-        public IList<ClinicDoctor> ClinicDoctors { get; set; } = new List<ClinicDoctor>();
+        public IList<ClinicDentist> ClinicDentists { get; set; } = new List<ClinicDentist>();
 
         public IList<Service> Services { get; set; } = new List<Service>();
 
