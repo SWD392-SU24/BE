@@ -20,5 +20,12 @@ namespace Backend.BLL.Features.Users
         Task<bool> SignupForCustomer(CustomerSignupRequest request);
 
         Task<bool> SignupForClinicOwner(ClinicOwnerSignupRequest request);
+
+        // ---------------------------------- //
+        PageList<UserDashboardReponse> GetAllUser(string? name, string? email, string? phoneNumber, string? address, int? sex, string? role, int pageNumber, int pageSize);
+        Task<UserResponse?> GetUserById(Guid id);
+        Task<UserResponse?> CreateUser(UserRequest userCreateRequest);
+        Task<bool> UpdateUser(Guid id, UpdateUserRequest userUpdateRequest);
+        Task<bool> DeleteUser(Guid id);
     }
 }

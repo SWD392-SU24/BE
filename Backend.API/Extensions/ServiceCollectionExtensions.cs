@@ -81,6 +81,7 @@ namespace Backend.API.Extensions
             services.AddScoped<IClinicService, ClinicService>();
             services.AddScoped<ICertificateService, CertificateService>();
 
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddHttpContextAccessor();
             return services;
         }
