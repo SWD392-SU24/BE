@@ -129,7 +129,7 @@ namespace Backend.BLL.Features.Certificates
             }
         }
 
-        public async Task<bool> UpdateCertificateImageAndDate(int certId, CertificateRequest request)
+        public async Task<bool> UpdateCertificateImageAndDate(int certId, UpdateCertificateRequest request)
         {
             var result = false;
             try
@@ -138,7 +138,7 @@ namespace Backend.BLL.Features.Certificates
                     throw new ArgumentException("Request from client is empty.");
                 
                 var certificate = await _certificateRepository
-                    .GetAsync(x => x.Id == certId && x.DentistId == request.DoctorId);
+                    .GetAsync(x => x.Id == certId && x.DentistId == request.DentistId);
                 if (certificate is null)
                     throw new KeyNotFoundException("Certificate does not exist.");
 

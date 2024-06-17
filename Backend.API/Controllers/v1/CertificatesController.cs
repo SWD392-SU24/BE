@@ -73,7 +73,7 @@ namespace Backend.API.Controllers.v1
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ResponseModel<string>>> UpdateCertificate(int id, [FromBody] CertificateRequest request)
+        public async Task<ActionResult<ResponseModel<string>>> UpdateCertificate(int id, [FromBody] UpdateCertificateRequest request)
         {
             var result = await _certificateService.UpdateCertificateImageAndDate(id, request);
             if (result)
