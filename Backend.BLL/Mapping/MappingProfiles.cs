@@ -39,6 +39,7 @@ namespace Backend.BLL.Mapping
 
             CreateMap<Certificate, CertificateResponse>().ReverseMap();
             CreateMap<Certificate, CertificateRequest>().ReverseMap();
+            CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
         }
     }
 }

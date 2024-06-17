@@ -38,6 +38,6 @@ namespace Backend.BLL.Features.Certificates
         /// <returns></returns>
         Task<bool> DeleteCertificate(int certificateId, Guid dentistId);
 
-        Task<bool> UpdateCertificateImageAndDate(int certId, CertificateRequest request);
+        Task<bool> UpdateCertificateImageAndDate(int certId, UpdateCertificateRequest request);
     }
 }
