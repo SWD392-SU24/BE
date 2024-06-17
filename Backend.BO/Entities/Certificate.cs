@@ -28,9 +28,9 @@ namespace Backend.BO.Entities
         [Column("certificate_image", TypeName = "text")]
         public string? CertificateImage { get; set; }
 
-        [Column("doctor_id")]
-        public Guid DoctorId { get; set; }
+        [Column("dentist_id")]
+        public Guid DentistId { get; set; }
 
-        public User Doctor { get; set; } = null!;
+        public Dentist Dentist { get; set; } = null!;
     }
 }

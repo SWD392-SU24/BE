@@ -25,22 +25,18 @@ namespace Backend.DAL.Databases
         public virtual DbSet<Certificate> Certificates { get; set; }
         
         public virtual DbSet<Clinic> Clinics { get; set; }
-        
-        public virtual DbSet<Combo> Combos { get; set; }
-        
-        public virtual DbSet<ComboService> ComboServices { get; set; }
-        
-        public virtual DbSet<DoctorWorkingHours> DoctorSchedules { get; set; }
-        
-        public virtual DbSet<DoctorWorkingHours> DoctorWorkingHours { get; set; }
+                                
+        public virtual DbSet<DentistWorkingHours> DentistWorkingHours { get; set; }
         
         public virtual DbSet<Service> Services { get; set; }
         
         public virtual DbSet<TreatmentDetail> TreatmentDetails { get; set; }
 
-        public virtual DbSet<ClinicDoctor> ClinicDoctors { get; set; }
+        public virtual DbSet<ClinicDentist> ClinicDentists { get; set; }
 
         public virtual DbSet<ClinicFeedback> ClinicFeedbacks { get; set; }
+
+        public virtual DbSet<Dentist> Dentists { get; set; }
 
         private string GetConnectionString()
         {
@@ -59,7 +55,7 @@ namespace Backend.DAL.Databases
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region
+            #region Relationship configuration
             // Applying relationship configuration
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppointmentServiceTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppointmentTypeConfiguration).Assembly);
@@ -69,9 +65,8 @@ namespace Backend.DAL.Databases
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClinicTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClinicTypeConfiguration).Assembly);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ComboServiceTypeConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DoctorScheduleTypeConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DoctorWorkingHoursTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DentistScheduleTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DentistWorkingHoursTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ServiceTypeConfiguration).Assembly);
             #endregion
 

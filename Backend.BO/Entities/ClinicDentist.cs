@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.BO.Entities
 {
-    [Table("clinic_doctors")]
-    public class ClinicDoctor : IBaseEntity
+    [Table("clinic_dentist")]
+    public class ClinicDentist : IBaseEntity
     {
         [Column("cd_no")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,11 +13,13 @@ namespace Backend.BO.Entities
         [Column("clinic_id")]
         public int ClinicId { get; set; }
 
-        [Column("doctor_id")]
-        public Guid DoctorId { get; set; }
+        [Column("dentist_id")]
+        public Guid DentistId { get; set; }
 
-        public User Doctor { get; set; } = null!;
+        public Dentist Dentist { get; set; } = null!;
 
         public Clinic Clinic { get; set; } = null!;
+
+        // TODO: Add more fields relating to date
     }
 }

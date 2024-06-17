@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.BO.Entities
 {
+    [Table("area")]
     public class Area : IBaseEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

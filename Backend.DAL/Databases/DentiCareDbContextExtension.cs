@@ -12,6 +12,8 @@ namespace Backend.DAL.Databases
             {
                 options.UseMySql(configuration.GetConnectionString("DefaultConnection"),
                     ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")));
+
+                options.EnableSensitiveDataLogging();
             });
 
             return services;
