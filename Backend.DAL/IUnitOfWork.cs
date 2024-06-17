@@ -1,4 +1,5 @@
-﻿using Backend.DAL.Repositories.Contracts;
+﻿using Backend.BO.Commons;
+using Backend.DAL.Repositories.Contracts;
 
 namespace Backend.DAL
 {
@@ -34,5 +35,6 @@ namespace Backend.DAL
         /// <typeparam name="T">The type of the entity.</typeparam>
         /// <returns>The repository for the specified entity type.</returns>
         IRepository<T> GetRepository<T>() where T : class;
+        IUserRepository GetUserRepository();
     }
 }

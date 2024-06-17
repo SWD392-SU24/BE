@@ -3,6 +3,7 @@ using Backend.BO.Commons;
 using Backend.BLL.Features.Users;
 using Backend.BO.Payloads.Requests;
 using System.Net;
+using Backend.BO.Payloads.Responses;
 
 namespace Backend.API.Controllers.v1
 {
@@ -67,7 +68,7 @@ namespace Backend.API.Controllers.v1
         //    return NoContent();
         //}
 
-        
+
         [HttpPost("sign-up/customer")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -132,5 +133,76 @@ namespace Backend.API.Controllers.v1
         //{
         //    return _context.Users.Any(e => e.Id == id);
         //}
+
+        [HttpGet("users")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public IActionResult GetAllUsers(string? name, string? email, string? phoneNumber, string? address, int? sex, string? role, int pageNumber = 1, int pageSize = 5)
+        {
+            var result = _userService.GetAllUser(name, email, phoneNumber, address, sex, role, pageNumber, pageSize);
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetUser(Guid id)
+        {
+            var user = await _userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        // POST: api/v1/Users
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> CreateUser(UserRequest userCreateRequest)
+        {
+            var userResponse = await _userService.CreateUser(userCreateRequest);
+            if (userResponse == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(userResponse);
+        }
+
+        // PUT: api/v1/Users/5
+        [HttpPut("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> UpdateUser(Guid id, UpdateUserRequest userUpdateRequest)
+        {
+
+            var result = await _userService.UpdateUser(id, userUpdateRequest);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/v1/Users/5
+        [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            var result = await _userService.DeleteUser(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
     }
 }

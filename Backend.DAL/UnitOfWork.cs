@@ -1,4 +1,5 @@
-﻿using Backend.DAL.Databases;
+﻿using Backend.BO.Commons;
+using Backend.DAL.Databases;
 using Backend.DAL.Repositories;
 using Backend.DAL.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,12 @@ namespace Backend.DAL
     {
         private readonly DenticareContext _dbContext;
         private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
+        private IUserRepository UserRepository;
 
-        public UnitOfWork(DenticareContext dbContext)
+        public UnitOfWork(DenticareContext dbContext, IUserRepository userRepository)
         {
             _dbContext = dbContext;
+            UserRepository = userRepository;
         }
 
         public void Commit()
@@ -86,5 +89,11 @@ namespace Backend.DAL
             // Save any remaining changes to the database
             await CommitAsync(cancellationToken);
         }
+
+        public IUserRepository GetUserRepository()
+        {
+            return UserRepository;
+        }
+
     }
 }
