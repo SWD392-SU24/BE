@@ -26,9 +26,7 @@ namespace Backend.BO.Entities
         public int ClinicId { get; set; }
 
         public IList<AppointmentService> AppointmentServices { get; set; } = new List<AppointmentService>();
-
-        public IList<ComboService> ComboServices { get; set; } = new List<ComboService>();
-
+        
         public Clinic Clinic { get; set; } = null!;
     }
 }

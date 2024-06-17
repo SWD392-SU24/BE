@@ -1,11 +1,10 @@
-﻿using Backend.BO.Commons;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.BO.Entities
 {
-    [Table("doctor_schedule")]
-    public class DoctorSchedule
+    [Table("dentist_schedule")]
+    public class DentistSchedule
     {
         [Key]
         [Column("schedule_id")]
@@ -16,10 +15,10 @@ namespace Backend.BO.Entities
         public DateOnly? WorkingDate { get; set; }
 
         [Column("doctor_id")]
-        public Guid DoctorId { get; set; }
+        public Guid DentistId { get; set; }
 
-        public IList<DoctorWorkingHours> DoctorWorkingHours { get; set; } = new List<DoctorWorkingHours>();
+        public IList<DentistWorkingHours> DentistWorkingHours { get; set; } = new List<DentistWorkingHours>();
 
-        public User Doctor { get; set; } = null!;
+        public Dentist Dentist { get; set; } = null!;
     }
 }

@@ -1,23 +1,19 @@
-﻿using Backend.BO.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using Backend.BO.Commons;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace Backend.BO.Commons
+namespace Backend.BO.Entities
 {
-    [Table("user")]
-    public class User : UserEntity
+    [Table("dentist")]
+    public class Dentist : UserEntity
     {
-        [Column("user_id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-
         [Column("first_name")]
         [MaxLength(50)]
         public required string FirstName { get; set; }
 
         [Column("last_name")]
         [MaxLength(150)]
-        public string? LastName { get; set; }
+        public required string LastName { get; set; }
 
         [Column("email")]
         [MaxLength(100)]
@@ -29,32 +25,30 @@ namespace Backend.BO.Commons
 
         [Column("phone_number")]
         [MaxLength(10)]
-        public string? PhoneNumber { get; set; }
+        public required string PhoneNumber { get; set; }
 
         [Column("citizen_id")]
         [MaxLength(12)]
         public string? CitizenId { get; set; }
 
         [Column("date_of_birth")]
-        public DateTime? DateOfBirth { get; set; }
-
-        [Column("address")]
-        public string? Address { get; set; }
-
+        public DateTime DateOfBirth { get; set; }
+        
         [Column("sex")]
         public short Sex { get; set; }
-
-        [Column("role", TypeName = "char(4)")]
-        public required string Role { get; set; }
-
+        
         [Column("refresh_token")]
         public string? RefreshToken { get; set; }
 
         [Column("refresh_token_expiry_time")]
         public DateTime RefreshTokenExpiryTime { get; set; }
-
-        public IList<Appointment> Appointments { get; set; } = new List<Appointment>();
         
-        public IList<ClinicFeedback> ClinicFeedbacks { get; set; } = new List<ClinicFeedback>();
+        public IList<Appointment> Appointments { get; set; } = new List<Appointment>();
+
+        public IList<Certificate> Certificates { get; set; } = new List<Certificate>();
+
+        public IList<ClinicDentist> ClinicDentists { get; set; } = new List<ClinicDentist>();
+
+        public IList<DentistSchedule> DentistSchedules { get; set; } = new List<DentistSchedule>();
     }
 }

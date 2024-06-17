@@ -52,7 +52,10 @@ namespace Backend.BLL.Mapping
                 .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => int.Parse(src.AreaId)));
 
             CreateMap<ClinicRequest, ClinicResponse>().ReverseMap();
-
+            
+            CreateMap<Certificate, CertificateResponse>().ReverseMap();
+            CreateMap<Certificate, CertificateRequest>().ReverseMap();
+            CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Backend.BO.Entities
 
         public User Owner { get; set; } = null!;
 
-        public IList<ClinicDoctor> ClinicDoctors { get; set; } = new List<ClinicDoctor>();
+        public IList<ClinicDentist> ClinicDentists { get; set; } = new List<ClinicDentist>();
 
         public IList<Service> Services { get; set; } = new List<Service>();
 
@@ -46,8 +46,9 @@ namespace Backend.BO.Entities
 
         public IList<ClinicFeedback> ClinicFeedbacks { get; set; } = new List<ClinicFeedback>();
 
-        // Three states
-        // 1: pending; 2: verified; 3: disable
+        /// <summary>
+        /// Three states: 1: pending; 2: verified; 3: disable
+        /// </summary>
         [Column("clinic_state")]
         public short ClinicState { get; set; }
 

@@ -1,12 +1,12 @@
 ﻿using Asp.Versioning;
 using Backend.BLL.Features.Auth;
+using Backend.BLL.Features.Certificates;
 using Backend.BLL.Features.Clinics;
 using Backend.BLL.Features.Users;
 using Backend.DAL;
 using Backend.DAL.Databases;
 using Backend.DAL.Repositories;
 using Backend.DAL.Repositories.Contracts;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.API.Extensions
 {
@@ -50,12 +50,10 @@ namespace Backend.API.Extensions
                 options.SubstituteApiVersionInUrl = true;
             });
 
-            services.AddDbContext<DenticareContext>(options =>
-            {
-                options.UseMySql(configuration.GetConnectionString("DefaultConnection"), 
-                    ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")));
-            });
+            // Register database
+            services.RegisterDbContext(configuration);
 
+            // Configure CORS
             services.AddCors(options =>
             {
                 options.AddPolicy("DentiCare", builder =>
@@ -74,11 +72,15 @@ namespace Backend.API.Extensions
 
             // Repositories configuration
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
+            services.AddScoped<ICertificateRepository, CertificateRepository>();
+            services.AddScoped<IClinicRepository, ClinicRepository>();
+                        
             // Services configuration
             services.AddTransient<ITokenService, TokenService>();   // processing Jwt tokens
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<ICertificateService, CertificateService>();
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddHttpContextAccessor();
             return services;

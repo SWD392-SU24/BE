@@ -4,16 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Backend.DAL.Databases.Relationships
 {
-    public class CertificateTypeConfiguration : IEntityTypeConfiguration<Certificate>
+    public class DentistScheduleTypeConfiguration : IEntityTypeConfiguration<DentistSchedule>
     {
-        public void Configure(EntityTypeBuilder<Certificate> builder)
+        public void Configure(EntityTypeBuilder<DentistSchedule> builder)
         {
             builder.HasOne(x => x.Dentist)
-                .WithMany(y => y.Certificates)
+                .WithMany(y => y.DentistSchedules)
                 .HasForeignKey(x => x.DentistId);
-
-            builder.HasIndex(x => x.CertificateNumber)
-                .IsUnique();
         }
     }
 }

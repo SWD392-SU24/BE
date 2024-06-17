@@ -11,7 +11,7 @@ namespace Backend.DAL.Repositories
         public UserRepository(DenticareContext dbContext) : base(dbContext)
         {
         }
-
+        
         //public async Task<User?> Authenticate(AuthRequest request)
         //{
         //    return await _dbContext.Users.FirstOrDefaultAsync(user => user.Email.ToLower().Trim() == request.Email.ToLower().Trim() 
