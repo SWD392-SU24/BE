@@ -9,17 +9,19 @@ namespace Backend.BO.Entities
     {
         [Key]
         [Column("appointment_id")]
-        [MaxLength(50)]
-        public required string AppointmentId { get; set; }
+        public Guid AppointmentId { get; set; }
 
         [Column("appointment_date")]
+        [DataType(DataType.Date)]
         public DateOnly AppointmentDate { get; set; }
 
-        [Column("start_time")]
-        public TimeOnly StartTime { get; set; }
+        [Column("appointment_start_time")]
+        [DataType(DataType.Time)]
+        public TimeOnly AppointmentStartTime { get; set; }
 
-        [Column("end_time")]
-        public TimeOnly EndTime { get; set; }
+        [Column("appointment_end_time")]
+        [DataType(DataType.Time)]
+        public TimeOnly AppointmentEndTime { get; set; }
 
         /// <summary>
         /// 2 types: 1 - đăng kí khám bệnh; 2: điều trị

@@ -5,7 +5,6 @@ using Backend.BO.Entities;
 using Microsoft.EntityFrameworkCore;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Commons;
-using System.Globalization;
 
 namespace Backend.BLL.Features.Clinics
 {
@@ -67,17 +66,17 @@ namespace Backend.BLL.Features.Clinics
                 }
                 existingClinic.PhoneNumber = clinicRequest.PhoneNumber;
             }
-            if (!string.IsNullOrWhiteSpace(clinicRequest.NumberOfEmployees))
-            {
-                if (int.TryParse(clinicRequest.NumberOfEmployees, out int numberOfEmployees) && numberOfEmployees > 0)
-                {
-                    existingClinic.NumberOfEmployees = numberOfEmployees;
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid value for NumberOfEmployees");
-                }
-            }
+            //if (!string.IsNullOrWhiteSpace(clinicRequest.EmployeeSize))
+            //{
+            //    if (int.TryParse(clinicRequest.EmployeeSize, out int numberOfEmployees) && numberOfEmployees > 0)
+            //    {
+            //        existingClinic.EmployeeSize = EmployeeSize;
+            //    }
+            //    else
+            //    {
+            //        throw new ArgumentException("Invalid value for EmployeeSize");
+            //    }
+            //}
             if (!string.IsNullOrWhiteSpace(clinicRequest.OwnerId))
             {
                 if (Guid.TryParse(clinicRequest.OwnerId, out Guid ownerId))
@@ -188,7 +187,7 @@ namespace Backend.BLL.Features.Clinics
                 throw new ArgumentException("Address is required");
             }
 
-            if (!int.TryParse(clinicRequest.NumberOfEmployees, out int numberOfEmployees) || numberOfEmployees <= 0)
+            if (!int.TryParse(clinicRequest.EmployeeSize, out int EmployeeSize) || EmployeeSize <= 0)
             {
                 throw new ArgumentException("NumberOfEmployees must be a valid number greater than 0");
             }

@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Backend.BLL.Features.Areas;
 using Backend.BLL.Features.Auth;
 using Backend.BLL.Features.Certificates;
 using Backend.BLL.Features.Clinics;
@@ -80,6 +81,7 @@ namespace Backend.API.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IClinicService, ClinicService>();
             services.AddScoped<ICertificateService, CertificateService>();
+            services.AddScoped<IAreaService, AreaService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddHttpContextAccessor();

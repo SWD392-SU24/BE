@@ -13,7 +13,7 @@ namespace Backend.BO.Entities
 
         [MaxLength(50)]
         [Column("appointment_id")]
-        public required string AppointmentId { get; set; }
+        public Guid AppointmentId { get; set; }
 
         [Column("details", TypeName = "text")]
         public string? Details { get; set; }

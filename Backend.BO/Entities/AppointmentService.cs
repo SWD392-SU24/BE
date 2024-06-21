@@ -11,7 +11,7 @@ namespace Backend.BO.Entities
         public int Id { get; set; }
 
         [Column("appointment_id")]
-        public required string AppointmentId { get; set; }
+        public Guid AppointmentId { get; set; }
 
         [Column("service_id")]
         public int ServiceId { get; set; }

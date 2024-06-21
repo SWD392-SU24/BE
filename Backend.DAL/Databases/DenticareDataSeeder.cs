@@ -27,6 +27,8 @@ namespace Backend.DAL.Databases
 
             // Seed dentists
             modelBuilder.SeedDentist();
+
+            modelBuilder.SeedClinicDentists();
         }
     }
 }

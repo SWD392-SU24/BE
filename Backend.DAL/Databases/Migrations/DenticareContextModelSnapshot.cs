@@ -94,7 +94,7 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d2d88029-44c2-4bf3-81ef-5760a3940d26"),
+                            Id = new Guid("82213f2b-dc0b-400b-abef-1beda0231441"),
                             Address = "phường Phước Long A, Q.9, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(1987, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "janetran639@gmail.com",
@@ -108,7 +108,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bc809408-1242-4ccc-8601-0949bad8d3ee"),
+                            Id = new Guid("9e9da0b7-672d-448a-a392-bcc912e17cff"),
                             Address = "456 Oak St, Anytown, USA",
                             DateOfBirth = new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
@@ -122,7 +122,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("41c0a5a8-e51d-4045-86f9-5cc2fa87bd83"),
+                            Id = new Guid("0d5db597-9210-45ef-be17-cdc57ed3b106"),
                             Address = "789 Pine St, Anytown, USA",
                             DateOfBirth = new DateTime(1980, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bob.brown@example.com",
@@ -136,9 +136,9 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("55ae0b1c-2a90-452f-9dff-7f0c5681525b"),
+                            Id = new Guid("18d2946a-1a58-4bd2-8044-5e6ace4833b5"),
                             Email = "adminexample@gmail.com",
-                            FirstName = "Admin",
+                            FirstName = "Admin 01",
                             Password = "reallystrongpass!123",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Role = "SA",
@@ -160,7 +160,7 @@ namespace Backend.DAL.Databases.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d4f1b215-e31e-4c0b-a3b8-af757d7b3369"),
+                            Id = new Guid("6fd69ed7-baa9-493d-bbde-b7546b9348a8"),
                             Address = "Thủ Đức, Tp.Hồ Chí Minh",
                             DateOfBirth = new DateTime(2003, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bangtlhss170429@fpt.edu.vn",
@@ -204,14 +204,21 @@ namespace Backend.DAL.Databases.Migrations
 
             modelBuilder.Entity("Backend.BO.Entities.Appointment", b =>
                 {
-                    b.Property<string>("AppointmentId")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("char(50)")
                         .HasColumnName("appointment_id");
 
                     b.Property<DateOnly>("AppointmentDate")
                         .HasColumnType("date")
                         .HasColumnName("appointment_date");
+
+                    b.Property<TimeOnly>("AppointmentEndTime")
+                        .HasColumnType("time(6)")
+                        .HasColumnName("appointment_end_time");
+
+                    b.Property<TimeOnly>("AppointmentStartTime")
+                        .HasColumnType("time(6)")
+                        .HasColumnName("appointment_start_time");
 
                     b.Property<short>("AppointmentStatus")
                         .HasColumnType("smallint")
@@ -233,14 +240,6 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("dentist_id");
 
-                    b.Property<TimeOnly>("EndTime")
-                        .HasColumnType("time(6)")
-                        .HasColumnName("end_time");
-
-                    b.Property<TimeOnly>("StartTime")
-                        .HasColumnType("time(6)")
-                        .HasColumnName("start_time");
-
                     b.HasKey("AppointmentId");
 
                     b.HasIndex("ClinicId");
@@ -261,9 +260,8 @@ namespace Backend.DAL.Databases.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AppointmentId")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("char(50)")
                         .HasColumnName("appointment_id");
 
                     b.Property<int>("ServiceId")
@@ -374,8 +372,8 @@ namespace Backend.DAL.Databases.Migrations
                             CertificateImage = "https://example.com/certificateImage.jpg",
                             CertificateName = "Medical Practice License",
                             CertificateNumber = "CERT-001",
-                            DentistId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"),
-                            IssuedDate = new DateTime(2024, 6, 17, 22, 57, 14, 74, DateTimeKind.Local).AddTicks(9738)
+                            DentistId = new Guid("6b4deeed-b92a-4b77-9977-5b74d9176f5a"),
+                            IssuedDate = new DateTime(2024, 6, 21, 12, 36, 54, 459, DateTimeKind.Local).AddTicks(5640)
                         },
                         new
                         {
@@ -383,7 +381,7 @@ namespace Backend.DAL.Databases.Migrations
                             CertificateImage = "https://example.com/certificateImage2.jpg",
                             CertificateName = "Dental Surgery Certification",
                             CertificateNumber = "CERT-002",
-                            DentistId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"),
+                            DentistId = new Guid("73117ab0-d927-495a-b5f1-231e50b822f4"),
                             IssuedDate = new DateTime(2022, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -394,6 +392,46 @@ namespace Backend.DAL.Databases.Migrations
                             CertificateNumber = "CERT-003",
                             DentistId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"),
                             IssuedDate = new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CertificateImage = "https://example.com/certificateImage1.jpg",
+                            CertificateName = "Giấy phép Hành nghề Y tế",
+                            CertificateNumber = "FT5B5KAR1H",
+                            DentistId = new Guid("504a1a7c-36f5-46f9-95f4-b56877a648f6"),
+                            ExpiredDate = new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuedDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CertificateImage = "",
+                            CertificateName = "Bằng cấp Nha khoa",
+                            CertificateNumber = "RW3KE4QEC2",
+                            DentistId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989"),
+                            ExpiredDate = new DateTime(2024, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuedDate = new DateTime(2022, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CertificateImage = "",
+                            CertificateName = "Chứng chỉ Phẫu thuật",
+                            CertificateNumber = "KNBN151OV2",
+                            DentistId = new Guid("f2953e88-904a-4732-837a-a74d52452ace"),
+                            ExpiredDate = new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuedDate = new DateTime(2023, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CertificateImage = "",
+                            CertificateName = "Văn bằng Y học",
+                            CertificateNumber = "OSXN50N1TW",
+                            DentistId = new Guid("fe72d820-913a-4a4e-afbc-e73961527cfd"),
+                            ExpiredDate = new DateTime(2024, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuedDate = new DateTime(2022, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -426,15 +464,15 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnType("smallint")
                         .HasColumnName("clinic_state");
 
+                    b.Property<int>("EmployeeSize")
+                        .HasColumnType("int")
+                        .HasColumnName("employee_size");
+
                     b.Property<string>("LicenseNumber")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("license_number");
-
-                    b.Property<int>("NumberOfEmployees")
-                        .HasColumnType("int")
-                        .HasColumnName("no_of_employees");
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("char(36)")
@@ -457,48 +495,48 @@ namespace Backend.DAL.Databases.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "08 Alexandre de Rhodes St., Ben Nghe Ward, District 1, Ho Chi Minh City",
+                            Address = "08 Đường Alexandre de Rhodes, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh",
                             AreaId = 1,
-                            ClinicName = "Columbia Asia Saigon International Clinic",
-                            ClinicState = (short)1,
+                            ClinicName = "Phòng khám Quốc tế Columbia Asia Sài Gòn",
+                            ClinicState = (short)2,
+                            EmployeeSize = 150,
                             LicenseNumber = "HCM0001",
-                            NumberOfEmployees = 150,
                             OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                             PhoneNumber = "02838238888"
                         },
                         new
                         {
                             Id = 2,
-                            Address = "285B Dien Bien Phu, Vo Thi Sau Ward, District 3, Ho Chi Minh City",
+                            Address = "285B Điện Biên Phủ, Phường Võ Thị Sáu, Quận 3, Thành phố Hồ Chí Minh",
                             AreaId = 1,
-                            ClinicName = "Raffles Medical Ho Chi Minh",
-                            ClinicState = (short)1,
-                            LicenseNumber = "HCM0002",
-                            NumberOfEmployees = 200,
+                            ClinicName = "Raffles Medical Thành phố Hồ Chí Minh",
+                            ClinicState = (short)2,
+                            EmployeeSize = 200,
+                            LicenseNumber = "951JJPX15F",
                             OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                             PhoneNumber = "02838240777"
                         },
                         new
                         {
                             Id = 3,
-                            Address = "30 Pham Ngoc Thach, Ward Vo Thi Sau, District 3, Ho Chi Minh City",
+                            Address = "30 Phạm Ngọc Thạch, Phường Võ Thị Sáu, Quận 3, Thành phố Hồ Chí Minh",
                             AreaId = 1,
-                            ClinicName = "Centre Médical International (CMI)",
-                            ClinicState = (short)1,
-                            LicenseNumber = "HCM0003",
-                            NumberOfEmployees = 100,
+                            ClinicName = "Trung tâm Y tế Quốc tế (CMI)",
+                            ClinicState = (short)2,
+                            EmployeeSize = 100,
+                            LicenseNumber = "HVAB7N3OLG",
                             OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                             PhoneNumber = "02838272366"
                         },
                         new
                         {
                             Id = 4,
-                            Address = "Block 8, Ground floor of SORA Gardens II, Lot C17, Hung Vuong Boulevard, Binh Duong New City, Hoa Phu Ward, Thu Dau Mot City, Binh Duong Province",
+                            Address = "Block 8, Tầng trệt của SORA Gardens II, Lô C17, Đại lộ Hùng Vương, Thành phố Mới Bình Dương, Phường Hòa Phú, Thành phố Thủ Dầu Một, Tỉnh Bình Dương",
                             AreaId = 2,
-                            ClinicName = "Binh Duong Urban Clinic",
+                            ClinicName = "Phòng khám Đô thị Bình Dương",
                             ClinicState = (short)1,
-                            LicenseNumber = "BDU12345",
-                            NumberOfEmployees = 50,
+                            EmployeeSize = 50,
+                            LicenseNumber = "Q1X7YV93UL",
                             OwnerId = new Guid("88c95c5d-219b-445e-9c3f-28d92a5d07f7"),
                             PhoneNumber = "02742222220"
                         });
@@ -528,6 +566,80 @@ namespace Backend.DAL.Databases.Migrations
                     b.HasIndex("DentistId");
 
                     b.ToTable("clinic_dentist");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClinicId = 1,
+                            DentistId = new Guid("6b4deeed-b92a-4b77-9977-5b74d9176f5a")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClinicId = 1,
+                            DentistId = new Guid("504a1a7c-36f5-46f9-95f4-b56877a648f6")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClinicId = 1,
+                            DentistId = new Guid("0666d393-5502-4056-a2d4-b5433fa5d989")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClinicId = 1,
+                            DentistId = new Guid("fe72d820-913a-4a4e-afbc-e73961527cfd")
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClinicId = 1,
+                            DentistId = new Guid("f2953e88-904a-4732-837a-a74d52452ace")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ClinicId = 1,
+                            DentistId = new Guid("9b22dab5-ba64-423c-8674-82af668a76cb")
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ClinicId = 1,
+                            DentistId = new Guid("73117ab0-d927-495a-b5f1-231e50b822f4")
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ClinicId = 2,
+                            DentistId = new Guid("fb53bc7f-7b65-4fa5-a0ba-5f789fd95be1")
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ClinicId = 2,
+                            DentistId = new Guid("7e9ce7d7-572b-4b9c-addd-4501ecefebb7")
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ClinicId = 2,
+                            DentistId = new Guid("013e1f35-9ab6-4bea-959b-96cec668239e")
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ClinicId = 3,
+                            DentistId = new Guid("8b6c2e20-3b42-4464-855f-598f7971e79f")
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ClinicId = 3,
+                            DentistId = new Guid("013e1f35-9ab6-4bea-959b-96cec668239e")
+                        });
                 });
 
             modelBuilder.Entity("Backend.BO.Entities.ClinicFeedback", b =>
@@ -574,7 +686,7 @@ namespace Backend.DAL.Databases.Migrations
                             Id = 1,
                             ClinicId = 1,
                             CustomerId = new Guid("455565de-ce04-45b6-8183-1a1f9d414a93"),
-                            FeedbackDate = new DateTime(2024, 6, 17, 22, 57, 14, 74, DateTimeKind.Local).AddTicks(9696),
+                            FeedbackDate = new DateTime(2024, 6, 21, 12, 36, 54, 459, DateTimeKind.Local).AddTicks(5600),
                             FeedbackDescription = "",
                             Rating = (short)1
                         },
@@ -696,14 +808,121 @@ namespace Backend.DAL.Databases.Migrations
                             PhoneNumber = "0912345678",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Sex = (short)2
+                        },
+                        new
+                        {
+                            Id = new Guid("fe72d820-913a-4a4e-afbc-e73961527cfd"),
+                            DateOfBirth = new DateTime(1990, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "hoanganh5678@gmail.com",
+                            FirstName = "Hoàng",
+                            LastName = "Anh",
+                            Password = "abcde@123",
+                            PhoneNumber = "0987654321",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Sex = (short)1
+                        },
+                        new
+                        {
+                            Id = new Guid("f2953e88-904a-4732-837a-a74d52452ace"),
+                            DateOfBirth = new DateTime(1985, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "linhchi987@gmail.com",
+                            FirstName = "Linh",
+                            LastName = "Chi",
+                            Password = "qwert@567",
+                            PhoneNumber = "0975123456",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Sex = (short)2
+                        },
+                        new
+                        {
+                            Id = new Guid("9b22dab5-ba64-423c-8674-82af668a76cb"),
+                            DateOfBirth = new DateTime(1978, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "trungnghia246@gmail.com",
+                            FirstName = "Trung",
+                            LastName = "Nghĩa",
+                            Password = "nghiatrung!321",
+                            PhoneNumber = "0908765432",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Sex = (short)1
+                        },
+                        new
+                        {
+                            Id = new Guid("73117ab0-d927-495a-b5f1-231e50b822f4"),
+                            DateOfBirth = new DateTime(1989, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "thuha135@gmail.com",
+                            FirstName = "Thu",
+                            LastName = "Hà",
+                            Password = "ha!@#$123",
+                            PhoneNumber = "0932145678",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Sex = (short)2
+                        },
+                        new
+                        {
+                            Id = new Guid("fb53bc7f-7b65-4fa5-a0ba-5f789fd95be1"),
+                            DateOfBirth = new DateTime(1982, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "duytung753@gmail.com",
+                            FirstName = "Duy",
+                            LastName = "Tùng",
+                            Password = "tungDuy@789",
+                            PhoneNumber = "0945671234",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Sex = (short)1
+                        },
+                        new
+                        {
+                            Id = new Guid("7e9ce7d7-572b-4b9c-addd-4501ecefebb7"),
+                            DateOfBirth = new DateTime(1995, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "maian369@gmail.com",
+                            FirstName = "Mai",
+                            LastName = "An",
+                            Password = "AnMai@456",
+                            PhoneNumber = "0923456789",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Sex = (short)2
+                        },
+                        new
+                        {
+                            Id = new Guid("013e1f35-9ab6-4bea-959b-96cec668239e"),
+                            DateOfBirth = new DateTime(1987, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "quanghai258@gmail.com",
+                            FirstName = "Quang",
+                            LastName = "Hải",
+                            Password = "haiQuang@789",
+                            PhoneNumber = "0961234567",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Sex = (short)1
+                        },
+                        new
+                        {
+                            Id = new Guid("9deaf970-838d-48d6-87e1-b756072d16ac"),
+                            DateOfBirth = new DateTime(1993, 3, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "huonglinh147@gmail.com",
+                            FirstName = "Hương",
+                            LastName = "Linh",
+                            Password = "Linh@1478",
+                            PhoneNumber = "0918765432",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Sex = (short)2
+                        },
+                        new
+                        {
+                            Id = new Guid("8b6c2e20-3b42-4464-855f-598f7971e79f"),
+                            DateOfBirth = new DateTime(1980, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "minhtuan159@gmail.com",
+                            FirstName = "Minh",
+                            LastName = "Tuấn",
+                            Password = "tu@n159!",
+                            PhoneNumber = "0983214567",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Sex = (short)1
                         });
                 });
 
             modelBuilder.Entity("Backend.BO.Entities.DentistSchedule", b =>
                 {
-                    b.Property<string>("ScheduleId")
-                        .HasMaxLength(25)
-                        .HasColumnType("varchar(25)")
+                    b.Property<Guid>("ScheduleId")
+                        .HasColumnType("char(36)")
                         .HasColumnName("schedule_id");
 
                     b.Property<Guid>("DentistId")
@@ -714,41 +933,19 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnType("date")
                         .HasColumnName("working_date");
 
-                    b.HasKey("ScheduleId");
+                    b.Property<TimeOnly>("WorkingEndTime")
+                        .HasColumnType("time(6)")
+                        .HasColumnName("working_end_time");
+
+                    b.Property<TimeOnly>("WorkingStartTime")
+                        .HasColumnType("time(6)")
+                        .HasColumnName("working_start_time");
+
+                    b.HasKey("ScheduleId", "DentistId");
 
                     b.HasIndex("DentistId");
 
                     b.ToTable("dentist_schedule");
-                });
-
-            modelBuilder.Entity("Backend.BO.Entities.DentistWorkingHours", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("working_hour_id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<TimeOnly>("EndTime")
-                        .HasColumnType("time(6)")
-                        .HasColumnName("end_time");
-
-                    b.Property<string>("ScheduleId")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("varchar(25)")
-                        .HasColumnName("schedule_id");
-
-                    b.Property<TimeOnly>("StartTime")
-                        .HasColumnType("time(6)")
-                        .HasColumnName("start_time");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ScheduleId");
-
-                    b.ToTable("dentist_working_hours");
                 });
 
             modelBuilder.Entity("Backend.BO.Entities.Service", b =>
@@ -917,10 +1114,9 @@ namespace Backend.DAL.Databases.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AppointmentId")
-                        .IsRequired()
+                    b.Property<Guid>("AppointmentId")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("char(50)")
                         .HasColumnName("appointment_id");
 
                     b.Property<string>("Details")
@@ -928,6 +1124,9 @@ namespace Backend.DAL.Databases.Migrations
                         .HasColumnName("details");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
 
                     b.ToTable("treatment_detail");
                 });
@@ -1066,17 +1265,6 @@ namespace Backend.DAL.Databases.Migrations
                     b.Navigation("Dentist");
                 });
 
-            modelBuilder.Entity("Backend.BO.Entities.DentistWorkingHours", b =>
-                {
-                    b.HasOne("Backend.BO.Entities.DentistSchedule", "DentistSchedule")
-                        .WithMany("DentistWorkingHours")
-                        .HasForeignKey("ScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DentistSchedule");
-                });
-
             modelBuilder.Entity("Backend.BO.Entities.Service", b =>
                 {
                     b.HasOne("Backend.BO.Entities.Clinic", "Clinic")
@@ -1125,11 +1313,6 @@ namespace Backend.DAL.Databases.Migrations
                     b.Navigation("ClinicDentists");
 
                     b.Navigation("DentistSchedules");
-                });
-
-            modelBuilder.Entity("Backend.BO.Entities.DentistSchedule", b =>
-                {
-                    b.Navigation("DentistWorkingHours");
                 });
 
             modelBuilder.Entity("Backend.BO.Entities.Service", b =>

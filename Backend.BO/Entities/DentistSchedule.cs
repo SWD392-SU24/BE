@@ -6,18 +6,23 @@ namespace Backend.BO.Entities
     [Table("dentist_schedule")]
     public class DentistSchedule
     {
-        [Key]
         [Column("schedule_id")]
-        [MaxLength(25)]
-        public required string ScheduleId { get; set; }
-
-        [Column("working_date")]
-        public DateOnly? WorkingDate { get; set; }
+        public Guid ScheduleId { get; set; }
 
         [Column("doctor_id")]
         public Guid DentistId { get; set; }
+        
+        [Column("working_date")]
+        [DataType(DataType.Date)]
+        public DateOnly? WorkingDate { get; set; }
 
-        public IList<DentistWorkingHours> DentistWorkingHours { get; set; } = new List<DentistWorkingHours>();
+        [Column("working_start_time")]
+        [DataType(DataType.Time)]
+        public TimeOnly WorkingStartTime { get; set; }
+
+        [Column("working_end_time")]
+        [DataType(DataType.Time)]
+        public TimeOnly WorkingEndTime { get; set; }
 
         public Dentist Dentist { get; set; } = null!;
     }
