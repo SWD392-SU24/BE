@@ -58,6 +58,10 @@ namespace Backend.BLL.Mapping
             CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
 
             CreateMap<Area, AreaResponse>().ReverseMap();
+
+            CreateMap<Dentist, DentistResponse>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ReverseMap();
         }
     }
 }
