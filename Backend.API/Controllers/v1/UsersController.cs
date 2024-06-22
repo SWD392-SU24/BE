@@ -60,7 +60,7 @@ namespace Backend.API.Controllers.v1
             }
         }
         
-        [HttpGet("accounts")]
+        [HttpGet("users")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
@@ -70,6 +70,10 @@ namespace Backend.API.Controllers.v1
             return Ok(result);
         }
 
+        [HttpGet("accounts")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
         public async Task<ActionResult<ResponseModel<IList<UserDashboardReponse>>>> GetAccounts(string? name, string? address, string? role)
         {
             var accounts = await _userService.GetAccounts(name, role, address);
@@ -135,7 +139,7 @@ namespace Backend.API.Controllers.v1
         }
 
         // DELETE: api/v1/Users/5
-        [HttpDelete("{id}")]
+        [HttpDelete("account/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<ResponseModel<string>>> DeleteUser(Guid id)
