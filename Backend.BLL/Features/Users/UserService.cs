@@ -2,10 +2,13 @@
 using Backend.BLL.Features.Auth;
 using Backend.BLL.Validations;
 using Backend.BO.Commons;
+using Backend.BO.Constants;
+using Backend.BO.Entities;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;
 using Backend.DAL;
 using Backend.DAL.Repositories.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
@@ -229,14 +232,14 @@ namespace Backend.BLL.Features.Users
                 var user = await userRepository.GetByIdAsync(id);
                 if (user == null)
                 {
-                    throw new ArgumentException("User not found");
+                    throw new KeyNotFoundException("User not found");
                 }
                 var userResponse = _mapper.Map<UserResponse>(user);
                 return userResponse;
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception("An error occurred while retrieving the user", ex);
+                throw;
             }
         }
 
@@ -292,6 +295,85 @@ namespace Backend.BLL.Features.Users
             {
                 _unitOfWork.Rollback();
                 throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<IList<UserDashboardReponse>> GetAccounts(string? name, string? role, string? address)
+        {
+            try
+            {
+                var userRepository = _unitOfWork.GetRepository<User>();
+                var accounts = await userRepository.GetAll()
+                    .Where(u => u.Role == UserRole.ClinicOwner || u.Role == UserRole.Customer)
+                    .AsNoTracking()
+                    .ToListAsync();
+                if (!accounts.Any())
+                    throw new InvalidOperationException("No data for accounts!");
+                if (!string.IsNullOrEmpty(name))
+                {
+                    accounts = accounts.Where(x => x.FirstName.Contains(name) || x.LastName.Contains(name))
+                        .ToList();
+                }
+                if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(address)) 
+                {
+                    accounts = accounts.Where(x => x.FirstName.Contains(name) || x.LastName.Contains(name)
+                        && x.Address.Contains(address))
+                        .ToList();
+                }
+                if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(address) && !string.IsNullOrEmpty(role))
+                {
+                    accounts = accounts.Where(x => x.FirstName.Contains(name) || x.LastName.Contains(name)
+                        && x.Address.Contains(address) && x.Role.Contains(role))
+                        .ToList();
+                }
+                var response = _mapper.Map<IList<UserDashboardReponse>>(accounts);
+                return response;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<AuthResponse> AuthenticateForDentist(AuthRequest request)
+        {
+            try
+            {
+                if (request is null)
+                    throw new ArgumentException("Invalid client request!");
+                var user = await _unitOfWork.GetRepository<Dentist>().GetAsync(user => user.Email.ToLower().Trim() == request.Email.ToLower().Trim()
+                    && user.Password.ToLower().Trim() == request.Password.ToLower().Trim());
+                if (user is null)
+                    throw new KeyNotFoundException("User is not found!");
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, UserRole.Dentist)
+                };
+
+                var accessToken = _tokenService.GenerateAccessToken(claims);
+                var refreshToken = _tokenService.GenerateRefreshToken();
+
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
+
+                // Store refresh token and its expired time into database
+                _unitOfWork.GetRepository<Dentist>().Update(user);
+                await _unitOfWork.CommitAsync();
+
+                var response = new AuthResponse
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken,
+                    ExpiredAt = user.RefreshTokenExpiryTime
+                };
+                return response;
+            }
+            catch
+            {
+                await _unitOfWork.RollbackAsync();
+                throw;
             }
         }
     }
