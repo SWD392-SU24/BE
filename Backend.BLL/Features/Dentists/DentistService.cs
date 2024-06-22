@@ -40,7 +40,7 @@ namespace Backend.BLL.Features.Dentists
                     .ToListAsync();
                 foreach (var item in availableSchedules)
                 {
-                    if (item.WorkingStartTime == request.WorkingStartTime && item.WorkingEndTime == request.WorkingEndTime)
+                    if (item.WorkingStartTime <= request.WorkingStartTime && item.WorkingEndTime >= request.WorkingEndTime)
                         throw new ArgumentException("This schedule has already existed!");
                 }
                 var schedule = _mapper.Map<DentistSchedule>(request);
@@ -65,8 +65,12 @@ namespace Backend.BLL.Features.Dentists
                 var dentistScheduleRepository = _unitOfWork.GetRepository<DentistSchedule>();
                 var schedule = await dentistScheduleRepository.GetAsync(s => s.ScheduleId == scheduleId && s.DentistId == dentistId);
                 if (schedule is null)
-                    throw new KeyNotFoundException("Schedule does not exist!");
-
+                    throw new KeyNotFoundException("Schedule does not exist!"); 
+                // if working date is finished, cannot delete
+                if (schedule.WorkingDate > DateOnly.FromDateTime(DateTime.Now))
+                {
+                    throw new ArgumentException("This schedule cannot be deleted because the working date has already passed.");
+                }
                 dentistScheduleRepository.Delete(schedule);
                 await _unitOfWork.CommitAsync();
                 result = true;
@@ -149,7 +153,7 @@ namespace Backend.BLL.Features.Dentists
                     .ToListAsync();
                 foreach (var item in availableSchedules)
                 {
-                    if (item.WorkingStartTime == updatedSchedule.WorkingStartTime && item.WorkingEndTime == updatedSchedule.WorkingEndTime)
+                    if (item.WorkingStartTime >= updatedSchedule.WorkingStartTime && item.WorkingEndTime <= updatedSchedule.WorkingEndTime)
                         throw new ArgumentException("This schedule has already existed!");
                 }
                 dentistScheduleRepository.Update(updatedSchedule);
