@@ -25,8 +25,6 @@ namespace Backend.DAL.Databases
         public virtual DbSet<Certificate> Certificates { get; set; }
         
         public virtual DbSet<Clinic> Clinics { get; set; }
-                                
-        public virtual DbSet<DentistWorkingHours> DentistWorkingHours { get; set; }
         
         public virtual DbSet<Service> Services { get; set; }
         
@@ -66,10 +64,9 @@ namespace Backend.DAL.Databases
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClinicTypeConfiguration).Assembly);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DentistScheduleTypeConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DentistWorkingHoursTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ServiceTypeConfiguration).Assembly);
             #endregion
-
+            
             modelBuilder.Seed();
         }
     }

@@ -12,7 +12,7 @@ namespace Backend.DAL.Databases.Data
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("82213f2b-dc0b-400b-abef-1beda0231441"),
                     FirstName = "Hà",
                     LastName = "Phùng Trần Mai",
                     Email = "janetran639@gmail.com",
@@ -25,7 +25,7 @@ namespace Backend.DAL.Databases.Data
                 },
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("9e9da0b7-672d-448a-a392-bcc912e17cff"),
                     FirstName = "Jane",
                     LastName = "Smith",
                     Email = "jane.smith@example.com",
@@ -38,7 +38,7 @@ namespace Backend.DAL.Databases.Data
                 },
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("0d5db597-9210-45ef-be17-cdc57ed3b106"),
                     FirstName = "Bob",
                     LastName = "Brown",
                     Email = "bob.brown@example.com",
@@ -51,8 +51,8 @@ namespace Backend.DAL.Databases.Data
                 },
                 new User
                 {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Admin",
+                    Id = new Guid("18d2946a-1a58-4bd2-8044-5e6ace4833b5\r\n"),
+                    FirstName = "Admin 01",
                     Email = "adminexample@gmail.com",
                     Password = "reallystrongpass!123",
                     Role = UserRole.SystemAdmin,
@@ -72,7 +72,7 @@ namespace Backend.DAL.Databases.Data
                 },
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("6fd69ed7-baa9-493d-bbde-b7546b9348a8"),
                     FirstName = "Bằng",
                     LastName = "Trần Lê Hữu",
                     Email = "bangtlhss170429@fpt.edu.vn",

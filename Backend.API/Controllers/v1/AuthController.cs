@@ -34,6 +34,23 @@ namespace Backend.API.Controllers.v1
             return Ok(response);
         }
 
+        [HttpPost("dentist/sign-in")]
+        [AllowAnonymous]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<ResponseModel<AuthResponse>>> SigninForDentist(AuthRequest authRequest)
+        {
+            var result = await _userService.AuthenticateForDentist(authRequest);
+            var response = new ResponseModel<AuthResponse>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "Sign in successfully!",
+                response: result
+            );
+            return Ok(response);
+        }
+
         [HttpPost("sign-out")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

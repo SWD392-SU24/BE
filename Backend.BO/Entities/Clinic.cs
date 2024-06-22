@@ -27,8 +27,8 @@ namespace Backend.BO.Entities
         [MaxLength(12)]
         public string? PhoneNumber { get; set; }
 
-        [Column("no_of_employees")]
-        public int NumberOfEmployees { get; set; }
+        [Column("employee_size")]
+        public int EmployeeSize { get; set; }
 
         [Column("owner_id")]
         public Guid OwnerId { get; set; }

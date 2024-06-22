@@ -3,7 +3,6 @@ using Backend.BO.Commons;
 using Backend.BO.Entities;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;
-using Microsoft.AspNetCore.Identity;
 
 namespace Backend.BLL.Mapping
 {
@@ -34,20 +33,20 @@ namespace Backend.BLL.Mapping
             CreateMap<User, UserRequest>().ReverseMap();
 
             CreateMap<Clinic, ClinicRequest>()
-                .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => src.NumberOfEmployees.ToString()))
+                .ForMember(dest => dest.EmployeeSize, opt => opt.MapFrom(src => src.EmployeeSize.ToString()))
                 .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId.ToString()))
                 .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.AreaId.ToString()))
                 .ReverseMap()
-                .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => int.Parse(src.NumberOfEmployees)))
+                .ForMember(dest => dest.EmployeeSize, opt => opt.MapFrom(src => int.Parse(src.EmployeeSize)))
                 .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => Guid.Parse(src.OwnerId)))
                 .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => int.Parse(src.AreaId)));
 
             CreateMap<Clinic, ClinicResponse>()
-                .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => src.NumberOfEmployees.ToString()))
+                .ForMember(dest => dest.EmployeeSize, opt => opt.MapFrom(src => src.EmployeeSize.ToString()))
                 .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId.ToString()))
                 .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.AreaId.ToString()))
                 .ReverseMap()
-                .ForMember(dest => dest.NumberOfEmployees, opt => opt.MapFrom(src => int.Parse(src.NumberOfEmployees)))
+                .ForMember(dest => dest.EmployeeSize, opt => opt.MapFrom(src => int.Parse(src.EmployeeSize)))
                 .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => Guid.Parse(src.OwnerId)))
                 .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => int.Parse(src.AreaId)));
 
@@ -56,6 +55,20 @@ namespace Backend.BLL.Mapping
             CreateMap<Certificate, CertificateResponse>().ReverseMap();
             CreateMap<Certificate, CertificateRequest>().ReverseMap();
             CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
+
+            CreateMap<Area, AreaResponse>().ReverseMap();
+
+            CreateMap<Dentist, DentistResponse>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ReverseMap();
+
+            #region DentistSchedule
+            CreateMap<DentistScheduleRequest, DentistSchedule>()
+                .ForMember(dest => dest.ScheduleId, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ReverseMap();
+            CreateMap<DentistScheduleResponse, DentistSchedule>().ReverseMap();
+            CreateMap<UpdateScheduleWorkingTimeRequest, DentistSchedule>();
+            #endregion
         }
     }
 }
