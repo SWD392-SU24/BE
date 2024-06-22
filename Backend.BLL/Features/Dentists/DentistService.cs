@@ -51,6 +51,7 @@ namespace Backend.BLL.Features.Dentists
             }
             catch
             {
+                await _unitOfWork.RollbackAsync();
                 throw;
             }
             return result;
@@ -72,6 +73,7 @@ namespace Backend.BLL.Features.Dentists
             }
             catch
             {
+                await _unitOfWork.RollbackAsync();
                 throw;
             }
             return result;
@@ -156,6 +158,7 @@ namespace Backend.BLL.Features.Dentists
             }
             catch
             {
+                await _unitOfWork.RollbackAsync();
                 throw;
             }
             return result;
