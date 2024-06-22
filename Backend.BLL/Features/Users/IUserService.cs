@@ -8,6 +8,8 @@ namespace Backend.BLL.Features.Users
     {
         Task<AuthResponse> Authenticate(AuthRequest request);
 
+        Task<AuthResponse> AuthenticateForDentist(AuthRequest request);
+
         Task<AuthResponse> RenewTokens(TokenApiModel tokenApiModel);
 
         /// <summary>
@@ -27,5 +29,8 @@ namespace Backend.BLL.Features.Users
         Task<UserResponse?> CreateUser(UserRequest userCreateRequest);
         Task<bool> UpdateUser(Guid id, UpdateUserRequest userUpdateRequest);
         Task<bool> DeleteUser(Guid id);
+
+        // Refactor code for managing accounts (System Admin)
+        Task<IList<UserDashboardReponse>> GetAccounts(string? name, string? role, string? address);
     }
 }
