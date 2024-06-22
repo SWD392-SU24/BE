@@ -73,7 +73,7 @@ namespace Backend.API.Controllers.v1
             return BadRequest();
         }
 
-        [HttpPatch("dentist/working-schedule/{scheduleId}")]
+        [HttpPatch("working-schedule/{scheduleId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]

@@ -35,7 +35,7 @@ namespace Backend.BLL.Features.Dentists
                     throw new ArgumentException("Start time must be smaller than end time!");
                 // Check duplicate of time in a working day
                 var availableSchedules = await dentistScheduleRepository.GetAll()
-                    .Where(s => s.WorkingDate == request.WorkingDate)
+                    .Where(s => s.WorkingDate == request.WorkingDate && s.DentistId == request.DentistId)
                     .AsNoTracking()
                     .ToListAsync();
                 foreach (var item in availableSchedules)
@@ -142,7 +142,7 @@ namespace Backend.BLL.Features.Dentists
                 var updatedSchedule = _mapper.Map(request, schedule);
                 // Check duplicate of time in a working day
                 var availableSchedules = await dentistScheduleRepository.GetAll()
-                    .Where(s => s.WorkingDate == updatedSchedule.WorkingDate)
+                    .Where(s => s.WorkingDate == updatedSchedule.WorkingDate && s.DentistId == updatedSchedule.DentistId)
                     .AsNoTracking()
                     .ToListAsync();
                 foreach (var item in availableSchedules)
