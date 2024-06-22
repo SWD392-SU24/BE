@@ -149,6 +149,7 @@ namespace Backend.BLL.Features.Certificates
             }
             catch
             {
+                await _unitOfWork.RollbackAsync();
                 throw;
             }
             return result;
