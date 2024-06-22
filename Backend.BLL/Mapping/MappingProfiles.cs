@@ -3,7 +3,6 @@ using Backend.BO.Commons;
 using Backend.BO.Entities;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;
-using Microsoft.AspNetCore.Identity;
 
 namespace Backend.BLL.Mapping
 {
@@ -58,6 +57,18 @@ namespace Backend.BLL.Mapping
             CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
 
             CreateMap<Area, AreaResponse>().ReverseMap();
+
+            CreateMap<Dentist, DentistResponse>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ReverseMap();
+
+            #region DentistSchedule
+            CreateMap<DentistScheduleRequest, DentistSchedule>()
+                .ForMember(dest => dest.ScheduleId, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ReverseMap();
+            CreateMap<DentistScheduleResponse, DentistSchedule>().ReverseMap();
+            CreateMap<UpdateScheduleWorkingTimeRequest, DentistSchedule>();
+            #endregion
         }
     }
 }
