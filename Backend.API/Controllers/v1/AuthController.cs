@@ -16,62 +16,6 @@ namespace Backend.API.Controllers.v1
         {
             _userService = userService;
         }
-
-        [HttpPost("sign-in")]
-        [AllowAnonymous]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ResponseModel<AuthResponse>>> Signin(AuthRequest authRequest)
-        {
-            var result = await _userService.Authenticate(authRequest);
-            var response = new ResponseModel<AuthResponse>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "Sign in successfully!",
-                response: result
-            );
-            return Ok(response);
-        }
-
-        [HttpPost("dentist/sign-in")]
-        [AllowAnonymous]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ResponseModel<AuthResponse>>> SigninForDentist(AuthRequest authRequest)
-        {
-            var result = await _userService.AuthenticateForDentist(authRequest);
-            var response = new ResponseModel<AuthResponse>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "Sign in successfully!",
-                response: result
-            );
-            return Ok(response);
-        }
-
-        [HttpPost("sign-out")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ResponseModel<string>>> Signout(TokenApiModel tokenApiModel)
-        {
-            var result = await _userService.Revoke(tokenApiModel);
-            if (result)
-            {
-                var response = new ResponseModel<string>(
-                    statusCode: (int)HttpStatusCode.OK,
-                    message: "Sign out successfully!",
-                    response: null
-                );
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest();
-            }
-        }
+        
     }
 }

@@ -25,12 +25,17 @@ namespace Backend.BLL.Features.Users
 
         // ---------------------------------- //
         PageList<UserDashboardReponse> GetAllUser(string? name, string? email, string? phoneNumber, string? address, int? sex, string? role, int pageNumber, int pageSize);
+        
         Task<UserResponse?> GetUserById(Guid id);
+        
         Task<UserResponse?> CreateUser(UserRequest userCreateRequest);
+        
         Task<bool> UpdateUser(Guid id, UpdateUserRequest userUpdateRequest);
+        
         Task<bool> DeleteUser(Guid id);
-
-        // Refactor code for managing accounts (System Admin)
+        
         Task<IList<UserDashboardReponse>> GetAccounts(string? name, string? role, string? address);
+
+        Task<bool> UpdateCustomerInformation(Guid id, UpdateCustomerRequest request);
     }
 }

@@ -70,7 +70,7 @@ namespace Backend.BLL.Features.Users
                 throw;
             }
         }
-        
+
         public async Task<AuthResponse> RenewTokens(TokenApiModel tokenApiModel)
         {
             try
@@ -109,7 +109,7 @@ namespace Backend.BLL.Features.Users
                 throw;
             }
         }
-        
+
         public async Task<bool> Revoke(TokenApiModel tokenApiModel)
         {
             var result = false;
@@ -174,7 +174,7 @@ namespace Backend.BLL.Features.Users
                 await _unitOfWork.CommitAsync();
                 result = true;
             }
-            catch 
+            catch
             {
                 await _unitOfWork.RollbackAsync();
                 throw;
@@ -209,7 +209,7 @@ namespace Backend.BLL.Features.Users
                 await _unitOfWork.CommitAsync();
                 result = true;
             }
-            catch 
+            catch
             {
                 await _unitOfWork.RollbackAsync();
                 throw;
@@ -217,7 +217,8 @@ namespace Backend.BLL.Features.Users
             return result;
         }
 
-        public PageList<UserDashboardReponse> GetAllUser(string? name, string? email, string? phoneNumber, string? address, int? sex, string? role, int pageNumber = 1, int pageSize = 5)
+        public PageList<UserDashboardReponse> GetAllUser(string? name, string? email, string? phoneNumber, string? address, 
+            int? sex, string? role, int pageNumber = 1, int pageSize = 5)
         {
             var usersQuery = _unitOfWork.GetUserRepository().GetAllUser(name, email, phoneNumber, address, sex, role);
             var userPageList = PageList<User>.ToPagedList(usersQuery, pageNumber, pageSize);
@@ -229,7 +230,11 @@ namespace Backend.BLL.Features.Users
             IUserRepository userRepository = _unitOfWork.GetUserRepository();
             try
             {
-                var user = await userRepository.GetByIdAsync(id);
+                var user = await userRepository
+                    .GetAll()
+                    .Where(u => u.Id == id && (u.Role == UserRole.ClinicOwner || u.Role == UserRole.Customer))
+                    .FirstOrDefaultAsync();
+
                 if (user == null)
                 {
                     throw new KeyNotFoundException("User not found");
@@ -243,22 +248,23 @@ namespace Backend.BLL.Features.Users
             }
         }
 
-        public async Task<UserResponse?> CreateUser(UserRequest userCreateRequest)
+        public Task<UserResponse?> CreateUser(UserRequest userCreateRequest)
         {
-            IUserRepository userRepository = _unitOfWork.GetUserRepository();
-            try
-            {
-                var user = _mapper.Map<User>(userCreateRequest);
-                UserValidation.ValidationUserRequest(user);
-                await userRepository.AddAsync(user);
-                await _unitOfWork.CommitAsync();
-                return _mapper.Map<UserResponse>(user);
-            }
-            catch (Exception ex)
-            {
-                _unitOfWork.Rollback();
-                throw new Exception(ex.Message);
-            }
+            throw new NotImplementedException();
+            //IUserRepository userRepository = _unitOfWork.GetUserRepository();
+            //try
+            //{
+            //    var user = _mapper.Map<User>(userCreateRequest);
+            //    UserValidation.ValidationUserRequest(user);
+            //    await userRepository.AddAsync(user);
+            //    await _unitOfWork.CommitAsync();
+            //    return _mapper.Map<UserResponse>(user);
+            //}
+            //catch (Exception ex)
+            //{
+            //    _unitOfWork.Rollback();
+            //    throw new Exception(ex.Message);
+            //}
         }
 
         public async Task<bool> UpdateUser(Guid id, UpdateUserRequest userUpdateRequest)
@@ -307,26 +313,29 @@ namespace Backend.BLL.Features.Users
                     .Where(u => u.Role == UserRole.ClinicOwner || u.Role == UserRole.Customer)
                     .AsNoTracking()
                     .ToListAsync();
+
                 if (!accounts.Any())
                     throw new InvalidOperationException("No data for accounts!");
+
                 if (!string.IsNullOrEmpty(name))
                 {
                     accounts = accounts.Where(x => x.FirstName.Contains(name) || x.LastName.Contains(name))
                         .ToList();
                 }
-                if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(address)) 
+                if (!string.IsNullOrEmpty(address))
                 {
-                    accounts = accounts.Where(x => x.FirstName.Contains(name) || x.LastName.Contains(name)
-                        && x.Address.Contains(address))
+                    accounts = accounts.Where(x => x.Address.Contains(address))
                         .ToList();
                 }
-                if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(address) && !string.IsNullOrEmpty(role))
+                if (!string.IsNullOrEmpty(role))
                 {
-                    accounts = accounts.Where(x => x.FirstName.Contains(name) || x.LastName.Contains(name)
-                        && x.Address.Contains(address) && x.Role.Contains(role))
+                    accounts = accounts.Where(x => x.Role.Contains(role))
                         .ToList();
                 }
                 var response = _mapper.Map<IList<UserDashboardReponse>>(accounts);
+                if (!response.Any())
+                    throw new InvalidOperationException("No data for accounts!");
+
                 return response;
             }
             catch
@@ -375,6 +384,31 @@ namespace Backend.BLL.Features.Users
                 await _unitOfWork.RollbackAsync();
                 throw;
             }
+        }
+
+        public async Task<bool> UpdateCustomerInformation(Guid id, UpdateCustomerRequest request)
+        {
+            var result = false;
+            try
+            {
+                IUserRepository userRepository = _unitOfWork.GetUserRepository();
+
+                var customer = await userRepository.GetAll()
+                    .Where(u => u.Id == id && u.Role == UserRole.Customer)
+                    .FirstOrDefaultAsync();
+                if (customer is null)
+                    throw new KeyNotFoundException("Customer does not exist!");
+                var updatedCustomer = _mapper.Map(request, customer);
+                
+                userRepository.Update(updatedCustomer);
+                await _unitOfWork.CommitAsync();
+                result = true;
+            }
+            catch
+            {
+                throw;
+            }
+            return result;
         }
     }
 }
