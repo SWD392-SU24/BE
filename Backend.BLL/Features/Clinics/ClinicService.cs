@@ -313,5 +313,61 @@ namespace Backend.BLL.Features.Clinics
                 throw;
             }
         }
+
+        public async Task<IList<ServiceResponse>> GetServiceOfAClinic(int clinicId)
+        {
+            try
+            {
+                var clinicRepository = _unitOfWork.GetRepository<Clinic>();
+                var services = await clinicRepository.GetAll()
+                    .Where(x => x.Id == clinicId)
+                    .Include(x => x.Services)
+                    .SelectMany(x => x.Services)
+                    .ToListAsync();
+
+                if (!services.Any()) throw new InvalidOperationException("No data of service.");
+                return _mapper.Map<IList<ServiceResponse>>(services);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<ClinicResponse>> GetClinics(int? areaId, string? clinicName, string[]? ratings)
+        {
+            try
+            {
+                var clinicRepository = _unitOfWork.GetRepository<Clinic>();
+                var query = clinicRepository.GetAll();
+
+                List<short> ratingValues = ratings?.Select(short.Parse).ToList() ?? new List<short>();
+
+                // condition and filter 
+                if (areaId.HasValue)
+                {
+                    query = query.Where(x => x.AreaId == areaId);
+                }
+                if (!string.IsNullOrEmpty(clinicName))
+                {
+                    query = query.Where(c => c.ClinicName.Contains(clinicName));
+                }
+                if (ratings.Any())
+                {
+                    query = query
+                        .Include(x => x.ClinicFeedbacks)
+                        .Where(x => x.ClinicFeedbacks.Any(fb => ratingValues.Contains(fb.Rating)));
+                }
+                var queryResult = await query.ToListAsync();
+                if (!queryResult.Any())
+                    throw new InvalidOperationException("No data of clinic!");
+
+                return _mapper.Map<List<ClinicResponse>>(queryResult);
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

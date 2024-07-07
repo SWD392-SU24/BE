@@ -31,6 +31,7 @@ namespace Backend.BLL.Mapping
             CreateMap<PageList<User>, PageList<UserDashboardReponse>>()
                             .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
             CreateMap<User, UserRequest>().ReverseMap();
+            CreateMap<UpdateCustomerRequest, User>().ReverseMap();
 
             CreateMap<Clinic, ClinicRequest>()
                 .ForMember(dest => dest.EmployeeSize, opt => opt.MapFrom(src => src.EmployeeSize.ToString()))
@@ -69,6 +70,8 @@ namespace Backend.BLL.Mapping
             CreateMap<DentistScheduleResponse, DentistSchedule>().ReverseMap();
             CreateMap<UpdateScheduleWorkingTimeRequest, DentistSchedule>();
             #endregion
+
+            CreateMap<Service, ServiceResponse>();
         }
     }
 }
