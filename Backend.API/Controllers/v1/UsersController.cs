@@ -59,98 +59,98 @@ namespace Backend.API.Controllers.v1
                 return BadRequest();
             }
         }
-        
-        [HttpGet("accounts")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public IActionResult GetAllUsers(string? name, string? email, string? phoneNumber, string? address, int? sex, string? role, int pageNumber = 1, int pageSize = 5)
-        {
-            var result = _userService.GetAllUser(name, email, phoneNumber, address, sex, role, pageNumber, pageSize);
-            return Ok(result);
-        }
 
-        public async Task<ActionResult<ResponseModel<IList<UserDashboardReponse>>>> GetAccounts(string? name, string? address, string? role)
-        {
-            var accounts = await _userService.GetAccounts(name, role, address);
-            var response = new ResponseModel<IList<UserDashboardReponse>>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "List of accounts",
-                response: accounts
-            );
-            return Ok(response);
-        }
+        //[HttpGet("accounts")]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.NotFound)]
+        //[ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        //public IActionResult GetAllUsers(string? name, string? email, string? phoneNumber, string? address, int? sex, string? role, int pageNumber = 1, int pageSize = 5)
+        //{
+        //    var result = _userService.GetAllUser(name, email, phoneNumber, address, sex, role, pageNumber, pageSize);
+        //    return Ok(result);
+        //}
 
-        [HttpGet("accounts/{id}")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<ResponseModel<UserResponse>>> GetUser(Guid id)
-        {
-            var user = await _userService.GetUserById(id);
-            var response = new ResponseModel<UserResponse>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "User",
-                response: user
-            );
-            return Ok(user);
-        }
+        //public async Task<ActionResult<ResponseModel<IList<UserDashboardReponse>>>> GetAccounts(string? name, string? address, string? role)
+        //{
+        //    var accounts = await _userService.GetAccounts(name, role, address);
+        //    var response = new ResponseModel<IList<UserDashboardReponse>>(
+        //        statusCode: (int)HttpStatusCode.OK,
+        //        message: "List of accounts",
+        //        response: accounts
+        //    );
+        //    return Ok(response);
+        //}
 
-        // POST: api/v1/Users
-        [HttpPost("account")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<ResponseModel<string>>> CreateUser(UserRequest userCreateRequest)
-        {
-            var userResponse = await _userService.CreateUser(userCreateRequest);
-            if (userResponse == null)
-            {
-                return BadRequest();
-            }
-            var response = new ResponseModel<string>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "Create account successfully!",
-                response: null
-            );
-            return Ok(response);
-        }
+        //[HttpGet("accounts/{id}")]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.NotFound)]
+        //public async Task<ActionResult<ResponseModel<UserResponse>>> GetUser(Guid id)
+        //{
+        //    var user = await _userService.GetUserById(id);
+        //    var response = new ResponseModel<UserResponse>(
+        //        statusCode: (int)HttpStatusCode.OK,
+        //        message: "User",
+        //        response: user
+        //    );
+        //    return Ok(user);
+        //}
 
-        // PUT: api/v1/Users/5
-        [HttpPut("account/{id}")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<ResponseModel<string>>> UpdateUser(Guid id, UpdateUserRequest userUpdateRequest)
-        {
-            var result = await _userService.UpdateUser(id, userUpdateRequest);
-            if (!result)
-            {
-                return NotFound();
-            }
-            var response = new ResponseModel<string>(
-                statusCode: (int)HttpStatusCode.NoContent,
-                message: "Update account successfully.",
-                response: null
-            );
-            return Ok(response);
-        }
+        //// POST: api/v1/Users
+        //[HttpPost("account")]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        //public async Task<ActionResult<ResponseModel<string>>> CreateUser(UserRequest userCreateRequest)
+        //{
+        //    var userResponse = await _userService.CreateUser(userCreateRequest);
+        //    if (userResponse == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    var response = new ResponseModel<string>(
+        //        statusCode: (int)HttpStatusCode.OK,
+        //        message: "Create account successfully!",
+        //        response: null
+        //    );
+        //    return Ok(response);
+        //}
 
-        // DELETE: api/v1/Users/5
-        [HttpDelete("{id}")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<ResponseModel<string>>> DeleteUser(Guid id)
-        {
-            var result = await _userService.DeleteUser(id);
-            if (!result)
-            {
-                return NotFound();
-            }
-            var response = new ResponseModel<string>(
-                statusCode: (int)HttpStatusCode.NoContent,
-                message: "Delete account successfully.",
-                response: null
-            );
-            return Ok(response);
-        }
+        //// PUT: api/v1/Users/5
+        //[HttpPut("account/{id}")]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        //[ProducesResponseType((int)HttpStatusCode.NotFound)]
+        //public async Task<ActionResult<ResponseModel<string>>> UpdateUser(Guid id, UpdateUserRequest userUpdateRequest)
+        //{
+        //    var result = await _userService.UpdateUser(id, userUpdateRequest);
+        //    if (!result)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var response = new ResponseModel<string>(
+        //        statusCode: (int)HttpStatusCode.NoContent,
+        //        message: "Update account successfully.",
+        //        response: null
+        //    );
+        //    return Ok(response);
+        //}
+
+        //// DELETE: api/v1/Users/5
+        //[HttpDelete("{id}")]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.NotFound)]
+        //public async Task<ActionResult<ResponseModel<string>>> DeleteUser(Guid id)
+        //{
+        //    var result = await _userService.DeleteUser(id);
+        //    if (!result)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var response = new ResponseModel<string>(
+        //        statusCode: (int)HttpStatusCode.NoContent,
+        //        message: "Delete account successfully.",
+        //        response: null
+        //    );
+        //    return Ok(response);
+        //}
     }
 }

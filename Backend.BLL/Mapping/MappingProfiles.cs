@@ -69,6 +69,8 @@ namespace Backend.BLL.Mapping
             CreateMap<DentistScheduleResponse, DentistSchedule>().ReverseMap();
             CreateMap<UpdateScheduleWorkingTimeRequest, DentistSchedule>();
             #endregion
+
+            CreateMap<Service, ServiceResponse>();
         }
     }
 }

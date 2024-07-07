@@ -9,6 +9,8 @@ using Backend.DAL;
 using Backend.DAL.Databases;
 using Backend.DAL.Repositories;
 using Backend.DAL.Repositories.Contracts;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Backend.API.Extensions
 {
@@ -16,7 +18,14 @@ namespace Backend.API.Extensions
     {
         public static IServiceCollection Register(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opt =>
+            {
+                opt.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                opt.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                opt.JsonSerializerOptions.WriteIndented = true;
+                // Handling circular reference
+                opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {
