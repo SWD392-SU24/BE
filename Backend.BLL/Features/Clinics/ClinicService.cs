@@ -313,27 +313,7 @@ namespace Backend.BLL.Features.Clinics
                 throw;
             }
         }
-
-        public async Task<IList<ServiceResponse>> GetServiceOfAClinic(int clinicId)
-        {
-            try
-            {
-                var clinicRepository = _unitOfWork.GetRepository<Clinic>();
-                var services = await clinicRepository.GetAll()
-                    .Where(x => x.Id == clinicId)
-                    .Include(x => x.Services)
-                    .SelectMany(x => x.Services)
-                    .ToListAsync();
-
-                if (!services.Any()) throw new InvalidOperationException("No data of service.");
-                return _mapper.Map<IList<ServiceResponse>>(services);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
+        
         public async Task<List<ClinicResponse>> GetClinics(int? areaId, string? clinicName, string[]? ratings)
         {
             try
@@ -368,6 +348,79 @@ namespace Backend.BLL.Features.Clinics
             {
                 throw;
             }
+        }
+
+        public async Task<ClinicCustomerPageResponse> GetClinic(int clinicId)
+        {
+            try
+            {
+                var clinicRepository = _unitOfWork.GetRepository<Clinic>();
+                
+                var clinic = await clinicRepository.GetAll()
+                    .Include(c => c.Services)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(c => c.Id == clinicId);
+                if (clinic is null)
+                    throw new KeyNotFoundException("Clinic does not exist!");
+
+                var clinicResponse = _mapper.Map<ClinicCustomerPageResponse>(clinic);
+                clinicResponse.AverageRating = await GetAverageFeedbackRatingOfAClinic(clinicId);
+
+                return clinicResponse;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<IList<ServiceResponse>> GetServiceOfAClinic(int clinicId, string? serviceName)
+        {
+            try
+            {
+                var clinicRepository = _unitOfWork.GetRepository<Clinic>();
+                var services = await clinicRepository.GetAll()
+                    .Where(x => x.Id == clinicId)
+                    .Include(x => x.Services)
+                    .SelectMany(x => x.Services)
+                    .ToListAsync();
+
+                if (!services.Any()) 
+                    throw new InvalidOperationException("No data of service.");
+
+                if (!string.IsNullOrEmpty(serviceName))
+                    services = services
+                        .Where(s => s.ServiceName.Contains(serviceName, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                return _mapper.Map<IList<ServiceResponse>>(services);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<double> GetAverageFeedbackRatingOfAClinic(int clinicId)
+        {
+            // initial value
+            double result = 0;
+            try
+            {
+                var clinicFeedbackRepository = _unitOfWork.GetRepository<ClinicFeedback>();
+
+                var ratings = await clinicFeedbackRepository.GetAll()
+                    .AsNoTracking()
+                    .Where(c => c.ClinicId == clinicId)
+                    .Select(x => x.Rating)
+                    .ToListAsync();
+
+                result = ratings.Select(r => (double)r).Average();
+            }
+            catch
+            {
+                throw;
+            }
+            return result;
         }
     }
 }

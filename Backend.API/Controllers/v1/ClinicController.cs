@@ -16,7 +16,7 @@ namespace Backend.API.Controllers.v1
             _clinicService = clinicService;
         }
 
-        [HttpPost("clinics")]
+        [HttpPost("clinic")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
@@ -26,7 +26,7 @@ namespace Backend.API.Controllers.v1
             return Ok(addedClinic);
         }
 
-        [HttpPut("clinics/{clinicId}")]
+        [HttpPut("clinic/{clinicId}")]
         [ProducesResponseType(typeof(ClinicResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -36,7 +36,7 @@ namespace Backend.API.Controllers.v1
             var updatedClinic = await _clinicService.UpdateClinicAsync(clinicId, clinicRequest);
             return Ok(updatedClinic);
         }
-        [HttpDelete("clinics/{clinicId}")]
+        [HttpDelete("clinic/{clinicId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
@@ -46,6 +46,21 @@ namespace Backend.API.Controllers.v1
             return Ok("Delete Success!");
         }
 
+        [HttpGet("clinics/{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<ResponseModel<ClinicCustomerPageResponse>>> GetClinic(int id)
+        {
+            var clinic = await _clinicService.GetClinic(id);
+            var response = new ResponseModel<ClinicCustomerPageResponse>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "Data of clinic.",
+                response: clinic
+            );
+            return Ok(response);
+        }
+        
         [HttpGet("area/{areaId}/clinics")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -99,9 +114,9 @@ namespace Backend.API.Controllers.v1
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ResponseModel<IList<ServiceResponse>>>> GetServiceOfAClinic(int id)
+        public async Task<ActionResult<ResponseModel<IList<ServiceResponse>>>> GetServiceOfAClinic(int id, [FromQuery] string? name)
         {
-            var clinics = await _clinicService.GetServiceOfAClinic(id);
+            var clinics = await _clinicService.GetServiceOfAClinic(id, name);
 
             var response = new ResponseModel<IList<ServiceResponse>>(
                 statusCode: (int)HttpStatusCode.OK,

@@ -52,12 +52,16 @@ namespace Backend.BLL.Mapping
                 .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => int.Parse(src.AreaId)));
 
             CreateMap<ClinicRequest, ClinicResponse>().ReverseMap();
+            CreateMap<Clinic, ClinicCustomerPageResponse>()
+                .ReverseMap();
             
             CreateMap<Certificate, CertificateResponse>().ReverseMap();
             CreateMap<Certificate, CertificateRequest>().ReverseMap();
             CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
 
             CreateMap<Area, AreaResponse>().ReverseMap();
+
+            CreateMap<Service, ServiceClinicResponse>();
 
             CreateMap<Dentist, DentistResponse>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
