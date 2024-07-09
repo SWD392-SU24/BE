@@ -17,7 +17,7 @@ namespace Backend.DAL.Databases.Data
                     OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                     EmployeeSize = 150,
                     PhoneNumber = "02838238888",
-                    AreaId = 1,
+                    AreaId = 2,
                     ClinicState = 2
                 },
                 new Clinic
@@ -29,7 +29,7 @@ namespace Backend.DAL.Databases.Data
                     OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                     EmployeeSize = 200,
                     PhoneNumber = "02838240777",
-                    AreaId = 1,
+                    AreaId = 2,
                     ClinicState = 2
                 },
                 new Clinic
@@ -41,7 +41,7 @@ namespace Backend.DAL.Databases.Data
                     OwnerId = new Guid("4d219f08-6205-4ded-bc09-4c148902fb35"),
                     EmployeeSize = 100,
                     PhoneNumber = "02838272366",
-                    AreaId = 1,
+                    AreaId = 2,
                     ClinicState = 2
                 },
                 new Clinic
@@ -53,7 +53,7 @@ namespace Backend.DAL.Databases.Data
                     OwnerId = new Guid("88c95c5d-219b-445e-9c3f-28d92a5d07f7"),
                     EmployeeSize = 50,
                     PhoneNumber = "02742222220",
-                    AreaId = 2,
+                    AreaId = 3,
                     ClinicState = 1
                 }
             );

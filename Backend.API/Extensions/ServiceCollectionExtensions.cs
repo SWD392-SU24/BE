@@ -10,6 +10,8 @@ using Backend.DAL;
 using Backend.DAL.Databases;
 using Backend.DAL.Repositories;
 using Backend.DAL.Repositories.Contracts;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Backend.API.Extensions
 {
@@ -17,7 +19,15 @@ namespace Backend.API.Extensions
     {
         public static IServiceCollection Register(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opt =>
+            {
+                opt.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                opt.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                opt.JsonSerializerOptions.WriteIndented = true;
+                // Handling circular reference
+                opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
+            services.AddHttpContextAccessor();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {
@@ -75,10 +85,12 @@ namespace Backend.API.Extensions
 
             // Repositories configuration
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICertificateRepository, CertificateRepository>();
             services.AddScoped<IClinicRepository, ClinicRepository>();
             services.AddScoped<IDentistRepository, DentistRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IAppointmentServiceRepository, AppointmentServiceRepository>();
                         
             // Services configuration
             services.AddTransient<ITokenService, TokenService>();   // processing Jwt tokens
@@ -89,8 +101,6 @@ namespace Backend.API.Extensions
             services.AddScoped<IDentistService, DentistService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddHttpContextAccessor();
             return services;
         }
     }

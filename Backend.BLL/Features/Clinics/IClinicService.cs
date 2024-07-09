@@ -20,5 +20,13 @@ namespace Backend.BLL.Features.Clinics
         /// <param name="clinicId"></param>
         /// <returns>List of feedback</returns>
         Task<IList<ClinicFeedbackResponse>> GetFeedbackOfAClinic(int clinicId, DateTime? fromDate, DateTime? toDate);
+
+        Task<IList<ServiceResponse>> GetServiceOfAClinic(int clinicId, string? serviceName);
+
+        Task<List<ClinicResponse>> GetClinics(int? areaId, string? clinicName, string[]? ratings);
+
+        Task<ClinicCustomerPageResponse> GetClinic(int clinicId);
+
+        Task<double> GetAverageFeedbackRatingOfAClinic(int clinicId);
     }
 }

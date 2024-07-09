@@ -1,39 +1,62 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Backend.BLL.Features.Appointments;
+using Backend.BO.Commons;
+using Backend.BO.Payloads.Requests;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Backend.API.Controllers.v1
 {
     public class AppointmentsController : BaseApiController
     {
-        // GET: api/<AppointmentsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IAppointmentService _appointmentService;
+
+        public AppointmentsController(IAppointmentService appointmentService)
         {
-            return new string[] { "value1", "value2" };
+            _appointmentService = appointmentService;
         }
+
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET api/<AppointmentsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
-        // POST api/<AppointmentsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("booking-appointment")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<ResponseModel<string>>> RegisterAppointment([FromBody] AppointmentRequest request)
         {
+            var result = await _appointmentService.CreateAppointment(request);
+            if (result)
+            {
+                var response = new ResponseModel<string>(
+                    statusCode: (int)HttpStatusCode.OK,
+                    message: "Register appointment successfully!",
+                    response: null
+                );
+                return Ok(response);
+            }
+            return BadRequest();
         }
 
         // PUT api/<AppointmentsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
         // DELETE api/<AppointmentsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

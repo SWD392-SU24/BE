@@ -17,7 +17,7 @@ namespace Backend.API.Controllers.v1
             _certificateService = certificateService;
         }
 
-        [HttpGet("dentist-id/{id}/certificates")]
+        [HttpGet("dentist/{id}/certificates")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
@@ -88,7 +88,7 @@ namespace Backend.API.Controllers.v1
             return BadRequest();
         }
         
-        [HttpDelete("dentist-id/{dentistId}/certificate/{id}")]
+        [HttpDelete("dentist/{dentistId}/certificate/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]

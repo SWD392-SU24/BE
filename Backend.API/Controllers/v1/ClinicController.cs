@@ -16,7 +16,7 @@ namespace Backend.API.Controllers.v1
             _clinicService = clinicService;
         }
 
-        [HttpPost("clinics")]
+        [HttpPost("clinic")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
@@ -26,7 +26,7 @@ namespace Backend.API.Controllers.v1
             return Ok(addedClinic);
         }
 
-        [HttpPut("clinics/{clinicId}")]
+        [HttpPut("clinic/{clinicId}")]
         [ProducesResponseType(typeof(ClinicResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -36,7 +36,7 @@ namespace Backend.API.Controllers.v1
             var updatedClinic = await _clinicService.UpdateClinicAsync(clinicId, clinicRequest);
             return Ok(updatedClinic);
         }
-        [HttpDelete("clinics/{clinicId}")]
+        [HttpDelete("clinic/{clinicId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
@@ -46,17 +46,39 @@ namespace Backend.API.Controllers.v1
             return Ok("Delete Success!");
         }
 
-        [HttpGet("clinics/{areaId}")]
+        [HttpGet("clinics/{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<ResponseModel<ClinicCustomerPageResponse>>> GetClinic(int id)
+        {
+            var clinic = await _clinicService.GetClinic(id);
+            var response = new ResponseModel<ClinicCustomerPageResponse>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "Data of clinic.",
+                response: clinic
+            );
+            return Ok(response);
+        }
+        
+        [HttpGet("area/{areaId}/clinics")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ResponseModel<List<ClinicResponse>>>> GetClinicsByName(string? clinicName, int areaId)
+        public async Task<ActionResult<ResponseModel<List<ClinicResponse>>>> GetClinics(string? clinicName, int areaId, 
+            [FromQuery] string[]? ratings)
         {
-            var clinics = await _clinicService.GetClinicsByNameAsync(clinicName, areaId);
-            return Ok(clinics);
+            var clinics = await _clinicService.GetClinics(areaId, clinicName, ratings);
+            var response = new ResponseModel<List<ClinicResponse>>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "List of clinic(s)",
+                response: clinics
+            );
+
+            return Ok(response);
         }
 
-        [HttpGet("clinics/{ownerId}/owner")]
+        [HttpGet("owner/{ownerId}/clinics")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
@@ -83,6 +105,22 @@ namespace Backend.API.Controllers.v1
             var response = new ResponseModel<IList<ClinicFeedbackResponse>>(
                 statusCode: (int)HttpStatusCode.OK,
                 message: "Data retrival success!",
+                response: clinics
+            );
+            return Ok(response);
+        }
+
+        [HttpGet("clinic/{id}/services")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<ResponseModel<IList<ServiceResponse>>>> GetServiceOfAClinic(int id, [FromQuery] string? name)
+        {
+            var clinics = await _clinicService.GetServiceOfAClinic(id, name);
+
+            var response = new ResponseModel<IList<ServiceResponse>>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "Data of service",
                 response: clinics
             );
             return Ok(response);

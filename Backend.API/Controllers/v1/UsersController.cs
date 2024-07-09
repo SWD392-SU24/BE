@@ -4,6 +4,7 @@ using Backend.BLL.Features.Users;
 using Backend.BO.Payloads.Requests;
 using System.Net;
 using Backend.BO.Payloads.Responses;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.API.Controllers.v1
 {
@@ -59,33 +60,80 @@ namespace Backend.API.Controllers.v1
                 return BadRequest();
             }
         }
-        
-        [HttpGet("users")]
+
+        [HttpPost("sign-in")]
+        [AllowAnonymous]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public IActionResult GetAllUsers(string? name, string? email, string? phoneNumber, string? address, int? sex, string? role, int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult<ResponseModel<AuthResponse>>> Signin(AuthRequest authRequest)
         {
-            var result = _userService.GetAllUser(name, email, phoneNumber, address, sex, role, pageNumber, pageSize);
-            return Ok(result);
+            var result = await _userService.Authenticate(authRequest);
+            var response = new ResponseModel<AuthResponse>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "Sign in successfully!",
+                response: result
+            );
+            return Ok(response);
         }
 
-        [HttpGet("accounts")]
+        [HttpPost("dentist/sign-in")]
+        [AllowAnonymous]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<ResponseModel<AuthResponse>>> SigninForDentist(AuthRequest authRequest)
+        {
+            var result = await _userService.AuthenticateForDentist(authRequest);
+            var response = new ResponseModel<AuthResponse>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "Sign in successfully!",
+                response: result
+            );
+            return Ok(response);
+        }
+
+        [HttpPost("sign-out")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesErrorResponseType(typeof(ResponseModel<string>))]
+        public async Task<ActionResult<ResponseModel<string>>> Signout(TokenApiModel tokenApiModel)
+        {
+            var result = await _userService.Revoke(tokenApiModel);
+            if (result)
+            {
+                var response = new ResponseModel<string>(
+                    statusCode: (int)HttpStatusCode.OK,
+                    message: "Sign out successfully!",
+                    response: null
+                );
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("system-admin/accounts")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesErrorResponseType(typeof(ResponseModel<string>))]
-        public async Task<ActionResult<ResponseModel<IList<UserDashboardReponse>>>> GetAccounts(string? name, string? address, string? role)
+        public async Task<ActionResult<ResponseModel<IList<UserDashboardReponse>>>> GetAccountsInSystem(string? name, string? role, string? address)
         {
             var accounts = await _userService.GetAccounts(name, role, address);
             var response = new ResponseModel<IList<UserDashboardReponse>>(
                 statusCode: (int)HttpStatusCode.OK,
-                message: "List of accounts",
+                message: "List of account(s)",
                 response: accounts
             );
             return Ok(response);
         }
 
-        [HttpGet("accounts/{id}")]
+        [HttpGet("system-admin/accounts/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<ResponseModel<UserResponse>>> GetUser(Guid id)
@@ -93,33 +141,13 @@ namespace Backend.API.Controllers.v1
             var user = await _userService.GetUserById(id);
             var response = new ResponseModel<UserResponse>(
                 statusCode: (int)HttpStatusCode.OK,
-                message: "User",
+                message: "Information of user",
                 response: user
-            );
-            return Ok(user);
-        }
-
-        // POST: api/v1/Users
-        [HttpPost("account")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<ResponseModel<string>>> CreateUser(UserRequest userCreateRequest)
-        {
-            var userResponse = await _userService.CreateUser(userCreateRequest);
-            if (userResponse == null)
-            {
-                return BadRequest();
-            }
-            var response = new ResponseModel<string>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "Create account successfully!",
-                response: null
             );
             return Ok(response);
         }
 
-        // PUT: api/v1/Users/5
-        [HttpPut("account/{id}")]
+        [HttpPut("system-admin/account/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -138,8 +166,7 @@ namespace Backend.API.Controllers.v1
             return Ok(response);
         }
 
-        // DELETE: api/v1/Users/5
-        [HttpDelete("account/{id}")]
+        [HttpDelete("system-admin/account/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<ResponseModel<string>>> DeleteUser(Guid id)
@@ -156,5 +183,24 @@ namespace Backend.API.Controllers.v1
             );
             return Ok(response);
         }
+
+        [HttpPatch("customer/account/{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<ActionResult<ResponseModel<string>>> UpdateCustomerInfo(Guid id, UpdateCustomerRequest request)
+        {
+            var result = await _userService.UpdateCustomerInformation(id, request);
+            if (!result)
+            {
+                return NotFound();
+            }
+            var response = new ResponseModel<string>(
+                statusCode: (int)HttpStatusCode.OK,
+                message: "Update customer successfully!",
+                response: null
+            );
+            return Ok(response);
+        }
+        
     }
 }
