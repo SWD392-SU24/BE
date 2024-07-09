@@ -42,11 +42,12 @@ namespace Backend.API.Controllers.v1
             var result = await _appointmentService.CreateAppointment(request);
             if (result)
             {
-                var response = new ResponseModel<string>(
-                    statusCode: (int)HttpStatusCode.OK,
-                    message: "Register appointment successfully!",
-                    response: null
-                );
+                var response = new ResponseModel<string>
+                {
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Message = "Register appointment successfully!",
+                    Response = null
+                };
                 return Ok(response);
             }
             return BadRequest();

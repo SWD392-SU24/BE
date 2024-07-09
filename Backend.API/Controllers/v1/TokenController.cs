@@ -16,6 +16,11 @@ namespace Backend.API.Controllers.v1
             _userService = userService;
         }
 
+        /// <summary>
+        /// Generate new tokens when access token is expired
+        /// </summary>
+        /// <param name="tokenApiModel"></param>
+        /// <returns></returns>
         [HttpPost("refresh")]
         //TODO: Create version
         //[MapToApiVersion(1)]
@@ -26,9 +31,12 @@ namespace Backend.API.Controllers.v1
         public async Task<ActionResult<ResponseModel<AuthResponse>>> Refresh(TokenApiModel tokenApiModel)
         {
             var result = await _userService.RenewTokens(tokenApiModel);
-            var response = new ResponseModel<AuthResponse>(
-                (int)HttpStatusCode.OK, "Success!", result
-            );
+            var response = new ResponseModel<AuthResponse>
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "Success.",
+                Response = result
+            };
             return Ok(response);
         }
     }

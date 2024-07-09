@@ -15,6 +15,10 @@ namespace Backend.API.Controllers.v1
             _areaService = areaService;
         }
 
+        /// <summary>
+        /// Get areas
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("areas")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -22,11 +26,12 @@ namespace Backend.API.Controllers.v1
         public async Task<ActionResult<ResponseModel<IList<AreaResponse>>>> GetAreas()
         {
             var areas = await _areaService.GetAreas();
-            var response = new ResponseModel<IList<AreaResponse>>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "List of areas",
-                response: areas
-            );
+            var response = new ResponseModel<IList<AreaResponse>>()
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "List of area(s)",
+                Response = areas
+            };
             return Ok(response);
         }
     }
