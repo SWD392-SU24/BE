@@ -28,6 +28,11 @@ namespace Backend.API.Controllers.v1
         //    return "value";
         //}
 
+        /// <summary>
+        /// Booking an appointment
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("booking-appointment")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

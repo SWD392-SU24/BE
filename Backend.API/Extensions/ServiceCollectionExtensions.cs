@@ -10,6 +10,8 @@ using Backend.DAL;
 using Backend.DAL.Databases;
 using Backend.DAL.Repositories;
 using Backend.DAL.Repositories.Contracts;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -44,8 +46,10 @@ namespace Backend.API.Extensions
                 //    Description = "Upgrade version"
                 //});
                 // For upgrade, configure api version 2
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
-
+            
             // API versioning configuration
             services.AddApiVersioning(options =>
             {
@@ -91,7 +95,7 @@ namespace Backend.API.Extensions
             services.AddScoped<IDentistRepository, DentistRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IAppointmentServiceRepository, AppointmentServiceRepository>();
-                        
+
             // Services configuration
             services.AddTransient<ITokenService, TokenService>();   // processing Jwt tokens
             services.AddScoped<IUserService, UserService>();
