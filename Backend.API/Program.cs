@@ -24,11 +24,14 @@ namespace Backend.API
                     //options.SwaggerEndpoint("/swagger/v2/swagger.json", "DentiCare v2");
                 });
             }
-
             app.UseMiddleware<GlobalHandlingExceptionMiddleware>();
+            
+            app.UseHttpsRedirection();
             // Use CORS
             app.UseCors("DentiCare");
+
             app.UseAuthentication();
+            
             app.UseAuthorization();
             
             app.MapControllers();

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend.BO.Commons;
 using Backend.BO.Entities;
+using Backend.BO.Enums;
 using Backend.BO.Payloads.Requests;
 using Backend.BO.Payloads.Responses;
 
@@ -13,6 +14,7 @@ namespace Backend.BLL.Mapping
         /// </summary>
         public MappingProfiles()
         {
+            #region User
             CreateMap<User, UserResponse>().ReverseMap();
             CreateMap<UpdateUserRequest, User>()
                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
@@ -32,7 +34,9 @@ namespace Backend.BLL.Mapping
                             .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
             CreateMap<User, UserRequest>().ReverseMap();
             CreateMap<UpdateCustomerRequest, User>().ReverseMap();
+            #endregion
 
+            #region Clinic
             CreateMap<Clinic, ClinicRequest>()
                 .ForMember(dest => dest.EmployeeSize, opt => opt.MapFrom(src => src.EmployeeSize.ToString()))
                 .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId.ToString()))
@@ -54,14 +58,20 @@ namespace Backend.BLL.Mapping
             CreateMap<ClinicRequest, ClinicResponse>().ReverseMap();
             CreateMap<Clinic, ClinicCustomerPageResponse>()
                 .ReverseMap();
-            
+            #endregion
+
+            #region Certificate
             CreateMap<Certificate, CertificateResponse>().ReverseMap();
             CreateMap<Certificate, CertificateRequest>().ReverseMap();
             CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
+            #endregion
 
             CreateMap<Area, AreaResponse>().ReverseMap();
 
+            #region Service
             CreateMap<Service, ServiceClinicResponse>();
+            CreateMap<Service, ServiceResponse>();
+            #endregion
 
             CreateMap<Dentist, DentistResponse>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
@@ -75,7 +85,9 @@ namespace Backend.BLL.Mapping
             CreateMap<UpdateScheduleWorkingTimeRequest, DentistSchedule>();
             #endregion
 
-            CreateMap<Service, ServiceResponse>();
+            CreateMap<AppointmentRequest, Appointment>();
+            CreateMap<AppointmentServiceRequest, AppointmentService>();
+
         }
     }
 }
