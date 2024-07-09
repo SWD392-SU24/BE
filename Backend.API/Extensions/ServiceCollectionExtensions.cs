@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Backend.BLL.Features.Appointments;
 using Backend.BLL.Features.Areas;
 using Backend.BLL.Features.Auth;
 using Backend.BLL.Features.Certificates;
@@ -26,6 +27,7 @@ namespace Backend.API.Extensions
                 // Handling circular reference
                 opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             });
+            services.AddHttpContextAccessor();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {
@@ -83,9 +85,12 @@ namespace Backend.API.Extensions
 
             // Repositories configuration
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICertificateRepository, CertificateRepository>();
             services.AddScoped<IClinicRepository, ClinicRepository>();
             services.AddScoped<IDentistRepository, DentistRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IAppointmentServiceRepository, AppointmentServiceRepository>();
                         
             // Services configuration
             services.AddTransient<ITokenService, TokenService>();   // processing Jwt tokens
@@ -94,9 +99,8 @@ namespace Backend.API.Extensions
             services.AddScoped<ICertificateService, CertificateService>();
             services.AddScoped<IAreaService, AreaService>();
             services.AddScoped<IDentistService, DentistService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddHttpContextAccessor();
             return services;
         }
     }

@@ -14,7 +14,7 @@ namespace Backend.DAL.Databases.Data
                     ServiceName = "Chụp Xquang CBCT",
                     Description = "Bệnh nhân sẽ được Chụp Xquang CBCT",
                     Price = 50.00,
-                    ClinicId = 1
+                    ClinicId = 1,
                 },
                 new Service
                 {
@@ -22,7 +22,7 @@ namespace Backend.DAL.Databases.Data
                     ServiceName = "Chụp Xquang Cephalometric",
                     Description = "Bệnh nhân sẽ được Chụp Xquang Cephalometric",
                     Price = 80.00,
-                    ClinicId = 1
+                    ClinicId = 1,
                 },
                 new Service
                 {
@@ -30,7 +30,7 @@ namespace Backend.DAL.Databases.Data
                     ServiceName = "Khám tư vấn",
                     Description = "Bệnh nhân sẽ được khám tư vấn",
                     Price = 70.00,
-                    ClinicId = 1
+                    ClinicId = 1,
                 },
                 new Service
                 {
@@ -38,7 +38,7 @@ namespace Backend.DAL.Databases.Data
                     ServiceName = "Chụp Xquang Panorama",
                     Description = "Bệnh nhân sẽ được Chụp Xquang Panorama",
                     Price = 100.00,
-                    ClinicId = 1
+                    ClinicId = 1,
                 },
                 new Service
                 {
