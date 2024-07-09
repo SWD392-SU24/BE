@@ -50,16 +50,12 @@ namespace Backend.API.Middlewares
             // Return a JSON response with the error message
             context.Response.ContentType = "application/json";
 
-            var response = new ResponseModel<string>(
-                statusCode: (int)statusCode,
-                message: ex.Message,
-                response: null
-            );
-            //var response = new DetailedError()
-            //{
-            //    StatusCode = (int)statusCode,
-            //    Message = ex.Message
-            //};
+            var response = new ResponseModel<string>
+            {
+                StatusCode = (int)statusCode,
+                Message = ex.Message,
+                Response = null
+            };
             return context.Response.WriteAsJsonAsync(response);
         }
     }

@@ -17,6 +17,11 @@ namespace Backend.API.Controllers.v1
             _userService = userService;
         }
         
+        /// <summary>
+        /// Sign up for customer
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [HttpPost("sign-up/customer")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -26,11 +31,12 @@ namespace Backend.API.Controllers.v1
             var result = await _userService.SignupForCustomer(customer);
             if (result)
             {
-                var response = new ResponseModel<string>(
-                    statusCode: (int)HttpStatusCode.OK,
-                    message: "Register successfully!",
-                    response: null
-                );
+                var response = new ResponseModel<string>
+                {
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Message = "Register successfully!",
+                    Response = null
+                };
                 return Ok(response);
             }
             else
@@ -39,6 +45,11 @@ namespace Backend.API.Controllers.v1
             }
         }
 
+        /// <summary>
+        /// Sign up for clinic owner
+        /// </summary>
+        /// <param name="clinicOwner"></param>
+        /// <returns></returns>
         [HttpPost("sign-up/clinic-owner")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -48,11 +59,12 @@ namespace Backend.API.Controllers.v1
             var result = await _userService.SignupForClinicOwner(clinicOwner);
             if (result)
             {
-                var response = new ResponseModel<string>(
-                    statusCode: (int)HttpStatusCode.OK,
-                    message: "Register successfully!",
-                    response: null
-                );
+                var response = new ResponseModel<string>
+                {
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Message = "Register successfully!",
+                    Response = null
+                };
                 return Ok(response);
             }
             else
@@ -61,6 +73,11 @@ namespace Backend.API.Controllers.v1
             }
         }
 
+        /// <summary>
+        /// Sign in
+        /// </summary>
+        /// <param name="authRequest"></param>
+        /// <returns></returns>
         [HttpPost("sign-in")]
         [AllowAnonymous]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -70,14 +87,20 @@ namespace Backend.API.Controllers.v1
         public async Task<ActionResult<ResponseModel<AuthResponse>>> Signin(AuthRequest authRequest)
         {
             var result = await _userService.Authenticate(authRequest);
-            var response = new ResponseModel<AuthResponse>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "Sign in successfully!",
-                response: result
-            );
+            var response = new ResponseModel<AuthResponse>
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "Sign in successfully!",
+                Response = result
+            };
             return Ok(response);
         }
 
+        /// <summary>
+        /// Sign in for dentist
+        /// </summary>
+        /// <param name="authRequest"></param>
+        /// <returns></returns>
         [HttpPost("dentist/sign-in")]
         [AllowAnonymous]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -87,14 +110,20 @@ namespace Backend.API.Controllers.v1
         public async Task<ActionResult<ResponseModel<AuthResponse>>> SigninForDentist(AuthRequest authRequest)
         {
             var result = await _userService.AuthenticateForDentist(authRequest);
-            var response = new ResponseModel<AuthResponse>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "Sign in successfully!",
-                response: result
-            );
+            var response = new ResponseModel<AuthResponse>
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "Sign in successfully!",
+                Response = result
+            };
             return Ok(response);
         }
 
+        /// <summary>
+        /// Sign out
+        /// </summary>
+        /// <param name="tokenApiModel"></param>
+        /// <returns></returns>
         [HttpPost("sign-out")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -105,11 +134,12 @@ namespace Backend.API.Controllers.v1
             var result = await _userService.Revoke(tokenApiModel);
             if (result)
             {
-                var response = new ResponseModel<string>(
-                    statusCode: (int)HttpStatusCode.OK,
-                    message: "Sign out successfully!",
-                    response: null
-                );
+                var response = new ResponseModel<string>
+                {
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Message = "Sign out successfully!",
+                    Response = null
+                };
                 return Ok(response);
             }
             else
@@ -118,6 +148,13 @@ namespace Backend.API.Controllers.v1
             }
         }
 
+        /// <summary>
+        /// Get account in system (system admin role)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="role"></param>
+        /// <param name="address"></param>
+        /// <returns></returns>
         [HttpGet("system-admin/accounts")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -125,28 +162,41 @@ namespace Backend.API.Controllers.v1
         public async Task<ActionResult<ResponseModel<IList<UserDashboardReponse>>>> GetAccountsInSystem(string? name, string? role, string? address)
         {
             var accounts = await _userService.GetAccounts(name, role, address);
-            var response = new ResponseModel<IList<UserDashboardReponse>>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "List of account(s)",
-                response: accounts
-            );
+            var response = new ResponseModel<IList<UserDashboardReponse>>()
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "List of account(s)",
+                Response = accounts
+            };
             return Ok(response);
         }
 
+        /// <summary>
+        /// Get detailed information of an account
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("system-admin/accounts/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<ResponseModel<UserResponse>>> GetUser(Guid id)
         {
             var user = await _userService.GetUserById(id);
-            var response = new ResponseModel<UserResponse>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "Information of user",
-                response: user
-            );
+            var response = new ResponseModel<UserResponse>
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "Information of user",
+                Response = user
+            };
             return Ok(response);
         }
 
+        /// <summary>
+        /// Update user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userUpdateRequest"></param>
+        /// <returns></returns>
         [HttpPut("system-admin/account/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -158,14 +208,20 @@ namespace Backend.API.Controllers.v1
             {
                 return NotFound();
             }
-            var response = new ResponseModel<string>(
-                statusCode: (int)HttpStatusCode.NoContent,
-                message: "Update account successfully.",
-                response: null
-            );
+            var response = new ResponseModel<string>
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "Update account successfully.",
+                Response = null
+            };
             return Ok(response);
         }
 
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("system-admin/account/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -176,14 +232,21 @@ namespace Backend.API.Controllers.v1
             {
                 return NotFound();
             }
-            var response = new ResponseModel<string>(
-                statusCode: (int)HttpStatusCode.NoContent,
-                message: "Delete account successfully.",
-                response: null
-            );
+            var response = new ResponseModel<string>
+            {
+                StatusCode = (int)HttpStatusCode.NoContent,
+                Message = "Delete account successfully.",
+                Response = null
+            };
             return Ok(response);
         }
 
+        /// <summary>
+        /// Update customer's information
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPatch("customer/account/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -194,11 +257,12 @@ namespace Backend.API.Controllers.v1
             {
                 return NotFound();
             }
-            var response = new ResponseModel<string>(
-                statusCode: (int)HttpStatusCode.OK,
-                message: "Update customer successfully!",
-                response: null
-            );
+            var response = new ResponseModel<string>
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "Update customer successfully!",
+                Response = null
+            };
             return Ok(response);
         }
         
